@@ -2,7 +2,39 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.WeatherForecast" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Original AppCompat attributes. -->
+        <!-- Primary colors -->
+        <item name="colorPrimary">@android:color/system_primary_light</item>
+        <item name="colorPrimaryContainer">@android:color/system_primary_container_light</item>
+        <item name="colorOnPrimary">@android:color/system_on_primary_light</item>
 
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@android:color/system_secondary_light</item>
+        <item name="colorSecondaryContainer">@android:color/system_secondary_container_light</item>
+        <item name="colorOnSecondary">@android:color/system_on_secondary_light</item>
+
+        <!-- Tertiary colors -->
+        <item name="colorTertiary">@android:color/system_tertiary_light</item>
+        <item name="colorTertiaryContainer">@android:color/system_tertiary_container_light</item>
+        <item name="colorOnTertiary">@android:color/system_on_tertiary_light</item>
+
+        <!-- Surface/background colors -->
+        <item name="colorSurface">@android:color/system_surface_light</item>
+        <item name="colorSurfaceVariant">@android:color/system_surface_bright_light</item>
+        <!--item name="colorBackground">@android:color/system_background</item-->
+
+        <!-- On-surface colors -->
+        <item name="colorOnSurface">@android:color/system_on_surface_light</item>
+        <item name="colorOnSurfaceVariant">@android:color/system_on_surface_variant_light</item>
+        <item name="colorOnBackground">@android:color/system_on_background_light</item>
+
+        <!-- Error colors -->
+        <item name="colorError">@android:color/system_error_light</item>
+        <item name="colorErrorContainer">@android:color/system_error_container_light</item>
+        <item name="colorOnError">@android:color/system_on_error_light</item>
+        <item name="colorOnErrorContainer">@android:color/system_on_error_container_light</item>
+
+        <!-- Outline -->
+        <item name="colorOutline">@android:color/system_outline_light</item>
     </style>
 
     <style name="Theme.WeatherForecast" parent="Base.Theme.WeatherForecast" />
