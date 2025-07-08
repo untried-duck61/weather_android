@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "ru.untriedduck.weatherforecast"
-        minSdk 24
+        minSdk 34
         targetSdk 36
         versionCode 1
         versionName '0.0.1-alpha'
@@ -39,8 +39,8 @@ dependencies {
     implementation libs.material
     implementation libs.androidx.activity
     implementation libs.androidx.constraintlayout
-    implementation "io.ktor:ktor-client-core:1.0.1"
-    implementation "io.ktor:ktor-client-android:1.0.1"
+    implementation "io.ktor:ktor-client-core:3.2.1"
+    implementation "io.ktor:ktor-client-android:3.2.1"
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
