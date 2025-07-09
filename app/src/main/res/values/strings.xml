@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Weather Forecast</string>
     <string name="temp_placeholder">0℃</string>
+    <string name="empty_string"><![CDATA[ ]]></string>
 </resources>
