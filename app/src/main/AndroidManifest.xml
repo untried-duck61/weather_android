@@ -13,7 +13,7 @@
         android:theme="@style/Theme.WeatherForecast" >
         <activity
             android:name=".FirstRunActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true" >
