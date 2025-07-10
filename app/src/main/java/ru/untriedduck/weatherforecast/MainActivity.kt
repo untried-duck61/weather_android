@@ -5,15 +5,19 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import android.Manifest
+import android.content.pm.PackageManager
 import ru.untriedduck.weatherforecast.databinding.ActivityMainBinding
-//import com.google.android.gms.location.FusedLocationProviderClient;
-//import com.google.android.gms.location.LocationServices;
-//import com.google.android.gms.tasks.OnSuccessListener;
+
 
 class MainActivity : AppCompatActivity() {
-    //private val locationClient: FusedLocationProviderClient? = LocationServices.getFusedLocationProviderClient(this);
+    private lateinit var locationClient: FusedLocationProviderClient
+    private val LOCATION_PERMISSION_REQUEST = 1001
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +32,20 @@ class MainActivity : AppCompatActivity() {
         var shared : SharedPreferences = getSharedPreferences("PREFERENCES",
             Context.MODE_PRIVATE)
         var editor : SharedPreferences.Editor = shared.edit();
+        locationClient = LocationServices.getFusedLocationProviderClient(this)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // If permission is not granted, request it from the user
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST
+            )
+            return
+        }
         binding.refreshBtn.setOnClickListener {
             //val lon : Int =
             //getWeather()

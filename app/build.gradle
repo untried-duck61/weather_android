@@ -46,6 +46,7 @@ dependencies {
     //implementation libs.ktor.client.core
     //implementation libs.ktor.client.android
     implementation libs.volley
+    implementation libs.play.services.location
     //implementation libs.design
     //implementation libs.material.v130
     testImplementation libs.junit
