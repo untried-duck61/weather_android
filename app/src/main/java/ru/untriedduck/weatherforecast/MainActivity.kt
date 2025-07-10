@@ -29,8 +29,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getWeather(lon: Int, lat: Int){
+    private fun getWeather(lon: Int, lat: Int, apiKey: String){
         val url =
-            "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&APPID=7344293e37ef9018d129240c316158a9&units=metric&lang=ru"
+            "https://api.openweathermap.org/data/2.5/weather?lat=${lat.toString()}&lon=${lon.toString()}&APPID=${apiKey.toString()}&units=metric&lang=ru"
     }
 }

@@ -9,7 +9,7 @@
     tools:context=".FirstRunActivity">
 
   <TextView
-      android:id="@+id/textView2"
+      android:id="@+id/welcome_text"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/welcome_text"
@@ -22,18 +22,23 @@
       app:layout_constraintVertical_bias="0.271" />
 
   <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/textInputLayout"
-      android:layout_width="263dp"
+      android:id="@+id/tiLayout"
+      android:layout_width="318dp"
       android:layout_height="56dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.493"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent">
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.462">
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/tf_api_key"
         android:layout_width="match_parent"
         android:layout_height="51dp"
-        android:hint="@string/api_key_textfield_hint" />
+        android:hint="@string/api_key_textfield_hint"
+        android:singleLine="true"
+        android:textSize="14sp" />
   </com.google.android.material.textfield.TextInputLayout>
 
   <TextView
@@ -58,4 +63,17 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_bias="0.881" />
+
+  <TextView
+      android:id="@+id/welcome_text_step_one"
+      android:layout_width="314dp"
+      android:layout_height="38dp"
+      android:autoText="false"
+      android:text="@string/welcome_text_step_one"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.474"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.368" />
 </androidx.constraintlayout.widget.ConstraintLayout>
