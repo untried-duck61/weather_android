@@ -3,4 +3,8 @@
     <string name="temp_placeholder">0℃</string>
     <string name="empty_string"><![CDATA[ ]]></string>
     <string name="img_condition_desc">img_condition</string>
+    <string name="based_on_openweathermap_weather_forecast">Based on OpenWeatherMap weather forecast</string>
+    <string name="welcome_text">Welcome!</string>
+    <string name="api_key_textfield_hint">API Key</string>
+    <string name="btn_finish_text">Finish</string>
 </resources>

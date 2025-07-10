@@ -12,7 +12,7 @@
       android:id="@+id/textView2"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="Welcome!"
+      android:text="@string/welcome_text"
       android:textSize="34sp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
@@ -22,6 +22,7 @@
       app:layout_constraintVertical_bias="0.271" />
 
   <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/textInputLayout"
       android:layout_width="263dp"
       android:layout_height="56dp"
       app:layout_constraintBottom_toBottomOf="parent"
@@ -32,6 +33,29 @@
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="match_parent"
         android:layout_height="51dp"
-        android:hint="API Key" />
+        android:hint="@string/api_key_textfield_hint" />
   </com.google.android.material.textfield.TextInputLayout>
+
+  <TextView
+      android:id="@+id/textView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/based_on_openweathermap_weather_forecast"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.955" />
+
+  <Button
+      android:id="@+id/btnFinish"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/btn_finish_text"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.89"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.881" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,7 @@
 package ru.untriedduck.weatherforecast
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,5 +21,16 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        var shared : SharedPreferences = getSharedPreferences("PREFERENCES",
+            Context.MODE_PRIVATE)
+        var editor : SharedPreferences.Editor = shared.edit();
+        binding.refreshBtn.setOnClickListener {
+
+        }
+    }
+
+    private fun getWeather(lon: Int, lat: Int){
+        val url =
+            "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&APPID=7344293e37ef9018d129240c316158a9&units=metric&lang=ru"
     }
 }
