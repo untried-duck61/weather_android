@@ -8,8 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import ru.untriedduck.weatherforecast.databinding.ActivityMainBinding
+//import com.google.android.gms.location.FusedLocationProviderClient;
+//import com.google.android.gms.location.LocationServices;
+//import com.google.android.gms.tasks.OnSuccessListener;
 
 class MainActivity : AppCompatActivity() {
+    //private val locationClient: FusedLocationProviderClient? = LocationServices.getFusedLocationProviderClient(this);
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,12 +29,13 @@ class MainActivity : AppCompatActivity() {
             Context.MODE_PRIVATE)
         var editor : SharedPreferences.Editor = shared.edit();
         binding.refreshBtn.setOnClickListener {
-
+            //val lon : Int =
+            //getWeather()
         }
     }
 
     private fun getWeather(lon: Int, lat: Int, apiKey: String){
         val url =
-            "https://api.openweathermap.org/data/2.5/weather?lat=${lat.toString()}&lon=${lon.toString()}&APPID=${apiKey.toString()}&units=metric&lang=ru"
+            "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&APPID=$apiKey&units=metric&lang=${R.string.lang}"
     }
 }

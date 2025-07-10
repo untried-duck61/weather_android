@@ -9,4 +9,5 @@
     <string name="btn_finish_text">Finish</string>
     <string name="empty_api_key_error_text">API Key value can\'t be empty</string>
     <string name="welcome_text_step_one">First, write your OpenWeatherMap API Key into the text field below</string>
+    <string name="lang">en</string>
 </resources>
