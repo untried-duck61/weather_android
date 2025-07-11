@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Weather Forecast</string>
-    <string name="temp_placeholder">0℃</string>
-    <string name="empty_string"> </string>
-    <string name="img_condition_desc">img_condition</string>
+    <string name="temp_placeholder" translatable="false">0℃</string>
+    <string name="empty_string" translatable="false"> </string>
+    <string name="img_condition_desc" translatable="false">img_condition</string>
     <string name="based_on_openweathermap_weather_forecast">Based on OpenWeatherMap weather forecast</string>
     <string name="welcome_text">Welcome!</string>
     <string name="api_key_textfield_hint">API Key</string>
@@ -10,10 +10,12 @@
     <string name="empty_api_key_error_text">API Key value can\'t be empty</string>
     <string name="welcome_text_step_one">First, write your OpenWeatherMap API Key into the text field below</string>
     <string name="lang">en</string>
-    <string name="temp">%1$s℃</string>
+    <string name="temp" translatable="false">%1$s℃</string>
     <string name="volley_error">Volley error: %1$s</string>
     <string name="location_null_error">Can\'t get current location. Please enable location service and restart the app</string>
     <string name="unknown">unknown</string>
+    <string name="tv_country_text">%1$s, %2$s</string>
+    <string name="tv_desc_text">%1$s</string>
     <!--string name="textview_errors_text">%1$s\n%2$s</string>
     <string name="empty_value" /-->
 </resources>

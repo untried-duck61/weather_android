@@ -17,6 +17,7 @@ import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import org.json.JSONArray
 import org.json.JSONObject
 import ru.untriedduck.weatherforecast.databinding.ActivityMainBinding
 import kotlin.math.roundToInt
@@ -93,9 +94,17 @@ class MainActivity : AppCompatActivity() {
             url,
             { response ->
                 val root = JSONObject(response)
-                val main = root.getJSONObject("main")
-                val temp = main.getString("temp").toFloat().roundToInt().toString()
+                    val weather = JSONArray(root.getJSONArray("weather")).getJSONObject(0)
+                        val desc = weather.getString("description")
+                    val main = root.getJSONObject("main")
+                        val temp = main.getString("temp").toFloat().roundToInt().toString()
+                        val feels_like = main.getString("feels_like").toFloat().roundToInt().toString()
+                    val sys = root.getJSONObject("sys")
+                        val country = sys.getString("country")
+                    val name = root.getString("name")
                 binding.tvTemp.text= getString(R.string.temp, temp)
+                binding.tvCountry.text = getString(R.string.tv_country_text, name, country)
+                binding.tvDesc.text = getString(R.string.tv_desc_text, desc)
                 //Log.d("MyLog","$temp")
             },
             {

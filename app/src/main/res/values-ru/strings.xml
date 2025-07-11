@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Прогноз погоды</string>
+    <string name="based_on_openweathermap_weather_forecast">Основано на прогнозе погоды от OpenWeatherMap</string>
+    <string name="welcome_text">Добро пожаловать!</string>
+    <string name="api_key_textfield_hint">Ключ API</string>
+    <string name="btn_finish_text">Завершить</string>
+    <string name="empty_api_key_error_text">Значение \"Ключ API\" не может быть пустым</string>
+    <string name="welcome_text_step_one">Сначала впишите свой ключ OpenWeatherMap API в строку ниже</string>
+    <string name="lang">ru</string>
+    <string name="volley_error">Ошибка Volley: %1$s</string>
+    <string name="location_null_error">Невозможно получить текущее местоположение. Включите службы местоположения и перезапустите приложение</string>
+    <string name="unknown">неизвестно</string>
+    <string name="tv_country_text">%1$s, %2$s</string>
+</resources>
