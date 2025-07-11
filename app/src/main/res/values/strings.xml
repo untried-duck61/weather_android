@@ -15,7 +15,7 @@
     <string name="location_null_error">Can\'t get current location. Please enable location service and restart the app</string>
     <string name="unknown">unknown</string>
     <string name="tv_country_text">%1$s, %2$s</string>
-    <string name="tv_desc_text">%1$s</string>
+    <string name="tv_desc_text" translatable="false">%1$s</string>
     <!--string name="textview_errors_text">%1$s\n%2$s</string>
     <string name="empty_value" /-->
 </resources>
