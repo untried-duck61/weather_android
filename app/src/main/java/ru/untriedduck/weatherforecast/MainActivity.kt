@@ -12,7 +12,14 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import android.Manifest
 import android.content.pm.PackageManager
+import android.util.Log
+import android.widget.Toast
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONObject
 import ru.untriedduck.weatherforecast.databinding.ActivityMainBinding
+import kotlin.math.roundToInt
 
 
 class MainActivity : AppCompatActivity() {
@@ -46,14 +53,47 @@ class MainActivity : AppCompatActivity() {
             )
             return
         }
+
+
+        locationClient.lastLocation.addOnSuccessListener { location ->
+            if (location != null) {
+                // If location is available, extract latitude and longitude
+                val lat = location.latitude
+                val lon = location.longitude
+
+                // Display location in the TextView
+                //locationText.text = "Latitude: $lat\nLongitude: $lon"
+                editor.putString("lat","$lat")
+                editor.putString("lon","$lon")
+                editor.apply()
+            }
+        }
         binding.refreshBtn.setOnClickListener {
-            //val lon : Int =
-            //getWeather()
+            val lon = shared.getString("lon","").toString()
+            val lat = shared.getString("lat","").toString()
+            val apiKey = shared.getString("apiKey","").toString()
+            //binding.tvTemp.text = "$lon, $lat"
+            getWeather(lon,lat,apiKey)
         }
     }
 
-    private fun getWeather(lon: Int, lat: Int, apiKey: String){
+    private fun getWeather(lon: String, lat: String, apiKey: String){
         val url =
             "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&APPID=$apiKey&units=metric&lang=${R.string.lang}"
+        val queue = Volley.newRequestQueue(this)
+        val stringRequest = StringRequest(Request.Method.GET,
+            url,
+            { response ->
+                val root = JSONObject(response)
+                val main = root.getJSONObject("main")
+                val temp = main.getString("temp").toFloat().roundToInt().toString()
+                binding.tvTemp.text= getString(R.string.temp, temp)
+                //Log.d("MyLog","$temp")
+            },
+            {
+                Log.d("MyLog","Volley error: $it")
+            }
+        )
+        queue.add(stringRequest)
     }
 }
