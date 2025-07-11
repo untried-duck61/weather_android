@@ -66,6 +66,8 @@ class MainActivity : AppCompatActivity() {
                 editor.putString("lat","$lat")
                 editor.putString("lon","$lon")
                 editor.apply()
+            } else {
+                Toast.makeText(this, getString(R.string.location_null_error), Toast.LENGTH_LONG).show()
             }
         }
         binding.refreshBtn.setOnClickListener {
@@ -75,6 +77,12 @@ class MainActivity : AppCompatActivity() {
             //binding.tvTemp.text = "$lon, $lat"
             getWeather(lon,lat,apiKey)
         }
+
+        val lon = shared.getString("lon","").toString()
+        val lat = shared.getString("lat","").toString()
+        val apiKey = shared.getString("apiKey","").toString()
+        //binding.tvTemp.text = "$lon, $lat"
+        getWeather(lon,lat,apiKey)
     }
 
     private fun getWeather(lon: String, lat: String, apiKey: String){
@@ -91,7 +99,11 @@ class MainActivity : AppCompatActivity() {
                 //Log.d("MyLog","$temp")
             },
             {
-                Log.d("MyLog","Volley error: $it")
+                /*binding.tvErrors.text = getString(
+                    R.string.textview_errors_text,
+                    binding.tvErrors.text,
+                    getString(R.string.volley_error, it)
+                )*/
             }
         )
         queue.add(stringRequest)
