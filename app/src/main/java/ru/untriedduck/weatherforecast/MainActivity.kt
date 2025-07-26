@@ -88,13 +88,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun getWeather(lon: String, lat: String, apiKey: String){
         val url =
-            "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&APPID=$apiKey&units=metric&lang=${R.string.lang}"
+            "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&APPID=$apiKey&units=metric&lang=${getString(R.string.lang)}"
         val queue = Volley.newRequestQueue(this)
         val stringRequest = StringRequest(Request.Method.GET,
             url,
             { response ->
                 val root = JSONObject(response)
-                    val weather = JSONArray(root.getJSONArray("weather")).getJSONObject(0)
+                    val weather = root.getJSONArray("weather").getJSONObject(0)
                         val desc = weather.getString("description")
                     val main = root.getJSONObject("main")
                         val temp = main.getString("temp").toFloat().roundToInt().toString()
@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
                 binding.tvTemp.text= getString(R.string.temp, temp)
                 binding.tvCountry.text = getString(R.string.tv_country_text, name, country)
                 binding.tvDesc.text = getString(R.string.tv_desc_text, desc)
-                //Log.d("MyLog","$temp")
+                //Log.d("MyLog","$weather")
             },
             {
                 /*binding.tvErrors.text = getString(
