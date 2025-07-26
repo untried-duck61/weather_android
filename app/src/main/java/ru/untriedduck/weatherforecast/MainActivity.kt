@@ -67,6 +67,12 @@ class MainActivity : AppCompatActivity() {
                 editor.putString("lat","$lat")
                 editor.putString("lon","$lon")
                 editor.apply()
+
+                val lon_s = shared.getString("lon","").toString()
+                val lat_s = shared.getString("lat","").toString()
+                val apiKey = shared.getString("apiKey","").toString()
+                //binding.tvTemp.text = "$lon, $lat"
+                getWeather(lon_s,lat_s,apiKey)
             } else {
                 Toast.makeText(this, getString(R.string.location_null_error), Toast.LENGTH_LONG).show()
             }
@@ -79,11 +85,7 @@ class MainActivity : AppCompatActivity() {
             getWeather(lon,lat,apiKey)
         }
 
-        val lon = shared.getString("lon","").toString()
-        val lat = shared.getString("lat","").toString()
-        val apiKey = shared.getString("apiKey","").toString()
-        //binding.tvTemp.text = "$lon, $lat"
-        getWeather(lon,lat,apiKey)
+
     }
 
     private fun getWeather(lon: String, lat: String, apiKey: String){
@@ -96,6 +98,7 @@ class MainActivity : AppCompatActivity() {
                 val root = JSONObject(response)
                     val weather = root.getJSONArray("weather").getJSONObject(0)
                         val desc = weather.getString("description")
+                        val icon = weather.getString("icon")
                     val main = root.getJSONObject("main")
                         val temp = main.getString("temp").toFloat().roundToInt().toString()
                         val feels_like = main.getString("feels_like").toFloat().roundToInt().toString()
@@ -105,6 +108,14 @@ class MainActivity : AppCompatActivity() {
                 binding.tvTemp.text= getString(R.string.temp, temp)
                 binding.tvCountry.text = getString(R.string.tv_country_text, name, country)
                 binding.tvDesc.text = getString(R.string.tv_desc_text, desc)
+                binding.imgCondition.background = resources.getDrawable(
+                    this.resources.getIdentifier(
+                        "_"+icon,
+                        "drawable",
+                        this.packageName
+                    ), null
+                )
+
                 //Log.d("MyLog","$weather")
             },
             {
