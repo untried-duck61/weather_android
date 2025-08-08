@@ -6,7 +6,7 @@
 App to check weather forecast
 
 ## Under construction
-<b>Tasks</b>
- - [x] Fix app crash after opening several times |
- - [ ] Add more information                       |
- - [ ] Add settings page                          |
+### Tasks
+ - [x] Fix app crash after opening several times
+ - [ ] Add more information
+ - [ ] Add settings page

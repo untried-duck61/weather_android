@@ -16,6 +16,11 @@
     <string name="unknown">unknown</string>
     <string name="tv_country_text">%1$s, %2$s</string>
     <string name="tv_desc_text" translatable="false">%1$s</string>
+    <string name="feels_like_placeholder">Feels like: 0℃</string>
+    <string name="feels_like_text">Feels like: %1$s</string>
+    <string name="__weather_icon_template" translatable="false">_%1$s</string>
+    <string name="__res_type" translatable="false">drawable</string>
+    <string name="img_temp_min_desc" translatable="false">img_temp_min</string>
     <!--string name="textview_errors_text">%1$s\n%2$s</string>
     <string name="empty_value" /-->
 </resources>

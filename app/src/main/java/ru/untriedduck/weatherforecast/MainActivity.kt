@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.util.Log
 import android.widget.Toast
@@ -88,6 +89,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun getWeather(lon: String, lat: String, apiKey: String){
         val url =
             "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&APPID=$apiKey&units=metric&lang=${getString(R.string.lang)}"
@@ -101,17 +103,20 @@ class MainActivity : AppCompatActivity() {
                         val icon = weather.getString("icon")
                     val main = root.getJSONObject("main")
                         val temp = main.getString("temp").toFloat().roundToInt().toString()
-                        val feels_like = main.getString("feels_like").toFloat().roundToInt().toString()
+                        val feelsLike = main.getString("feels_like").toFloat().roundToInt().toString()
+                        val tempMin = main.getString("temp_min").toFloat().roundToInt().toString()
                     val sys = root.getJSONObject("sys")
                         val country = sys.getString("country")
                     val name = root.getString("name")
                 binding.tvTemp.text= getString(R.string.temp, temp)
                 binding.tvCountry.text = getString(R.string.tv_country_text, name, country)
                 binding.tvDesc.text = getString(R.string.tv_desc_text, desc)
+                binding.tvFeelsLike.text = getString(R.string.feels_like_text, feelsLike)
+                binding.tvTempMin.text = getString(R.string.temp, tempMin)
                 binding.imgCondition.background = resources.getDrawable(
                     this.resources.getIdentifier(
-                        "_"+icon,
-                        "drawable",
+                        getString(R.string.__weather_icon_template, icon),
+                        getString(R.string.__res_type),
                         this.packageName
                     ), null
                 )
