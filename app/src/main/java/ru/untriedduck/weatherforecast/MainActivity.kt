@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun getWeather(lon: String, lat: String, apiKey: String){
         val url =
-            "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&APPID=$apiKey&units=metric&lang=${getString(R.string.lang)}"
+            getString(R.string.__api_url, lat, lon, apiKey, getString(R.string.lang))
         val queue = Volley.newRequestQueue(this)
         val stringRequest = StringRequest(Request.Method.GET,
             url,
@@ -105,6 +105,7 @@ class MainActivity : AppCompatActivity() {
                         val temp = main.getString("temp").toFloat().roundToInt().toString()
                         val feelsLike = main.getString("feels_like").toFloat().roundToInt().toString()
                         val tempMin = main.getString("temp_min").toFloat().roundToInt().toString()
+                        val tempMax = main.getString("temp_max").toFloat().roundToInt().toString()
                     val sys = root.getJSONObject("sys")
                         val country = sys.getString("country")
                     val name = root.getString("name")
@@ -113,6 +114,7 @@ class MainActivity : AppCompatActivity() {
                 binding.tvDesc.text = getString(R.string.tv_desc_text, desc)
                 binding.tvFeelsLike.text = getString(R.string.feels_like_text, feelsLike)
                 binding.tvTempMin.text = getString(R.string.temp, tempMin)
+                binding.tvTempMax.text = getString(R.string.temp,tempMax)
                 binding.imgCondition.background = resources.getDrawable(
                     this.resources.getIdentifier(
                         getString(R.string.__weather_icon_template, icon),
