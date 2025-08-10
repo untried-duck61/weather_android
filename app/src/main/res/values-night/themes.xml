@@ -20,7 +20,7 @@
         <!-- Surface/background colors -->
         <item name="colorSurface">@android:color/system_surface_dark</item>
         <item name="colorSurfaceVariant">@android:color/system_surface_bright_dark</item>
-        <!--item name="colorBackground">@android:color/system_background</item-->
+        <item name="colorBackground">@color/black</item>
 
         <!-- On-surface colors -->
         <item name="colorOnSurface">@android:color/system_on_surface_dark</item>
