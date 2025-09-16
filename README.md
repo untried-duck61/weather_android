@@ -6,7 +6,8 @@
 App to check weather forecast
 
 ## Under construction
-> [!IMPORTANT] The development of this application is temporarily suspended due to problems with the internet connection and some other reasons.
+> [!IMPORTANT]
+> The development of this application is temporarily suspended due to problems with the internet connection and some other reasons.
 > Therefore, this application will not be updated frequently.
 > But the development of the application will continue as far as possible.
 ### Tasks
