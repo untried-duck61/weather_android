@@ -75,7 +75,12 @@ class MainActivity : AppCompatActivity() {
                 //binding.tvTemp.text = "$lon, $lat"
                 getWeather(lon_s,lat_s,apiKey)
             } else {
-                Toast.makeText(this, getString(R.string.location_null_error), Toast.LENGTH_LONG).show()
+                //Toast.makeText(this, getString(R.string.location_null_error), Toast.LENGTH_LONG).show()
+                val lon_s = shared.getString("lon","").toString()
+                val lat_s = shared.getString("lat","").toString()
+                val apiKey = shared.getString("apiKey","").toString()
+                getWeather(lon_s,lat_s,apiKey)
+                // set tvUpdateStatus to something like "Weather updated for last saved location"
             }
         }
         binding.refreshBtn.setOnClickListener {
