@@ -12,4 +12,4 @@ App to check weather forecast
  - [x] Fix app crash after opening several times
  - [ ] Add more information on the main page
  - [ ] Add settings page
-  - [ ] Add ability to update the app
+    * [ ] Add ability to update the app
