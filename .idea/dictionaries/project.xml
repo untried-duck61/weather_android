@@ -2,6 +2,8 @@
   <dictionary name="project">
     <words>
       <w>appid</w>
+      <w>locationpermissionrequest</w>
+      <w>lons</w>
     </words>
   </dictionary>
 </component>
