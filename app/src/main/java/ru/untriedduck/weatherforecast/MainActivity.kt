@@ -1,6 +1,6 @@
 package ru.untriedduck.weatherforecast
 
-import android.content.Context
+//import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -13,12 +13,12 @@ import com.google.android.gms.location.LocationServices
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.util.Log
-import android.widget.Toast
+//import android.util.Log
+//import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import org.json.JSONArray
+//import org.json.JSONArray
 import org.json.JSONObject
 import ru.untriedduck.weatherforecast.databinding.ActivityMainBinding
 import kotlin.math.roundToInt
@@ -26,7 +26,7 @@ import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
     private lateinit var locationClient: FusedLocationProviderClient
-    private val LOCATION_PERMISSION_REQUEST = 1001
+    private val locationpermissionrequest = 1001
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +38,10 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        var shared : SharedPreferences = getSharedPreferences("PREFERENCES",
-            Context.MODE_PRIVATE)
-        var editor : SharedPreferences.Editor = shared.edit();
+        val shared : SharedPreferences = getSharedPreferences("PREFERENCES",
+            MODE_PRIVATE
+        )
+        val editor : SharedPreferences.Editor = shared.edit()
         locationClient = LocationServices.getFusedLocationProviderClient(this)
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                LOCATION_PERMISSION_REQUEST
+                locationpermissionrequest
             )
             return
         }
@@ -63,23 +64,27 @@ class MainActivity : AppCompatActivity() {
                 val lat = location.latitude
                 val lon = location.longitude
 
-                // Display location in the TextView
-                //locationText.text = "Latitude: $lat\nLongitude: $lon"
+                // Save current location for future use
                 editor.putString("lat","$lat")
                 editor.putString("lon","$lon")
                 editor.apply()
 
-                val lon_s = shared.getString("lon","").toString()
-                val lat_s = shared.getString("lat","").toString()
+                // Get saved location
+                val lons = shared.getString("lon","").toString()
+                val lats = shared.getString("lat","").toString()
                 val apiKey = shared.getString("apiKey","").toString()
-                //binding.tvTemp.text = "$lon, $lat"
-                getWeather(lon_s,lat_s,apiKey)
+
+                // Call update weather request
+                getWeather(lons,lats,apiKey)
             } else {
-                //Toast.makeText(this, getString(R.string.location_null_error), Toast.LENGTH_LONG).show()
-                val lon_s = shared.getString("lon","").toString()
-                val lat_s = shared.getString("lat","").toString()
+                // Get last saved location
+                val lons = shared.getString("lon","").toString()
+                val lats = shared.getString("lat","").toString()
                 val apiKey = shared.getString("apiKey","").toString()
-                getWeather(lon_s,lat_s,apiKey)
+
+                // Call update weather request with last saved location
+                getWeather(lons,lats,apiKey)
+
                 // set tvUpdateStatus to something like "Weather updated for last saved location"
             }
         }
@@ -94,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
+    @SuppressLint("UseCompatLoadingForDrawables", "DiscouragedApi")
     private fun getWeather(lon: String, lat: String, apiKey: String){
         val url =
             getString(R.string.__api_url, lat, lon, apiKey, getString(R.string.lang))
