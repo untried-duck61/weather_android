@@ -23,6 +23,9 @@
     <string name="img_temp_min_desc" translatable="false">img_temp_min</string>
     <string name="img_temp_max_desc" translatable="false">img_temp_max</string>
     <string name="__api_url" translatable="false"><![CDATA[https://api.openweathermap.org/data/2.5/weather?lat=%1$s&lon=%2$s&APPID=%3$s&units=metric&lang=%4$s]]></string>
+    <string name="tv_update_status_loading_status">Loading weather&#8230;</string>
+    <string name="tv_update_status_updated_for_current_location_status">Updated weather for current location</string>
+    <string name="tv_update_status_updated_for_saved_location_status">Updated weather for last saved location</string>
     <!--string name="textview_errors_text">%1$s\n%2$s</string>
     <string name="empty_value" /-->
 </resources>
