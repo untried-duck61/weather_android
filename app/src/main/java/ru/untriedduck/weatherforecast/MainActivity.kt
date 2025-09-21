@@ -76,24 +76,36 @@ class MainActivity : AppCompatActivity() {
 
                 // Call update weather request
                 getWeather(lons,lats,apiKey)
+
+                //Set weather update status
+                binding.tvUpdateStatus.text =
+                    getString(R.string.tv_update_status_updated_for_current_location_status)
             } else {
                 // Get last saved location
                 val lons = shared.getString("lon","").toString()
                 val lats = shared.getString("lat","").toString()
                 val apiKey = shared.getString("apiKey","").toString()
 
-                // Call update weather request with last saved location
+                // Call update weather request for last saved location
                 getWeather(lons,lats,apiKey)
 
-                // set tvUpdateStatus to something like "Weather updated for last saved location"
+                // Set weather update status
+                binding.tvUpdateStatus.text =
+                    getString(R.string.tv_update_status_updated_for_saved_location_status)
             }
         }
         binding.refreshBtn.setOnClickListener {
+            // Get saved location
             val lon = shared.getString("lon","").toString()
             val lat = shared.getString("lat","").toString()
             val apiKey = shared.getString("apiKey","").toString()
-            //binding.tvTemp.text = "$lon, $lat"
+
+            // Call update weather request for last saved location
             getWeather(lon,lat,apiKey)
+
+            // Set weather update status
+            binding.tvUpdateStatus.text =
+                getString(R.string.tv_update_status_updated_for_saved_location_status)
         }
 
 
