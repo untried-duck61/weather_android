@@ -13,3 +13,6 @@ App to check weather forecast
  - [ ] Add more information on the main page
  - [ ] Add settings page
     * [ ] Add ability to update the app
+
+### Bugs
+ - [ ] ![Bug Badge](https://img.shields.io/badge/Bug-EE0000?style=flat-square) Fix first app run activity appearance when pressing the "Back" button
