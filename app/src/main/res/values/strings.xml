@@ -26,6 +26,7 @@
     <string name="tv_update_status_loading_status">Loading weather&#8230;</string>
     <string name="tv_update_status_updated_for_current_location_status">Updated weather for current location</string>
     <string name="tv_update_status_updated_for_saved_location_status">Updated weather for last saved location</string>
+    <string name="barometer_color_3" translatable="false">#ff88ff99</string>
     <!--string name="textview_errors_text">%1$s\n%2$s</string>
     <string name="empty_value" /-->
 </resources>
