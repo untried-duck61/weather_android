@@ -4,7 +4,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/untried-duck61/weather_android?style=flat-square)
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/untried-duck61/weather_android?style=flat-square)
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/untried-duck61/weather_android/total?style=flat-square)
-[![Build status](https://ci.appveyor.com/api/projects/status/51l3ecx2qsts0c24?svg=true&style=flat-square)](https://ci.appveyor.com/project/untried-duck61/weather-android)
+[![Build status](https://ci.appveyor.com/api/projects/status/51l3ecx2qsts0c24?svg=true)](https://ci.appveyor.com/project/untried-duck61/weather-android)
 <!--![Cirrus CI - Default Branch Build Status](https://img.shields.io/cirrus/github/untried-duck61/weather_android?style=flat-square)<br-->
 App to check weather forecast
 
