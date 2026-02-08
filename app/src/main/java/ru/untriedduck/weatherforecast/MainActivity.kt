@@ -128,6 +128,7 @@ class MainActivity : AppCompatActivity() {
                         val feelsLike = main.getString("feels_like").toFloat().roundToInt().toString()
                         val tempMin = main.getString("temp_min").toFloat().roundToInt().toString()
                         val tempMax = main.getString("temp_max").toFloat().roundToInt().toString()
+                        val humidity = main.getString("humidity")
                     val sys = root.getJSONObject("sys")
                         val country = sys.getString("country")
                     val name = root.getString("name")
@@ -144,6 +145,7 @@ class MainActivity : AppCompatActivity() {
                         this.packageName
                     ), null
                 )
+                binding.tvHumid.text = getString(R.string.humidity_text, humidity)
 
                 //Log.d("MyLog","$weather")
             },
