@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity() {
                         val feelsLike = main.getString("feels_like").toFloat().roundToInt().toString()
                         val tempMin = main.getString("temp_min").toFloat().roundToInt().toString()
                         val tempMax = main.getString("temp_max").toFloat().roundToInt().toString()
-                        val humidity = main.getString("humidity").toString()
+                        val humidity = main.getString("humidity").toInt().toString()
                     val sys = root.getJSONObject("sys")
                         val country = sys.getString("country")
                     val name = root.getString("name")
