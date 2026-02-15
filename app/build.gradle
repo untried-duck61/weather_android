@@ -47,6 +47,8 @@ dependencies {
     //implementation libs.ktor.client.android
     implementation libs.volley
     implementation libs.play.services.location
+    //implementation libs.androidx.navigation.fragment.ktx
+    //implementation libs.androidx.navigation.ui.ktx
     //implementation libs.design
     //implementation libs.material.v130
     testImplementation libs.junit
