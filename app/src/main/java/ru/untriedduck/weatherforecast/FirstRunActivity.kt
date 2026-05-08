@@ -33,6 +33,7 @@ public class FirstRunActivity : AppCompatActivity() {
         if(!firstTime && !shared.getString("apiKey","").isNullOrEmpty()){
             val intent : Intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
+            finish()
         } else {
             var editor : SharedPreferences.Editor = shared.edit()
             editor.putBoolean("firstRun",true)
