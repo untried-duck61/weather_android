@@ -7,6 +7,7 @@
   ![Commit Activity](https://img.shields.io/github/commit-activity/t/untried-duck61/weather_android?style=flat-square&color=brightgreen)
   ![Issues](https://img.shields.io/github/issues/untried-duck61/weather_android?style=flat-square)
   ![Downloads](https://img.shields.io/github/downloads/untried-duck61/weather_android/total?style=flat-square&color=purple)
+  ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/untried-duck61/weather_android/android.yml?style=flat-square&logo=android)
 
 </div>
 
