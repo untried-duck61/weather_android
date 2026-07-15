@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
                         val country = sys.getString("country")
                     val name = root.getString("name")
                 binding.tvTemp.text= getString(R.string.temp, temp)
-                binding.tvCountry.text = getString(R.string.tv_country_text, name, country)
+                binding.collapsingToolbarLayout.title = getString(R.string.tv_country_text, name, country)
                 binding.tvDesc.text = getString(R.string.tv_desc_text, desc)
                 binding.tvFeelsLike.text = getString(R.string.feels_like_text, feelsLike)
                 binding.tvTempMin.text = getString(R.string.temp, tempMin)
