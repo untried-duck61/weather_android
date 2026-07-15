@@ -49,6 +49,7 @@ public class FirstRunActivity : AppCompatActivity() {
                 editor.apply()
                 val intent : Intent = Intent(this,MainActivity::class.java)
                 startActivity(intent)
+                finish()
             }
         }
         /*binding.welcomeTextStepOne.append(Html.fromHtml(R.string.welcome_text_step_one.toString(),Html.FROM_HTML_MODE_COMPACT))
