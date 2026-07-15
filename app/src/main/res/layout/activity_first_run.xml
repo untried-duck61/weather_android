@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!--?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -99,4 +99,149 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_bias="0.553" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout-->
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".FirstRunActivity">
+
+    <!-- Material You Large Top App Bar Container -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="152dp"
+            app:title="@string/welcome_text"
+            style="@style/Widget.Material3.CollapsingToolbar.Large"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <!-- Кнопку назад убрали, оставили только чистый Toolbar для экшенов (если понадобятся) -->
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
+                style="@style/Widget.Material3.Toolbar.Surface"
+                app:layout_collapseMode="pin" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Контент экрана (скроллится под AppBar при заполнении) -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp"> <!-- Стандартный отступ для контента в Material 3 -->
+
+            <!-- Шаг 1: Описание для API ключа -->
+            <TextView
+                android:id="@+id/welcome_text_step_one"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome_text_step_one"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Поле ввода API ключа -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tiLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/welcome_text_step_one">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tf_api_key"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/api_key_textfield_hint"
+                    android:inputType="text"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Шаг 2: Описание для Выбора (бывший welcomeTextStepTwo) -->
+            <TextView
+                android:id="@+id/welcomeTextStepTwo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="Выберите необходимый параметр:"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tiLayout" />
+
+            <!-- Замена старого Spinner на современный Material 3 Dropdown Menu -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/spinnerLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/welcomeTextStepTwo">
+
+                <AutoCompleteTextView
+                    android:id="@+id/planets_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:hint="Выберите вариант"
+                    tools:ignore="LabelFor" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Главная кнопка действия (Стиль Material3) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnFinish"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="@string/btn_finish_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spinnerLayout" />
+
+            <!-- Подпись копирайта снизу -->
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:text="@string/based_on_openweathermap_weather_forecast"
+                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                android:textColor="?android:attr/textColorSecondary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnFinish" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
