@@ -11,8 +11,8 @@ android {
         applicationId "ru.untriedduck.weatherforecast"
         minSdk 34
         targetSdk 36
-        versionCode 1
-        versionName '0.0.1-alpha'
+        versionCode 9
+        versionName '0.3.6.0'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
