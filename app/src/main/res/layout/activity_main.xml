@@ -529,11 +529,12 @@
                         android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                         android:textColor="?android:attr/textColorSecondary"/>
 
-                    <ru.untriedduck.weatherforecast.view.BarometerView
+                    <TextView
                         android:id="@+id/barometerOne"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:layout_marginTop="8dp" />
+                        android:layout_marginTop="8dp"
+                        android:text="@string/barometer_placeholder_no_data"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
