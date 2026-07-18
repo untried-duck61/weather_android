@@ -30,6 +30,14 @@
     <string name="img_humid_desc" translatable="false">img_humid</string>
     <string name="humidity_placeholder" translatable="false">0%</string>
     <string name="humidity_text" translatable="false">%1$s%%</string>
+    <string name="refresh_btn_title">Refresh</string>
+    <string name="settings_btn_title">Settings</string>
+    <string name="weather_upd_mode_chooser_label">Choose weather update mode:</string>
+    <string name="weather_upd_mode_chooser_hint">Choose mode</string>
+    <string name="temp_card_title">Temperature ranges</string>
+    <string name="humidity_card_title">Humidity</string>
+    <string name="pressure_card_title">Pressure</string>
+    <string name="barometer_placeholder_no_data">No data</string>
     <!--string name="textview_errors_text">%1$s\n%2$s</string>
     <string name="empty_value" /-->
 </resources>

@@ -17,4 +17,12 @@
     <string name="tv_update_status_loading_status">Загрузка погоды&#8230;</string>
     <string name="tv_update_status_updated_for_current_location_status">Погода обновлена по текущему местоположению</string>
     <string name="tv_update_status_updated_for_saved_location_status">Погода обновлена по последнему сохраненному местоположению</string>
+    <string name="refresh_btn_title">Обновить</string>
+    <string name="settings_btn_title">Настройки</string>
+    <string name="weather_upd_mode_chooser_label">Выберите режим обновления погоды:</string>
+    <string name="weather_upd_mode_chooser_hint">Выберите режим</string>
+    <string name="temp_card_title">Температурный диапазон</string>
+    <string name="humidity_card_title">Влажность</string>
+    <string name="pressure_card_title">Давление</string>
+    <string name="barometer_placeholder_no_data">Данные отсутствуют</string>
 </resources>
