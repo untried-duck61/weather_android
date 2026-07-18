@@ -165,7 +165,31 @@ class MainActivity : AppCompatActivity() {
             if (iconResId != 0) {
                 binding.imgCondition.setImageDrawable(ResourcesCompat.getDrawable(resources, iconResId, null))
             }
-        )
-        queue.add(stringRequest)
+
+        }, { error ->
+            binding.progressBar.visibility = View.GONE
+            // Сюда можно добавить красивый Material Snackbar в случае ошибки сети
+            Log.e("WeatherError", "Volley error: ${error.message}")
+
+            // Создаем и показываем Material 3 Snackbar
+            Snackbar.make(
+                binding.main, // Передаем корневой CoordinatorLayout
+                "Не удалось обновить погоду. Проверьте интернет.", // Текст ошибки
+                Snackbar.LENGTH_LONG // Время отображения
+            ).apply {
+                // Добавляем кнопку "Повторить" прямо внутрь уведомления
+                setAction("Повторить") {
+                    // При нажатии запускаем повторный запрос погоды
+                    getWeather(lon, lat, apiKey)
+                }
+                // Задаем цвет кнопке действия из палитры темы приложения
+                setActionTextColor(this@MainActivity.getColorFromAttr(com.google.android.material.R.attr.colorTertiary))
+
+                show() // Показываем Snackbar
+            }
+        })
+
+        // Добавляем запрос в общую единую очередь класса
+        requestQueue.add(stringRequest)
     }
 }
