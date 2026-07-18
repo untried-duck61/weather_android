@@ -1,9 +1,11 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="16dp"
-    android:height="16dp"
-    android:viewportWidth="16"
-    android:viewportHeight="16">
-  <path
-      android:pathData="M8,0l8,16l-16,0z"
-      android:fillColor="#ff1c1c"/>
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- Используем динамический цвет темы (например, акцентный или цвет ошибки/тепла) -->
+    <path
+        android:fillColor="?attr/colorPrimary"
+        android:pathData="M11.13,4.57l-7.31,12.01c-0.66,1.09 0.12,2.5 1.39,2.5h13.57c1.27,0 2.06,-1.41 1.39,-2.5L12.87,4.57C12.47,3.92 11.53,3.92 11.13,4.57z"/>
 </vector>
