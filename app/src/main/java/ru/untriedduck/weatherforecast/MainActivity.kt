@@ -56,17 +56,41 @@ class MainActivity : AppCompatActivity() {
         val editor: SharedPreferences.Editor = shared.edit()
 
         locationClient = LocationServices.getFusedLocationProviderClient(this)
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // If permission is not granted, request it from the user
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                locationpermissionrequest
-            )
+
+        // Инициализация кнопок верхнего меню App Bar (Material You)
+        setupAppBarMenu(shared)
+
+        // Проверка локации и первичный запрос
+        checkLocationAndLoadWeather(shared, editor)
+    }
+
+    private fun setupAppBarMenu(shared: SharedPreferences) {
+        // Навешиваем слушатель кликов на меню нашего нового MaterialToolbar
+        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.refresh_btn -> {
+                    // Логика обновления (ваша старая логика из binding.refreshBtn)
+                    val lon = shared.getString("lon", "").toString()
+                    val lat = shared.getString("lat", "").toString()
+                    val apiKey = shared.getString("apiKey", "").toString()
+
+                    getWeather(lon, lat, apiKey)
+                    binding.tvUpdateStatus.text = getString(R.string.tv_update_status_updated_for_saved_location_status)
+                    true // Возвращаем true, чтобы подтвердить обработку клика
+                }
+                R.id.settings_btn -> {
+                    // Сюда добавьте переход на экран настроек, когда он появится:
+                    // startActivity(Intent(this, SettingsActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun checkLocationAndLoadWeather(shared: SharedPreferences, editor: SharedPreferences.Editor) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionRequest)
             return
         }
 
