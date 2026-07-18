@@ -192,4 +192,12 @@ class MainActivity : AppCompatActivity() {
         // Добавляем запрос в общую единую очередь класса
         requestQueue.add(stringRequest)
     }
+
+    @ColorInt
+    fun Context.getColorFromAttr(@AttrRes attr: Int): Int {
+        val typedValue = TypedValue()
+        theme.resolveAttribute(attr, typedValue, true)
+        return typedValue.data
+    }
 }
+
