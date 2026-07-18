@@ -12,36 +12,49 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
+import android.util.Log
+import android.view.View
+import androidx.core.content.res.ResourcesCompat
 //import android.util.Log
 //import android.widget.Toast
 import com.android.volley.Request
+import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.google.android.material.snackbar.Snackbar
 //import org.json.JSONArray
 import org.json.JSONObject
 import ru.untriedduck.weatherforecast.databinding.ActivityMainBinding
 import kotlin.math.roundToInt
+import android.util.TypedValue
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var locationClient: FusedLocationProviderClient
-    private val locationpermissionrequest = 1001
+    private val locationPermissionRequest = 1001
     private lateinit var binding: ActivityMainBinding
+
+    // Выносим очередь Volley на уровень класса, чтобы не создавать её при каждом запросе
+    private lateinit var requestQueue: RequestQueue
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+
+        // Включаем отображение "от края до края" под статус-баром
         enableEdgeToEdge()
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-        val shared : SharedPreferences = getSharedPreferences("PREFERENCES",
-            MODE_PRIVATE
-        )
-        val editor : SharedPreferences.Editor = shared.edit()
+
+        // Инициализируем Volley один раз
+        requestQueue = Volley.newRequestQueue(this)
+
+        val shared: SharedPreferences = getSharedPreferences("PREFERENCES", MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = shared.edit()
+
         locationClient = LocationServices.getFusedLocationProviderClient(this)
         if (ActivityCompat.checkSelfPermission(
                 this,
