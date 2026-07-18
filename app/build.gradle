@@ -11,8 +11,8 @@ android {
         applicationId "ru.untriedduck.weatherforecast"
         minSdk 34
         targetSdk 36
-        versionCode 9
-        versionName '0.3.6.0'
+        versionCode 10
+        versionName '0.4.0.0'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -43,6 +43,7 @@ dependencies {
     implementation libs.material
     implementation libs.androidx.activity
     implementation libs.androidx.constraintlayout
+    implementation libs.androidx.coordinatorlayout
     //implementation libs.ktor.client.core
     //implementation libs.ktor.client.android
     implementation libs.volley
