@@ -6,9 +6,11 @@
         android:icon="@drawable/refresh"
         android:title="Обновить"
         app:showAsAction="always" />
+        android:title="@string/refresh_btn_title"
     <item
         android:id="@+id/settings_btn"
         android:icon="@drawable/settings"
         android:title="Настройки"
         app:showAsAction="always" />
+        android:title="@string/settings_btn_title"
 </menu>

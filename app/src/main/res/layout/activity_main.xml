@@ -403,7 +403,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Диапазон"
+                        android:text="@string/temp_card_title"
                         android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                         android:textColor="?android:attr/textColorSecondary"/>
 
@@ -475,7 +475,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Влажность"
+                        android:text="@string/humidity_card_title"
                         android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                         android:textColor="?android:attr/textColorSecondary" />
 
@@ -525,7 +525,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Давление"
+                        android:text="@string/pressure_card_title"
                         android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                         android:textColor="?android:attr/textColorSecondary"/>
 

@@ -188,7 +188,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
-                android:text="Выберите необходимый параметр:"
+                android:text="@string/weather_upd_mode_chooser_label"
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                 android:textColor="?android:attr/textColorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -211,7 +211,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:hint="Выберите вариант"
+                    android:hint="@string/weather_upd_mode_chooser_hint"
                     tools:ignore="LabelFor" />
             </com.google.android.material.textfield.TextInputLayout>
 
