@@ -270,7 +270,7 @@
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="112dp"
-            app:title="@string/unknown" <!-- Сюда в коде передавайте название города (tvCountry) -->
+            app:title="@string/unknown"
             style="@style/Widget.Material3.CollapsingToolbar.Medium"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -281,7 +281,7 @@
                 android:background="@android:color/transparent"
                 style="@style/Widget.Material3.Toolbar.Surface"
                 app:layout_collapseMode="pin"
-                app:menu="@menu/main_menu" /> <!-- Кнопки Настройки и Обновить теперь внутри меню -->
+                app:menu="@menu/main_menu" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -298,16 +298,31 @@
             android:padding="20dp">
 
             <!-- Статус обновления (загрузка/время) -->
+            <!-- Поместите этот код внутрь ConstraintLayout, который лежит в NestedScrollView -->
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progressBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+            <!-- Вашему TextView tvUpdateStatus теперь нужно изменить привязку top_toTopOf на top_toBottomOf -->
             <TextView
                 android:id="@+id/tvUpdateStatus"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/tv_update_status_loading_status"
-                android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
-                android:textColor="?android:attr/textColorSecondary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginTop="8dp"
+            android:text="@string/tv_update_status_loading_status"
+            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+            android:textColor="?android:attr/textColorSecondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progressBar" /> <!-- Привязали под прогресс-бар -->
 
             <!-- БЛОК ГЛАВНОЙ ПОГОДЫ (Температура и Иконка) -->
             <LinearLayout
