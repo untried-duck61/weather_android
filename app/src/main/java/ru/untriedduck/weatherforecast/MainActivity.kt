@@ -94,104 +94,76 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-
         locationClient.lastLocation.addOnSuccessListener { location ->
             if (location != null) {
-                // If location is available, extract latitude and longitude
                 val lat = location.latitude
                 val lon = location.longitude
 
-                // Save current location for future use
-                editor.putString("lat","$lat")
-                editor.putString("lon","$lon")
+                editor.putString("lat", "$lat")
+                editor.putString("lon", "$lon")
                 editor.apply()
 
-                // Get saved location
-                val lons = shared.getString("lon","").toString()
-                val lats = shared.getString("lat","").toString()
-                val apiKey = shared.getString("apiKey","").toString()
+                val lons = shared.getString("lon", "").toString()
+                val lats = shared.getString("lat", "").toString()
+                val apiKey = shared.getString("apiKey", "").toString()
 
-                // Call update weather request
-                getWeather(lons,lats,apiKey)
-
-                //Set weather update status
-                binding.tvUpdateStatus.text =
-                    getString(R.string.tv_update_status_updated_for_current_location_status)
+                getWeather(lons, lats, apiKey)
+                binding.tvUpdateStatus.text = getString(R.string.tv_update_status_updated_for_current_location_status)
             } else {
-                // Get last saved location
-                val lons = shared.getString("lon","").toString()
-                val lats = shared.getString("lat","").toString()
-                val apiKey = shared.getString("apiKey","").toString()
+                val lons = shared.getString("lon", "").toString()
+                val lats = shared.getString("lat", "").toString()
+                val apiKey = shared.getString("apiKey", "").toString()
 
-                // Call update weather request for last saved location
-                getWeather(lons,lats,apiKey)
-
-                // Set weather update status
-                binding.tvUpdateStatus.text =
-                    getString(R.string.tv_update_status_updated_for_saved_location_status)
+                getWeather(lons, lats, apiKey)
+                binding.tvUpdateStatus.text = getString(R.string.tv_update_status_updated_for_saved_location_status)
             }
         }
-        binding.refreshBtn.setOnClickListener {
-            // Get saved location
-            val lon = shared.getString("lon","").toString()
-            val lat = shared.getString("lat","").toString()
-            val apiKey = shared.getString("apiKey","").toString()
-
-            // Call update weather request for last saved location
-            getWeather(lon,lat,apiKey)
-
-            // Set weather update status
-            binding.tvUpdateStatus.text =
-                getString(R.string.tv_update_status_updated_for_saved_location_status)
-        }
-
-
     }
 
     @SuppressLint("UseCompatLoadingForDrawables", "DiscouragedApi")
-    private fun getWeather(lon: String, lat: String, apiKey: String){
-        val url =
-            getString(R.string.__api_url, lat, lon, apiKey, getString(R.string.lang))
-        val queue = Volley.newRequestQueue(this)
-        val stringRequest = StringRequest(Request.Method.GET,
-            url,
-            { response ->
-                val root = JSONObject(response)
-                    val weather = root.getJSONArray("weather").getJSONObject(0)
-                        val desc = weather.getString("description")
-                        val icon = weather.getString("icon")
-                    val main = root.getJSONObject("main")
-                        val temp = main.getString("temp").toFloat().roundToInt().toString()
-                        val feelsLike = main.getString("feels_like").toFloat().roundToInt().toString()
-                        val tempMin = main.getString("temp_min").toFloat().roundToInt().toString()
-                        val tempMax = main.getString("temp_max").toFloat().roundToInt().toString()
-                        val humidity = main.getString("humidity").toInt().toString()
-                    val sys = root.getJSONObject("sys")
-                        val country = sys.getString("country")
-                    val name = root.getString("name")
-                binding.tvTemp.text= getString(R.string.temp, temp)
-                binding.collapsingToolbarLayout.title = getString(R.string.tv_country_text, name, country)
-                binding.tvDesc.text = getString(R.string.tv_desc_text, desc)
-                binding.tvFeelsLike.text = getString(R.string.feels_like_text, feelsLike)
-                binding.tvTempMin.text = getString(R.string.temp, tempMin)
-                binding.tvTempMax.text = getString(R.string.temp,tempMax)
-                binding.imgCondition.background = resources.getDrawable(
-                    this.resources.getIdentifier(
-                        getString(R.string.__weather_icon_template, icon),
-                        getString(R.string.__res_type),
-                        this.packageName
-                    ), null
-                )
-                binding.tvHumid.text = getString(R.string.humidity_text, humidity)
+    private fun getWeather(lon: String, lat: String, apiKey: String) {
+        binding.progressBar.visibility = View.VISIBLE
 
-                //Log.d("MyLog","$weather")
-            },
-            {
-                /*binding.tvErrors.text = getString(
-                    R.string.textview_errors_text,
-                    binding.tvErrors.text,
-                    getString(R.string.volley_error, it)
-                )*/
+        val url = getString(R.string.__api_url, lat, lon, apiKey, getString(R.string.lang))
+
+        val stringRequest = StringRequest(Request.Method.GET, url, { response ->
+            binding.progressBar.visibility = View.GONE
+            val root = JSONObject(response)
+            val weather = root.getJSONArray("weather").getJSONObject(0)
+            val desc = weather.getString("description")
+            val icon = weather.getString("icon")
+
+            val main = root.getJSONObject("main")
+            val temp = main.getString("temp").toFloat().roundToInt().toString()
+            val feelsLike = main.getString("feels_like").toFloat().roundToInt().toString()
+            val tempMin = main.getString("temp_min").toFloat().roundToInt().toString()
+            val tempMax = main.getString("temp_max").toFloat().roundToInt().toString()
+            val humidity = main.getString("humidity").toInt().toString()
+
+            val sys = root.getJSONObject("sys")
+            val country = sys.getString("country")
+            val name = root.getString("name")
+
+            // Изменение текстов
+            binding.tvTemp.text = getString(R.string.temp, temp)
+
+            // СТРОКА ИСПРАВЛЕНА: Теперь город отправляется в CollapsingToolbarLayout
+            binding.collapsingToolbarLayout.title = getString(R.string.tv_country_text, name, country)
+
+            binding.tvDesc.text = getString(R.string.tv_desc_text, desc)
+            binding.tvFeelsLike.text = getString(R.string.feels_like_text, feelsLike)
+            binding.tvTempMin.text = getString(R.string.temp, tempMin)
+            binding.tvTempMax.text = getString(R.string.temp, tempMax)
+            binding.tvHumid.text = getString(R.string.humidity_text, humidity)
+
+            // Установка иконки погоды (рекомендуется использовать .setImageDrawable вместо .background)
+            val iconResId = resources.getIdentifier(
+                getString(R.string.__weather_icon_template, icon),
+                getString(R.string.__res_type),
+                packageName
+            )
+            if (iconResId != 0) {
+                binding.imgCondition.setImageDrawable(ResourcesCompat.getDrawable(resources, iconResId, null))
             }
         )
         queue.add(stringRequest)
