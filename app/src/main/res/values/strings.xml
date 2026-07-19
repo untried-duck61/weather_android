@@ -38,6 +38,13 @@
     <string name="humidity_card_title">Humidity</string>
     <string name="pressure_card_title">Pressure</string>
     <string name="barometer_placeholder_no_data">No data</string>
+    <string name="back_btn_nav_content_desc">Back</string>
+    <string name="settings_section_updates">Updates</string>
+    <string name="settings_activity_title">Settings</string>
+    <string name="ic_check_updates_content_desc">Check for updates</string>
+    <string name="tv_current_version_placeholder">Current version: unknown</string>
+    <string name="tv_check_for_updates_label">Check for updates</string>
+    <string name="settings_section_general">General</string>
     <!--string name="textview_errors_text">%1$s\n%2$s</string>
     <string name="empty_value" /-->
 </resources>

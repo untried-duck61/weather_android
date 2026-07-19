@@ -25,4 +25,11 @@
     <string name="humidity_card_title">Влажность</string>
     <string name="pressure_card_title">Давление</string>
     <string name="barometer_placeholder_no_data">Данные отсутствуют</string>
+    <string name="back_btn_nav_content_desc">Назад</string>
+    <string name="settings_section_updates">Обновления</string>
+    <string name="settings_activity_title">Настройки</string>
+    <string name="ic_check_updates_content_desc">Проверить обновления</string>
+    <string name="tv_current_version_placeholder">Текущая версия: неизвестно</string>
+    <string name="tv_check_for_updates_label">Проверить наличие обновлений</string>
+    <string name="settings_section_general">Основные</string>
 </resources>
