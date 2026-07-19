@@ -52,7 +52,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.001"
-        app:srcCompat="@drawable/refresh"
+        app:srcCompat="@drawable/ic_refresh"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
     <ImageButton
@@ -67,7 +67,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.001"
-        app:srcCompat="@drawable/settings" />
+        app:srcCompat="@drawable/ic_settings" />
 
     <TextView
         android:id="@+id/tvCountry"
