@@ -79,8 +79,8 @@ class MainActivity : AppCompatActivity() {
                     true // Возвращаем true, чтобы подтвердить обработку клика
                 }
                 R.id.settings_btn -> {
-                    // Сюда добавьте переход на экран настроек, когда он появится:
-                    // startActivity(Intent(this, SettingsActivity::class.java))
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 else -> false
