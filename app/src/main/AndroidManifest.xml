@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WeatherForecast">
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".FirstRunActivity"
             android:exported="true">
             <intent-filter>
@@ -26,7 +29,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"
