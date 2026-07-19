@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import ru.untriedduck.weatherforecast.databinding.ActivityFirstRunBinding
+import androidx.core.content.edit
+
 //import ru.untriedduck.weatherforecast.databinding.ActivityMainBinding
 
 @Suppress("DEPRECATION")
@@ -40,7 +42,7 @@ public class FirstRunActivity : AppCompatActivity() {
             }
         }
         binding.btnFinish.setOnClickListener {
-            var editor : SharedPreferences.Editor = shared.edit()
+            val editor : SharedPreferences.Editor = shared.edit()
             if(binding.tfApiKey.text.isNullOrEmpty()){
                 Toast.makeText(this,R.string.empty_api_key_error_text,Toast.LENGTH_SHORT).show()
             } else {
