@@ -35,9 +35,9 @@ public class FirstRunActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         } else {
-            var editor : SharedPreferences.Editor = shared.edit()
-            editor.putBoolean("firstRun",true)
-            editor.apply()
+            shared.edit {
+                putBoolean("firstRun", true)
+            }
         }
         binding.btnFinish.setOnClickListener {
             var editor : SharedPreferences.Editor = shared.edit()
