@@ -1,5 +1,5 @@
 [versions]
-agp = "9.0.1"
+agp = "9.1.1"
 coordinatorlayout = "1.3.0"
 design = "28.0.0"
 kotlin = "2.2.10"
