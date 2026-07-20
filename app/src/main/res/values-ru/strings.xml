@@ -32,4 +32,11 @@
     <string name="tv_current_version_placeholder">Текущая версия: неизвестно</string>
     <string name="tv_check_for_updates_label">Проверить наличие обновлений</string>
     <string name="settings_section_general">Основные</string>
+    <string name="settings_temp_unit_title">Единицы измерения</string>
+    <string name="settings_temp_unit_sub_celsius">Использовать Фаренгейты (°F) вместо Цельсиев (°C)</string>
+    <string name="settings_temp_unit_desc">Единицы измерения температуры</string>
+    <string name="settings_api_key_desc">Настройка API ключа</string>
+    <string name="settings_api_key_title">API ключ OpenWeatherMap</string>
+    <string name="settings_api_key_sub">Изменить текущий ключ для запросов</string>
+    <string name="tv_current_version_format">Текущая версия: %1$s</string>
 </resources>

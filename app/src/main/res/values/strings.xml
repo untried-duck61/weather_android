@@ -45,6 +45,13 @@
     <string name="tv_current_version_placeholder">Current version: unknown</string>
     <string name="tv_check_for_updates_label">Check for updates</string>
     <string name="settings_section_general">General</string>
+    <string name="settings_temp_unit_title">Temperature unit</string>
+    <string name="settings_temp_unit_sub_celsius">Use Fahrenheit (°F) instead of Celsius (°C)</string>
+    <string name="settings_temp_unit_desc">Temperature Units</string>
+    <string name="settings_api_key_desc">Settings API Key</string>
+    <string name="settings_api_key_title">OpenWeatherMap API Key</string>
+    <string name="settings_api_key_sub">Change current key for requests</string>
+    <string name="tv_current_version_format">Current version: %1$s</string>
     <!--string name="textview_errors_text">%1$s\n%2$s</string>
     <string name="empty_value" /-->
 </resources>
