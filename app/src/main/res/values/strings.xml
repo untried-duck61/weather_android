@@ -22,7 +22,7 @@
     <string name="__res_type" translatable="false">drawable</string>
     <string name="img_temp_min_desc" translatable="false">img_temp_min</string>
     <string name="img_temp_max_desc" translatable="false">img_temp_max</string>
-    <string name="__api_url" translatable="false"><![CDATA[https://api.openweathermap.org/data/2.5/weather?lat=%1$s&lon=%2$s&APPID=%3$s&units=metric&lang=%4$s]]></string>
+    <string name="__api_url" translatable="false"><![CDATA[https://api.openweathermap.org/data/2.5/weather?lat=%1$s&lon=%2$s&APPID=%3$s&units=%5$s&lang=%4$s]]></string>
     <string name="tv_update_status_loading_status">Loading weather&#8230;</string>
     <string name="tv_update_status_updated_for_current_location_status">Updated weather for current location</string>
     <string name="tv_update_status_updated_for_saved_location_status">Updated weather for last saved location</string>
@@ -52,6 +52,14 @@
     <string name="settings_api_key_title">OpenWeatherMap API Key</string>
     <string name="settings_api_key_sub">Change current key for requests</string>
     <string name="tv_current_version_format">Current version: %1$s</string>
-    <!--string name="textview_errors_text">%1$s\n%2$s</string>
-    <string name="empty_value" /-->
+    <string name="update_dialog_title">Check for Updates</string>
+    <string name="update_latest">You already have the latest version installed!</string>
+    <string name="update_available">New version available: %1$s. Would you like to update?</string>
+    <string name="update_btn_download">Download</string>
+    <string name="update_btn_cancel">Cancel</string>
+    <string name="update_error">Failed to check for updates. Network error.</string>
+    <string name="dlmgr_upd_title">Weather Forecast Update</string>
+    <string name="dlmgr_upd_desc">Downloading version %1$s</string>
+    <string name="pkgmgr_init_error">Error starting installer</string>
+    <string name="pkgmgr_enoent">Update file not found</string>
 </resources>

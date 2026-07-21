@@ -39,4 +39,14 @@
     <string name="settings_api_key_title">API ключ OpenWeatherMap</string>
     <string name="settings_api_key_sub">Изменить текущий ключ для запросов</string>
     <string name="tv_current_version_format">Текущая версия: %1$s</string>
+    <string name="update_dialog_title">Проверка обновлений</string>
+    <string name="update_latest">У вас установлена самая свежая версия!</string>
+    <string name="update_available">Доступна новая версия: %1$s. Хотите обновить?</string>
+    <string name="update_btn_download">Скачать</string>
+    <string name="update_btn_cancel">Отмена</string>
+    <string name="update_error">Не удалось проверить обновления. Ошибка сети.</string>
+    <string name="dlmgr_upd_title">Обновление Прогноза Погоды</string>
+    <string name="dlmgr_upd_desc">Скачивание версии %1$s</string>
+    <string name="pkgmgr_init_error">Ошибка запуска установщика</string>
+    <string name="pkgmgr_enoent">Файл обновления не найден</string>
 </resources>
