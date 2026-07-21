@@ -50,6 +50,7 @@
                 android:textColor="?attr/colorAccent"/>
 
             <LinearLayout
+                android:id="@+id/btnCheckUpdates"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -167,6 +168,7 @@
                 android:layout_marginBottom="16dp"/>
 
             <LinearLayout
+                android:id="@+id/btnChangeApiKey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
