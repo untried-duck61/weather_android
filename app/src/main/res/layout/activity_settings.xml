@@ -95,7 +95,7 @@
                     android:layout_height="24dp"
                     android:src="@drawable/ic_arrow_down"
                     android:rotation="270"
-                    app:tint="?attr/colorOnSurfaceVariant"
+                    app:tint="?attr/colorOnSurfaceVariant"/>
 
             </LinearLayout>
 
