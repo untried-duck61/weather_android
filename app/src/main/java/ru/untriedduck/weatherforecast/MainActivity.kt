@@ -59,24 +59,18 @@ class MainActivity : AppCompatActivity() {
         locationClient = LocationServices.getFusedLocationProviderClient(this)
 
         // Инициализация кнопок верхнего меню App Bar (Material You)
-        setupAppBarMenu(shared)
+        setupAppBarMenu(shared, editor)
 
         // Проверка локации и первичный запрос
         checkLocationAndLoadWeather(shared, editor)
     }
 
-    private fun setupAppBarMenu(shared: SharedPreferences) {
+    private fun setupAppBarMenu(shared: SharedPreferences, editor: SharedPreferences.Editor) {
         // Навешиваем слушатель кликов на меню нашего нового MaterialToolbar
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.refresh_btn -> {
-                    // Логика обновления (ваша старая логика из binding.refreshBtn)
-                    val lon = shared.getString("lon", "").toString()
-                    val lat = shared.getString("lat", "").toString()
-                    val apiKey = shared.getString("apiKey", "").toString()
-
-                    getWeather(lon, lat, apiKey)
-                    binding.tvUpdateStatus.text = getString(R.string.tv_update_status_updated_for_saved_location_status)
+                    checkLocationAndLoadWeather(shared, editor)
                     true // Возвращаем true, чтобы подтвердить обработку клика
                 }
                 R.id.settings_btn -> {
@@ -104,28 +98,28 @@ class MainActivity : AppCompatActivity() {
                 editor.putString("lon", "$lon")
                 editor.apply()
 
-                val lons = shared.getString("lon", "").toString()
-                val lats = shared.getString("lat", "").toString()
                 val apiKey = shared.getString("apiKey", "").toString()
+                val units = if (shared.getBoolean("use_fahrenheit", false)) "metric" else "imperial"
 
-                getWeather(lons, lats, apiKey)
+                getWeather(lon.toString(), lat.toString(), apiKey, units)
                 binding.tvUpdateStatus.text = getString(R.string.tv_update_status_updated_for_current_location_status)
             } else {
                 val lons = shared.getString("lon", "").toString()
                 val lats = shared.getString("lat", "").toString()
                 val apiKey = shared.getString("apiKey", "").toString()
+                val units = if (shared.getBoolean("use_fahrenheit", false)) "metric" else "imperial"
 
-                getWeather(lons, lats, apiKey)
+                getWeather(lons, lats, apiKey, units)
                 binding.tvUpdateStatus.text = getString(R.string.tv_update_status_updated_for_saved_location_status)
             }
         }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables", "DiscouragedApi")
-    private fun getWeather(lon: String, lat: String, apiKey: String) {
+    private fun getWeather(lon: String, lat: String, apiKey: String, units: String) {
         binding.progressBar.visibility = View.VISIBLE
 
-        val url = getString(R.string.__api_url, lat, lon, apiKey, getString(R.string.lang))
+        val url = getString(R.string.__api_url, lat, lon, apiKey, getString(R.string.lang), units)
 
         val stringRequest = StringRequest(Request.Method.GET, url, { response ->
             binding.progressBar.visibility = View.GONE
@@ -181,7 +175,7 @@ class MainActivity : AppCompatActivity() {
                 // Добавляем кнопку "Повторить" прямо внутрь уведомления
                 setAction("Повторить") {
                     // При нажатии запускаем повторный запрос погоды
-                    getWeather(lon, lat, apiKey)
+                    getWeather(lon, lat, apiKey, units)
                 }
                 // Задаем цвет кнопке действия из палитры темы приложения
                 setActionTextColor(this@MainActivity.getColorFromAttr(com.google.android.material.R.attr.colorTertiary))
