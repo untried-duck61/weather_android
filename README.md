@@ -20,8 +20,7 @@
 ## Screenshots
 <p align="center">
   <!-- Замените ссылки ниже на реальные скриншоты, когда загрузите их в свой репозиторий -->
-  <img src="://placeholder.com" width="240" alt="Main Screen">
-  <img src="://placeholder.com" width="240" alt="Theme Adaptation">
+  <img src="screenshots/first_setup.jpg" width="240" alt="First Setup Screen">  <img src="screenshots/main_screen.jpg" width="240" alt="Main Screen">
 </p>
 
 ## Tech Stack & Specifications
@@ -56,12 +55,18 @@
 
 * [x] **Dynamic Themes:** Full support for Material You palette based on user's wallpaper.
 
+## Supported languages
+
+ * English (default)
+
+ * Russian (ru)
+
 ## Roadmap & Tasks
 
-* [ ] Add more detailed weather information on the main page (wind, humidity, pressure).
+* [ ] Add more detailed weather information on the main page (wind (WIP), humidity (done), pressure (WIP)).
 
-* [ ] Add Settings page.
+* [ ] Add Settings page. (WIP)
 
 * [ ] Implement in-app updates check.
 
-* [ ] **Fix Back Button:** Call `finish()` in `FirstRunActivity` after routing to prevent returning to the onboarding/splash screen.
+* [x] **Fix Back Button:** Call `finish()` in `FirstRunActivity` after routing to prevent returning to the onboarding/splash screen.
