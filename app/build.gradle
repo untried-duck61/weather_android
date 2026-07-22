@@ -17,15 +17,19 @@ static def getBuildDate() {
 // 3. Авто-вычисление количества коммитов из Git
 def getCommitCount() {
     try {
-        def stdout = new ByteArrayOutputStream()
-        exec {
-            workingDir project.rootDir // <--- Строго указываем корень проекта!
-            commandLine 'git', 'rev-list', '--count', 'HEAD'
-            standardOutput = stdout
+        // Запускаем команду через стандартный процесс Java/Groovy
+        def process = "git rev-list --count HEAD".execute(null, project.rootDir)
+        process.waitFor() // Ждем, пока Git посчитает коммиты
+
+        if (process.exitValue() == 0) {
+            return process.text.trim().toInteger()
+        } else {
+            // Если Git вернул ошибку (например, на Windows не настроен PATH)
+            return 1
         }
-        return stdout.toString().trim().toInteger()
-    } catch (ignored) {
-        return 1
+    } catch (Exception e) {
+        println "⚠️ GIT FETCH ERROR: ${e.message}"
+        return 1 // Твой надежный фолбек
     }
 }
 
