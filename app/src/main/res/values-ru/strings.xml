@@ -11,9 +11,8 @@
     <string name="volley_error">Ошибка Volley: %1$s</string>
     <string name="location_null_error">Невозможно получить текущее местоположение. Включите службы местоположения и перезапустите приложение</string>
     <string name="unknown">неизвестно</string>
-    <string name="tv_country_text">%1$s, %2$s</string>
     <string name="feels_like_placeholder">Ощущается как: 0℃</string>
-    <string name="feels_like_text">Ощущается как: %1$s℃</string>
+    <string name="feels_like_text">Ощущается как: %1$s°%2$s</string>
     <string name="tv_update_status_loading_status">Загрузка погоды&#8230;</string>
     <string name="tv_update_status_updated_for_current_location_status">Погода обновлена по текущему местоположению</string>
     <string name="tv_update_status_updated_for_saved_location_status">Погода обновлена по последнему сохраненному местоположению</string>
@@ -49,4 +48,6 @@
     <string name="dlmgr_upd_desc">Скачивание версии %1$s</string>
     <string name="pkgmgr_init_error">Ошибка запуска установщика</string>
     <string name="pkgmgr_enoent">Файл обновления не найден</string>
+    <string name="weather_update_failed">Не удалось обновить погоду. Проверьте интернет.</string>
+    <string name="weather_update_retry_action">Повторить</string>
 </resources>
