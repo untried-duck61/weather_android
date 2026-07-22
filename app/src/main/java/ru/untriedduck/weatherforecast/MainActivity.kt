@@ -140,15 +140,15 @@ class MainActivity : AppCompatActivity() {
             val name = root.getString("name")
 
             // Изменение текстов
-            binding.tvTemp.text = getString(R.string.temp, temp)
+            binding.tvTemp.text = getString(R.string.temp, temp, if (units == "imperial") "F" else "C")
 
             // СТРОКА ИСПРАВЛЕНА: Теперь город отправляется в CollapsingToolbarLayout
             binding.collapsingToolbarLayout.title = getString(R.string.tv_country_text, name, country)
 
             binding.tvDesc.text = getString(R.string.tv_desc_text, desc)
-            binding.tvFeelsLike.text = getString(R.string.feels_like_text, feelsLike)
-            binding.tvTempMin.text = getString(R.string.temp, tempMin)
-            binding.tvTempMax.text = getString(R.string.temp, tempMax)
+            binding.tvFeelsLike.text = getString(R.string.feels_like_text, feelsLike, if (units == "imperial") "F" else "C")
+            binding.tvTempMin.text = getString(R.string.temp, tempMin, if (units == "imperial") "F" else "C")
+            binding.tvTempMax.text = getString(R.string.temp, tempMax, if (units == "imperial") "F" else "C")
             binding.tvHumid.text = getString(R.string.humidity_text, humidity)
 
             // Установка иконки погоды (рекомендуется использовать .setImageDrawable вместо .background)
