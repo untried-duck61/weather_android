@@ -15,6 +15,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.util.Log
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
@@ -178,7 +179,7 @@ class MainActivity : AppCompatActivity() {
                     getWeather(lon, lat, apiKey, units)
                 }
                 // Задаем цвет кнопке действия из палитры темы приложения
-                setActionTextColor(this@MainActivity.getColorFromAttr(com.google.android.material.R.attr.colorTertiary))
+                setActionTextColor(if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES) this@MainActivity.getColorFromAttr(com.google.android.material.R.attr.colorOnTertiary) else this@MainActivity.getColorFromAttr(com.google.android.material.R.attr.colorTertiary))
 
                 show() // Показываем Snackbar
             }
