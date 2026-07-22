@@ -170,11 +170,11 @@ class MainActivity : AppCompatActivity() {
             // Создаем и показываем Material 3 Snackbar
             Snackbar.make(
                 binding.main, // Передаем корневой CoordinatorLayout
-                "Не удалось обновить погоду. Проверьте интернет.", // Текст ошибки
+                getString(R.string.weather_update_failed), // Текст ошибки
                 Snackbar.LENGTH_LONG // Время отображения
             ).apply {
                 // Добавляем кнопку "Повторить" прямо внутрь уведомления
-                setAction("Повторить") {
+                setAction(getString(R.string.weather_update_retry_action)) {
                     // При нажатии запускаем повторный запрос погоды
                     getWeather(lon, lat, apiKey, units)
                 }
