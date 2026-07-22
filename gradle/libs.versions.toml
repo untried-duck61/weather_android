@@ -8,11 +8,13 @@ junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.1"
+kotlinxCoroutinesAndroid = "1.8.1"
 ktorClientCore = "3.2.1"
 material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
 materialVersion = "1.12.0"
+retrofit = "2.11.0"
 volley = "1.2.1"
 playServicesLocation = "21.3.0"
 navigationFragmentKtx = "2.6.0"
@@ -26,12 +28,14 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorClientCore" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 material-v130 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 volley = { module = "com.android.volley:volley", version.ref = "volley" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
