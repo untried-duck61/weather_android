@@ -19,9 +19,10 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import ru.untriedduck.weatherforecast.databinding.ActivitySettingsBinding
-import java.io.File
-import androidx.core.content.FileProvider
-import android.net.Uri
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import ru.untriedduck.weatherforecast.updates.ApkDownloader
+import ru.untriedduck.weatherforecast.updates.ApkInstaller
 
 class SettingsActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySettingsBinding
@@ -85,11 +86,11 @@ class SettingsActivity : AppCompatActivity() {
                 val root = JSONObject(response)
                 val latestVersion = root.getString("tag_name")!!
                 val currentVersion = packageManager.getPackageInfo(packageName, 0).versionName!!
-                // Разбиваем строки версий по точкам, переводим в числа (если не число, то 0)
+
+                // Твоя отличная логика покомпонентного сравнения версий
                 val currentParts = currentVersion.split(".").map { it.toIntOrNull() ?: 0 }
                 val latestParts = latestVersion.split(".").map { it.toIntOrNull() ?: 0 }
 
-                // Ищем первую разницу в цифрах версий
                 var isNewerAvailable = false
                 val maxParts = maxOf(currentParts.size, latestParts.size)
                 for (i in 0 until maxParts) {
@@ -99,89 +100,49 @@ class SettingsActivity : AppCompatActivity() {
                         isNewerAvailable = true
                         break
                     } else if (currentPart > latestPart) {
-                        break // Локальная версия новее, обновляться не нужно
+                        break
                     }
                 }
 
-                // Если обновления нет или локальная версия новее — выходим
                 if (!isNewerAvailable) {
                     Toast.makeText(this@SettingsActivity, R.string.update_latest, Toast.LENGTH_SHORT).show()
                     return@StringRequest
                 }
-                val latestApkUrl = root.getJSONArray("assets").getJSONObject(0).getString("browser_download_url")
-                val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-                val uri = latestApkUrl.toUri()
 
-                val request = DownloadManager.Request(uri)
-                    .setTitle(getString(R.string.dlmgr_upd_title))
-                    .setDescription(getString(R.string.dlmgr_upd_desc, latestVersion))
-                    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                    .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "weather_update.apk")
+                // Сюда мы доходим, только если обновление РЕАЛЬНО есть
+                // 1. Инициализируем наши новые безопасные инструменты
+                val installer = ApkInstaller(this@SettingsActivity)
+                val downloader = ApkDownloader(this@SettingsActivity)
 
-                val downloadId = downloadManager.enqueue(request)
-                // 1. Создаём приёмник
-                val onDownloadComplete = object : BroadcastReceiver() {
-                    override fun onReceive(context: Context, intent: Intent) {
-                        // Проверяем, что скачался именно наш файл
-                        val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
-                        if (id == downloadId) {
-
-                            // 1. Получаем путь к скачанному файлу в папке Downloads
-                            val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                            val apkFile = File(downloadsDir, "weather_update.apk")
-
-                            if (apkFile.exists()) {
-                                // 2. Превращаем файл в безопасную URI-ссылку через наш FileProvider
-                                val apkUri: Uri = FileProvider.getUriForFile(
-                                    this@SettingsActivity,
-                                    "${packageName}.fileprovider", // Должно строго совпадать с authorities в манифесте!
-                                    apkFile
-                                )
-
-                                // 3. Создаем интент для запуска системного установщика пакетов
-                                val installIntent = Intent(Intent.ACTION_VIEW).apply {
-                                    setDataAndType(apkUri, "application/vnd.android.package-archive")
-
-                                    // Даем системе временные права на чтение этого APK-файла
-                                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-
-                                    // Открываем установщик в новом процессе, чтобы наше приложение могло спокойно закрыться
-                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                }
-
-                                // 4. Запускаем установку
-                                try {
-                                    startActivity(installIntent)
-                                } catch (e: Exception) {
-                                    e.printStackTrace()
-                                    Toast.makeText(this@SettingsActivity,
-                                        getString(R.string.pkgmgr_init_error), Toast.LENGTH_SHORT).show()
-                                }
-                            } else {
-                                Toast.makeText(this@SettingsActivity,
-                                    getString(R.string.pkgmgr_enoent), Toast.LENGTH_SHORT).show()
-                            }
-
-                            unregisterReceiver(this)
-                        }
-                    }
+                // 2. Проверяем разрешение на установку из неизвестных источников
+                if (!installer.checkInstallPermission()) {
+                    Toast.makeText(this@SettingsActivity, "Пожалуйста, разрешите установку обновлений", Toast.LENGTH_LONG).show()
+                    installer.openInstallSettings()
+                    return@StringRequest // Останавливаемся, пока пользователь не включит тумблер
                 }
 
-                // 2. Регистрируем наш приёмник в системе, чтобы он слушал событие окончания загрузки
-                registerReceiver(
-                    onDownloadComplete,
-                    IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE),
-                    RECEIVER_NOT_EXPORTED // Параметр безопасности для современных версий Android
-                )
+                // Достаем прямую ссылку на APK из JSON ответа GitHub
+                val latestApkUrl = root.getJSONArray("assets").getJSONObject(0).getString("browser_download_url")
 
+                Toast.makeText(this@SettingsActivity, "Скачивание обновления...", Toast.LENGTH_SHORT).show()
 
+                // 3. Запускаем корутину прямо внутри ответа Volley для фонового скачивания
+                lifecycleScope.launch {
+                    val downloadedFile = downloader.downloadApk(latestApkUrl)
+
+                    if (downloadedFile != null && downloadedFile.exists()) {
+                        // Файл в кэше, разрешение есть — запускаем чистую установку!
+                        installer.installApk(downloadedFile)
+                    } else {
+                        Toast.makeText(this@SettingsActivity, "Не удалось скачать файл обновления", Toast.LENGTH_LONG).show()
+                    }
+                }
             },
             { error ->
-                // 2. Сюда прилетит ошибка, если нет интернета
                 Toast.makeText(this@SettingsActivity, R.string.update_error, Toast.LENGTH_LONG).show()
             }
         )
-
         queue.add(stringRequest)
     }
+
 }
