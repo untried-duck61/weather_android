@@ -19,12 +19,13 @@ def getCommitCount() {
     try {
         def stdout = new ByteArrayOutputStream()
         exec {
+            workingDir project.rootDir // <--- Строго указываем корень проекта!
             commandLine 'git', 'rev-list', '--count', 'HEAD'
             standardOutput = stdout
         }
         return stdout.toString().trim().toInteger()
     } catch (ignored) {
-        return 1 // Фолбек, если собирается не из Git-репозитория
+        return 1
     }
 }
 
