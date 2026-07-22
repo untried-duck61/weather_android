@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
                 editor.apply()
 
                 val apiKey = shared.getString("apiKey", "").toString()
-                val units = if (shared.getBoolean("use_fahrenheit", false)) "metric" else "imperial"
+                val units = if (!shared.getBoolean("use_fahrenheit", false)) "metric" else "imperial"
 
                 getWeather(lon.toString(), lat.toString(), apiKey, units)
                 binding.tvUpdateStatus.text = getString(R.string.tv_update_status_updated_for_current_location_status)
@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
                 val lons = shared.getString("lon", "").toString()
                 val lats = shared.getString("lat", "").toString()
                 val apiKey = shared.getString("apiKey", "").toString()
-                val units = if (shared.getBoolean("use_fahrenheit", false)) "metric" else "imperial"
+                val units = if (!shared.getBoolean("use_fahrenheit", false)) "metric" else "imperial"
 
                 getWeather(lons, lats, apiKey, units)
                 binding.tvUpdateStatus.text = getString(R.string.tv_update_status_updated_for_saved_location_status)
