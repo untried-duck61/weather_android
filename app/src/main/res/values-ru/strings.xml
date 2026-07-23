@@ -51,7 +51,8 @@
     <string name="weather_update_failed">Не удалось обновить погоду. Проверьте интернет.</string>
     <string name="weather_update_retry_action">Повторить</string>
     <string name="update_install_request_permission">Пожалуйста, разрешите установку из неизвестных источников</string>
-    <string name="update_indicator_downloading">Скачивание обновления...</string>
+    <string name="update_indicator_downloading">Скачивание обновления…</string>
     <string name="update_download_failed">Не удалось скачать файл обновления</string>
     <string name="dialog_edit_api_key_title">Edit API Key</string>
+    <string name="barometer_label">%1$d hPa</string>
 </resources>
