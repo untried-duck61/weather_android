@@ -64,4 +64,8 @@
     <string name="pkgmgr_enoent">Update file not found</string>
     <string name="weather_update_failed">Failed to update weather. Check internet connection</string>
     <string name="weather_update_retry_action">Retry</string>
+    <string name="update_install_request_permission">Please allow installation from unknown sources</string>
+    <string name="update_indicator_downloading">Downloading update...</string>
+    <string name="update_download_failed">Failed to download an update file</string>
+    <string name="dialog_edit_api_key_title">Edit API Key</string>
 </resources>
