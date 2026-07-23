@@ -68,6 +68,10 @@ class SettingsActivity : AppCompatActivity() {
             editor.apply()
         }
 
+        binding.btnChangeApiKey.setOnClickListener {
+            showChangeApiKeyDialog(shared, editor)
+        }
+
     }
 
     fun checkUpdatesFromGitHub() {
@@ -141,6 +145,24 @@ class SettingsActivity : AppCompatActivity() {
             }
         )
         queue.add(stringRequest)
+    }
+
+    fun showChangeApiKeyDialog(shared: SharedPreferences, editor: SharedPreferences.Editor){
+        val view = LayoutInflater.from(this).inflate(R.layout.dialog_api_key, null)
+        val tfApiKeyEdit = view.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.tf_edit_api_key)
+        tfApiKeyEdit.setText(shared.getString("apiKey", "").toString())
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.dialog_edit_api_key_title))
+            .setView(view)
+            .setNegativeButton("Cancel", null)
+            .setPositiveButton("Save"){ dialog, _ ->
+                with(editor) {
+                    putString("apiKey", tfApiKeyEdit.text.toString().trim())
+                    apply()
+                }
+                dialog.dismiss()
+            }
+            .show()
     }
 
 }
