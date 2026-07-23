@@ -1,17 +1,11 @@
 package ru.untriedduck.weatherforecast
 
-import android.app.DownloadManager
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Environment
+import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.android.volley.Request
@@ -20,6 +14,7 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import ru.untriedduck.weatherforecast.databinding.ActivitySettingsBinding
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 import ru.untriedduck.weatherforecast.updates.ApkDownloader
 import ru.untriedduck.weatherforecast.updates.ApkInstaller
@@ -84,7 +79,7 @@ class SettingsActivity : AppCompatActivity() {
             latestUrl,
             { response ->
                 val root = JSONObject(response)
-                val latestVersion = root.getString("tag_name")!!
+                val latestVersion = root.getString("tag_name")
                 val currentVersion = packageManager.getPackageInfo(packageName, 0).versionName!!
 
                 // Твоя отличная логика покомпонентного сравнения версий
@@ -116,7 +111,8 @@ class SettingsActivity : AppCompatActivity() {
 
                 // 2. Проверяем разрешение на установку из неизвестных источников
                 if (!installer.checkInstallPermission()) {
-                    Toast.makeText(this@SettingsActivity, "Пожалуйста, разрешите установку обновлений", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@SettingsActivity,
+                        getString(R.string.update_install_request_permission), Toast.LENGTH_LONG).show()
                     installer.openInstallSettings()
                     return@StringRequest // Останавливаемся, пока пользователь не включит тумблер
                 }
@@ -124,7 +120,8 @@ class SettingsActivity : AppCompatActivity() {
                 // Достаем прямую ссылку на APK из JSON ответа GitHub
                 val latestApkUrl = root.getJSONArray("assets").getJSONObject(0).getString("browser_download_url")
 
-                Toast.makeText(this@SettingsActivity, "Скачивание обновления...", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SettingsActivity,
+                    getString(R.string.update_indicator_downloading), Toast.LENGTH_SHORT).show()
 
                 // 3. Запускаем корутину прямо внутри ответа Volley для фонового скачивания
                 lifecycleScope.launch {
@@ -134,11 +131,12 @@ class SettingsActivity : AppCompatActivity() {
                         // Файл в кэше, разрешение есть — запускаем чистую установку!
                         installer.installApk(downloadedFile)
                     } else {
-                        Toast.makeText(this@SettingsActivity, "Не удалось скачать файл обновления", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@SettingsActivity,
+                            getString(R.string.update_download_failed), Toast.LENGTH_LONG).show()
                     }
                 }
             },
-            { error ->
+            { _ ->
                 Toast.makeText(this@SettingsActivity, R.string.update_error, Toast.LENGTH_LONG).show()
             }
         )
