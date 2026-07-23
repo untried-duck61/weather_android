@@ -67,6 +67,6 @@
 
 * [ ] Add Settings page. (WIP)
 
-* [ ] Implement in-app updates check.
+* [x] Implement in-app updates check.
 
 * [x] **Fix Back Button:** Call `finish()` in `FirstRunActivity` after routing to prevent returning to the onboarding/splash screen.
