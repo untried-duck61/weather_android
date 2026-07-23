@@ -271,7 +271,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:padding="16dp"
                     android:orientation="vertical">
 
@@ -281,13 +281,61 @@
                         android:text="@string/pressure_card_title"
                         android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                         android:textColor="?android:attr/textColorSecondary"/>
-
-                    <TextView
-                        android:id="@+id/barometerOne"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/barometer_placeholder_no_data"/>
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:id="@+id/barometer_left"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/barometer_center"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintHorizontal_chainStyle="spread_inside">
+                            <ru.untriedduck.weatherforecast.view.BarometerView
+                                android:id="@+id/barometer_total"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_marginTop="8dp"
+                                app:currentPressure="0"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:id="@+id/barometer_center"
+                            app:layout_constraintLeft_toRightOf="@+id/barometer_left"
+                            app:layout_constraintRight_toLeftOf="@+id/barometer_right"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent">
+                            <ru.untriedduck.weatherforecast.view.BarometerView
+                                android:id="@+id/barometer_sea"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_marginTop="8dp"
+                                app:currentPressure="0"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:id="@+id/barometer_right"
+                            app:layout_constraintLeft_toRightOf="@+id/barometer_center"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent">
+                            <ru.untriedduck.weatherforecast.view.BarometerView
+                                android:id="@+id/barometer_ground"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_marginTop="8dp"
+                                app:currentPressure="0"/>
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
