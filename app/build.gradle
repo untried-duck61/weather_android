@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat
 
 // 1. Ручные настройки (меняем только их)
 def majorVersion = 0
-def minorVersion = 5
+def minorVersion = 6
 
 // 2. Авто-вычисление даты (Формат: ггММдд, например 260722)
 static def getBuildDate() {
