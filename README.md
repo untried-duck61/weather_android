@@ -65,7 +65,7 @@
 
 * [ ] Add more detailed weather information on the main page (wind (WIP), humidity (done), pressure (WIP)).
 
-* [ ] Add Settings page. (WIP)
+* [x] Add Settings page.
 
 * [x] Implement in-app updates check.
 
