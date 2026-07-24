@@ -20,23 +20,22 @@ class BarometerView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    // Текущее значение давления и диапазон (в гПа / hPa или мм рт. ст.)
     var minPressure: Float = 950f
     var maxPressure: Float = 1050f
+
+    // 1. ИСПРАВЛЕНО: Теперь дефолтное значение (1013) используется, если в XML ничего не задано
     var currentPressure: Float = 1013f
         set(value) {
             field = value.coerceIn(minPressure, maxPressure)
             invalidate()
         }
 
-    // Настройки разметки шкалы (в градусах)
-    private val startAngle = 135f // Старт снизу слева
-    private val sweepAngle = 270f // Дуга на 3/4 круга
+    private val startAngle = 135f
+    private val sweepAngle = 270f
 
-    // Краски
     private val trackPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
-        strokeCap = Paint.Cap.ROUND // Скругленные края в стиле M3
+        strokeCap = Paint.Cap.ROUND
     }
 
     private val progressPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -55,7 +54,6 @@ class BarometerView @JvmOverloads constructor(
     private val oval = RectF()
 
     init {
-        // Извлекаем цвета из Material 3 темы устройства
         val colorPrimary = MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimary, Color.BLUE)
         val colorSurfaceVariant = MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurfaceVariant, Color.GRAY)
         val colorOnSurface = MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurface, Color.BLACK)
@@ -66,60 +64,65 @@ class BarometerView @JvmOverloads constructor(
         textPaint.color = colorOnSurface
 
         val typedArray: TypedArray = context.theme.obtainStyledAttributes(
-            attrs,
-            R.styleable.BarometerView,
-            0, 0
+            attrs, R.styleable.BarometerView, 0, 0
         )
-
         try {
-            currentPressure = typedArray.getFloat(R.styleable.BarometerView_currentPressure, 0.0f)
+            // 2. ИСПРАВЛЕНО: Передаем currentPressure в качестве дефолтного значения для getFloat
+            currentPressure = typedArray.getFloat(R.styleable.BarometerView_currentPressure, currentPressure)
         } finally {
-            // ALWAYS recycle the TypedArray
             typedArray.recycle()
         }
     }
 
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
+    // 3. ОПТИМИЗАЦИЯ: Расчет размеров перенесен из onDraw сюда.
+    // onDraw вызывается очень часто, там нельзя делать лишние вычисления и выделять память.
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
 
-        // Вычисляем размеры и центр воpx пикселях (гарантирует четкость)
-        val size = min(width, height).toFloat()
+        val size = min(w, h).toFloat()
         val padding = size * 0.1f
-        val strokeWidth = size * 0.06f // Пропорциональная толщина дуги
+        val strokeWidth = size * 0.06f
         val radius = (size - padding * 2) / 2
-        val centerX = width / 2f
-        val centerY = height / 2f
+        val centerX = w / 2f
+        val centerY = h / 2f
 
-        // Настраиваем кисти под актуальный размер
         trackPaint.strokeWidth = strokeWidth
         progressPaint.strokeWidth = strokeWidth
         textPaint.textSize = size * 0.12f
 
-        // Границы для дуги
         oval.set(
             centerX - radius,
             centerY - radius,
             centerX + radius,
             centerY + radius
         )
+    }
 
-        // 1. Рисуем фоновую дугу (трек)
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+
+        val centerX = width / 2f
+        val centerY = height / 2f
+        val radius = oval.width() / 2f
+        val strokeWidth = trackPaint.strokeWidth
+
+        // 1. ФLayout-трек
         canvas.drawArc(oval, startAngle, sweepAngle, false, trackPaint)
 
-        // 2. Считаем процент заполнения шкалы
+        // 2. Прогресс
         val progressRatio = (currentPressure - minPressure) / (maxPressure - minPressure)
         val currentSweepAngle = sweepAngle * progressRatio
-
-        // 3. Рисуем дугу прогресса
         canvas.drawArc(oval, startAngle, currentSweepAngle, false, progressPaint)
 
-        // 4. Рисуем аккуратную точку-указатель на конце линии прогресса
+        // 3. Точка-указатель
         val targetAngleRad = Math.toRadians((startAngle + currentSweepAngle).toDouble())
         val indicatorX = centerX + radius * cos(targetAngleRad).toFloat()
         val indicatorY = centerY + radius * sin(targetAngleRad).toFloat()
         canvas.drawCircle(indicatorX, indicatorY, strokeWidth * 0.4f, indicatorPaint)
 
-        // 5. Выводим текст по центру (значение давления)
-        canvas.drawText(context.getString(R.string.barometer_label, currentPressure.toInt()), centerX, centerY + (textPaint.textSize / 3), textPaint)
+        // 4. Текст
+        // ИСПРАВЛЕНО: Для точного центрирования текста по вертикали лучше использовать fontMetrics
+        val textY = centerY - (textPaint.descent() + textPaint.ascent()) / 2
+        canvas.drawText(context.getString(R.string.barometer_label, currentPressure.toInt()), centerX, textY, textPaint)
     }
 }
