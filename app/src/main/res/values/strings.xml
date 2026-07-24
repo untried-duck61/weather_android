@@ -69,4 +69,7 @@
     <string name="update_download_failed">Failed to download an update file</string>
     <string name="dialog_edit_api_key_title">Edit API Key</string>
     <string name="barometer_label">%1$d hPa</string>
+    <string name="tv_total_pressure_label">Total pressure</string>
+    <string name="tv_on_the_sea_level_label">On the sea level</string>
+    <string name="tv_on_the_ground_level_label">On the ground level</string>
 </resources>
