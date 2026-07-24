@@ -135,6 +135,9 @@ class MainActivity : AppCompatActivity() {
             val tempMin = main.getString("temp_min").toFloat().roundToInt().toString()
             val tempMax = main.getString("temp_max").toFloat().roundToInt().toString()
             val humidity = main.getString("humidity").toInt().toString()
+            val totalPressure = main.getString("pressure").toFloat()
+            val seaPressure = main.getString("sea_level").toFloat()
+            val grndPressure = main.getString("grnd_level").toFloat()
 
             val sys = root.getJSONObject("sys")
             val country = sys.getString("country")
@@ -151,6 +154,9 @@ class MainActivity : AppCompatActivity() {
             binding.tvTempMin.text = getString(R.string.temp, tempMin, if (units == "imperial") "F" else "C")
             binding.tvTempMax.text = getString(R.string.temp, tempMax, if (units == "imperial") "F" else "C")
             binding.tvHumid.text = getString(R.string.humidity_text, humidity)
+            binding.barometerTotal.currentPressure = totalPressure
+            binding.barometerSea.currentPressure = seaPressure
+            binding.barometerGround.currentPressure = grndPressure
 
             // Установка иконки погоды (рекомендуется использовать .setImageDrawable вместо .background)
             val iconResId = resources.getIdentifier(
