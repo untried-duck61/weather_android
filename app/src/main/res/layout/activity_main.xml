@@ -387,6 +387,70 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardWind"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardBarometer">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wind_card_title"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                        android:textColor="?android:attr/textColorSecondary"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="2dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/iv_wind_direction_arrow"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:src="@drawable/ic_wind_arrow" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_wind_direction_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/unknown"
+                                android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                            <TextView
+                                android:id="@+id/tv_wind_speed"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/wind_card_wind_speed_placeholder"
+                                android:textAppearance="@style/TextAppearance.Material3.BodySmall" />
+
+                            <TextView
+                                android:id="@+id/tv_wind_gust"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/wind_card_wind_gust_placeholder"
+                                android:textAppearance="@style/TextAppearance.Material3.BodySmall" />
+                        </LinearLayout>
+
+                    </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
