@@ -154,8 +154,8 @@ class SettingsActivity : AppCompatActivity() {
         MaterialAlertDialogBuilder(this)
             .setTitle(getString(R.string.dialog_edit_api_key_title))
             .setView(view)
-            .setNegativeButton("Cancel", null)
-            .setPositiveButton("Save"){ dialog, _ ->
+            .setNegativeButton(getString(R.string.dialog_api_key_cancel_btn), null)
+            .setPositiveButton(getString(R.string.dialog_api_key_save_btn)){ dialog, _ ->
                 with(editor) {
                     putString("apiKey", tfApiKeyEdit.text.toString().trim())
                     apply()
