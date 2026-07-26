@@ -58,4 +58,19 @@
     <string name="tv_total_pressure_label">Общее давление</string>
     <string name="tv_on_the_sea_level_label">На уровне моря</string>
     <string name="tv_on_the_ground_level_label">На уровне земли</string>
+    <string name="dialog_api_key_cancel_btn">Отмена</string>
+    <string name="dialog_api_key_save_btn">Сохранить</string>
+    <string name="wind_card_title">Ветер</string>
+    <string name="wind_card_wind_speed_placeholder">Скорость ветра: 0 м/с</string>
+    <string name="wind_card_wind_gust_placeholder">Порывы ветра: 0 m/s</string>
+    <string name="wind_card_wind_speed_format">Скорость ветра: %1$s м/с</string>
+    <string name="wind_card_wind_gust_format">Порывы ветра: %1$s м/с</string>
+    <string name="wind_name_n">Северный</string>
+    <string name="wind_name_ne">Северо-восточный</string>
+    <string name="wind_name_e">Восточный</string>
+    <string name="wind_name_se">Юго-восточный</string>
+    <string name="wind_name_s">Южный</string>
+    <string name="wind_name_sw">Юго-западный</string>
+    <string name="wind_name_w">Западный</string>
+    <string name="wind_name_nw">Северо-западный</string>
 </resources>
