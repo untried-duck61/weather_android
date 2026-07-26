@@ -53,8 +53,8 @@
     <string name="update_install_request_permission">Пожалуйста, разрешите установку из неизвестных источников</string>
     <string name="update_indicator_downloading">Скачивание обновления…</string>
     <string name="update_download_failed">Не удалось скачать файл обновления</string>
-    <string name="dialog_edit_api_key_title">Edit API Key</string>
-    <string name="barometer_label">%1$d hPa</string>
+    <string name="dialog_edit_api_key_title">Изменить ключ API</string>
+    <string name="barometer_label">%1$d кПа</string>
     <string name="tv_total_pressure_label">Общее давление</string>
     <string name="tv_on_the_sea_level_label">На уровне моря</string>
     <string name="tv_on_the_ground_level_label">На уровне земли</string>
