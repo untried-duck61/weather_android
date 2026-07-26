@@ -63,7 +63,7 @@
 
 ## Roadmap & Tasks
 
-* [ ] Add more detailed weather information on the main page (wind (WIP), humidity (done), pressure (WIP)).
+* [ ] Add more detailed weather information on the main page (wind (WIP), humidity (done), pressure (done)).
 
 * [x] Add Settings page.
 
