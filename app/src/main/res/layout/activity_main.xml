@@ -133,130 +133,135 @@
 
             <!-- СЕТКА КАРТОЧЕК С ДЕТАЛЯМИ (В стиле виджетов Google) -->
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardTempRange"
-                style="@style/Widget.Material3.CardView.Filled"
-                android:layout_width="0dp"
+            <!-- Единый горизонтальный контейнер для карточек, который решает проблему высоты -->
+            <LinearLayout
+                android:id="@+id/layoutCardsContainer"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/cardHumidity"
-                app:layout_constraintHorizontal_weight="1"
+                android:layout_marginBottom="32dp"
+                android:orientation="horizontal"
+                android:baselineAligned="false"
+                app:layout_constraintTop_toBottomOf="@id/tvFeelsLike"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvFeelsLike">
+                app:layout_constraintEnd_toEndOf="parent">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:orientation="vertical">
+                <!-- Левая карточка (Температурный диапазон) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardTempRange"
+                    style="@style/Widget.Material3.CardView.Filled"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp">
 
-                    <!-- Заголовок карточки -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/temp_card_title"
-                        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
-                        android:textColor="?android:attr/textColorSecondary"/>
-
-                    <!-- Контейнер для иконок и значений температур -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:padding="16dp"
+                        android:orientation="vertical">
 
-                        <!-- Минимальная температура -->
-                        <ImageView
-                            android:id="@+id/img_temp_min"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_temp_min"
-                            android:contentDescription="@string/img_temp_min_desc" />
-
+                        <!-- Заголовок карточки -->
                         <TextView
-                            android:id="@+id/tvTempMin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
-                            android:text="@string/temp_placeholder"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+                            android:text="@string/temp_card_title"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                            android:textColor="?android:attr/textColorSecondary"/>
 
-                        <!-- Максимальная температура -->
-                        <ImageView
-                            android:id="@+id/img_temp_max"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginStart="16dp"
-                            android:src="@drawable/ic_temp_max"
-                            android:contentDescription="@string/img_temp_max_desc" />
-
-                        <TextView
-                            android:id="@+id/tvTempMax"
-                            android:layout_width="wrap_content"
+                        <!-- Контейнер для иконок и значений -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
-                            android:text="@string/temp_placeholder"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+                            android:layout_marginTop="8dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/img_temp_min"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_temp_min"
+                                android:contentDescription="@string/img_temp_min_desc" />
+
+                            <TextView
+                                android:id="@+id/tvTempMin"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:text="@string/temp_placeholder"
+                                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+
+                            <ImageView
+                                android:id="@+id/img_temp_max"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginStart="16dp"
+                                android:src="@drawable/ic_temp_max"
+                                android:contentDescription="@string/img_temp_max_desc" />
+
+                            <TextView
+                                android:id="@+id/tvTempMax"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:text="@string/temp_placeholder"
+                                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                        <!-- Карточка Влажности -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardHumidity"
-                style="@style/Widget.Material3.CardView.Filled"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintStart_toEndOf="@+id/cardTempRange"
-                app:layout_constraintTop_toBottomOf="@id/tvFeelsLike">
+                <!-- Правая карточка (Влажность) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardHumidity"
+                    style="@style/Widget.Material3.CardView.Filled"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <!-- Заголовок карточки -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/humidity_card_title"
-                        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
-                        android:textColor="?android:attr/textColorSecondary" />
-
-                    <!-- Контейнер для иконки и числового значения -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="2dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                        <ImageView
-                            android:id="@+id/img_humid"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:contentDescription="@string/img_humid_desc"
-                            android:src="@drawable/ic_humid" />
-
+                        <!-- Заголовок карточки -->
                         <TextView
-                            android:id="@+id/tvHumid"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
-                            android:text="@string/humidity_placeholder"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+                            android:text="@string/humidity_card_title"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                            android:textColor="?android:attr/textColorSecondary" />
+
+                        <!-- Контейнер для иконки и числового значения -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/img_humid"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:contentDescription="@string/img_humid_desc"
+                                android:src="@drawable/ic_humid" />
+
+                            <TextView
+                                android:id="@+id/tvHumid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="6dp"
+                                android:text="@string/humidity_placeholder"
+                                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
 
             <!-- Карточка Барометра -->
             <com.google.android.material.card.MaterialCardView
