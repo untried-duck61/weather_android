@@ -33,6 +33,7 @@ import kotlin.math.roundToInt
 import android.util.TypedValue
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
+import ru.untriedduck.weatherforecast.weather.WindDirection
 
 
 class MainActivity : AppCompatActivity() {
@@ -139,6 +140,11 @@ class MainActivity : AppCompatActivity() {
             val seaPressure = main.getString("sea_level").toFloat()
             val grndPressure = main.getString("grnd_level").toFloat()
 
+            val wind = root.getJSONObject("wind")
+            val windSpeed = wind.getString("speed")
+            val windDegree = wind.getString("deg").toFloat()
+            val windGust = wind.getString("gust")
+
             val sys = root.getJSONObject("sys")
             val country = sys.getString("country")
             val name = root.getString("name")
@@ -150,13 +156,21 @@ class MainActivity : AppCompatActivity() {
             binding.collapsingToolbarLayout.title = getString(R.string.tv_country_text, name, country)
 
             binding.tvDesc.text = getString(R.string.tv_desc_text, desc)
+
             binding.tvFeelsLike.text = getString(R.string.feels_like_text, feelsLike, if (units == "imperial") "F" else "C")
             binding.tvTempMin.text = getString(R.string.temp, tempMin, if (units == "imperial") "F" else "C")
             binding.tvTempMax.text = getString(R.string.temp, tempMax, if (units == "imperial") "F" else "C")
+
             binding.tvHumid.text = getString(R.string.humidity_text, humidity)
+
             binding.barometerTotal.currentPressure = totalPressure
             binding.barometerSea.currentPressure = seaPressure
             binding.barometerGround.currentPressure = grndPressure
+
+            binding.ivWindDirectionArrow.rotation = windDegree
+            binding.tvWindDirectionName.text = getString(WindDirection.fromDegrees(windDegree).resId)
+            binding.tvWindSpeed.text = getString(R.string.wind_card_wind_speed_format, windSpeed)
+            binding.tvWindGust.text = getString(R.string.wind_card_wind_gust_format, windGust)
 
             // Установка иконки погоды (рекомендуется использовать .setImageDrawable вместо .background)
             val iconResId = resources.getIdentifier(
