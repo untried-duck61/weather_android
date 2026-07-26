@@ -94,6 +94,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    android:importantForAccessibility="no"
                     android:src="@drawable/ic_arrow_down"
                     android:rotation="270"
                     app:tint="?attr/colorOnSurfaceVariant"/>
@@ -203,6 +204,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:importantForAccessibility="no"
                         android:text="@string/settings_api_key_sub"
                         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                         android:textColor="?attr/colorOnSurfaceVariant"/>
