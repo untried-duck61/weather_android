@@ -85,4 +85,5 @@ dependencies {
     androidTestImplementation libs.androidx.espresso.core
     implementation libs.retrofit
     implementation libs.kotlinx.coroutines.android
+    implementation libs.kotlinx.coroutines.play.services
 }
