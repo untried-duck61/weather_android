@@ -63,7 +63,11 @@
 
 ## Roadmap & Tasks
 
-* [ ] Add more detailed weather information on the main page (wind (WIP), humidity (done), pressure (done)).
+* [ ] Add more detailed weather information on the main page (wind (done), humidity (done), pressure (done), sunrise and sunset (WIP), last updated (WIP), visibility (WIP)).
+
+* [ ] Add daily forecast
+
+* [ ] Add useful notifications (app updates, forecast for tomorrow)
 
 * [x] Add Settings page.
 
