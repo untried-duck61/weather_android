@@ -1,13 +1,10 @@
 package ru.untriedduck.weatherforecast
 
-//import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import android.Manifest
@@ -19,21 +16,26 @@ import android.content.res.Configuration
 import android.util.Log
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
-//import android.util.Log
-//import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.material.snackbar.Snackbar
-//import org.json.JSONArray
 import org.json.JSONObject
 import ru.untriedduck.weatherforecast.databinding.ActivityMainBinding
 import kotlin.math.roundToInt
 import android.util.TypedValue
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.CancellableContinuation
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.tasks.await
 import ru.untriedduck.weatherforecast.weather.WindDirection
+import kotlin.coroutines.resume
 
 
 class MainActivity : AppCompatActivity() {
@@ -43,6 +45,19 @@ class MainActivity : AppCompatActivity() {
 
     // Выносим очередь Volley на уровень класса, чтобы не создавать её при каждом запросе
     private lateinit var requestQueue: RequestQueue
+
+    // 1. Регистрируем лаунчер в начале класса Activity
+    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+        permissionContinuation?.resume(it)
+    }
+    private var permissionContinuation: CancellableContinuation<Boolean>? = null
+
+    // 2. Превращаем асинхронный запрос в "ожидаемый"
+    private suspend fun ActivityResultLauncher<String>.launchSuspend(permission: String): Boolean =
+        suspendCancellableCoroutine { continuation ->
+            permissionContinuation = continuation
+            launch(permission)
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         setupAppBarMenu(shared, editor)
 
         // Проверка локации и первичный запрос
-        checkLocationAndLoadWeather(shared, editor)
+        lifecycleScope.launch { checkLocationAndLoadWeather(shared, editor) }
     }
 
     private fun setupAppBarMenu(shared: SharedPreferences, editor: SharedPreferences.Editor) {
@@ -72,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.refresh_btn -> {
-                    checkLocationAndLoadWeather(shared, editor)
+                    lifecycleScope.launch { checkLocationAndLoadWeather(shared, editor) }
                     true // Возвращаем true, чтобы подтвердить обработку клика
                 }
                 R.id.settings_btn -> {
@@ -85,13 +100,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkLocationAndLoadWeather(shared: SharedPreferences, editor: SharedPreferences.Editor) {
+    private suspend fun checkLocationAndLoadWeather(shared: SharedPreferences, editor: SharedPreferences.Editor) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionRequest)
-            return
+            // Программа сама приостановит выполнение на этой строчке, пока юзер не нажмет кнопку
+            val isGranted = requestPermissionLauncher.launchSuspend(Manifest.permission.ACCESS_FINE_LOCATION)
+            if (!isGranted) {
+                // Если отказал, загружаем старое и выходим
+                loadSavedWeather(shared)
+                return
+            }
         }
 
-        locationClient.lastLocation.addOnSuccessListener { location ->
+        val location = locationClient.lastLocation.await()
             if (location != null) {
                 val lat = location.latitude
                 val lon = location.longitude
@@ -114,7 +134,6 @@ class MainActivity : AppCompatActivity() {
                 getWeather(lons, lats, apiKey, units)
                 binding.tvUpdateStatus.text = getString(R.string.tv_update_status_updated_for_saved_location_status)
             }
-        }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables", "DiscouragedApi")
@@ -215,5 +234,15 @@ class MainActivity : AppCompatActivity() {
         theme.resolveAttribute(attr, typedValue, true)
         return typedValue.data
     }
+
+    private fun loadSavedWeather(shared: SharedPreferences) {
+        val lons = shared.getString("lon", "").toString()
+        val lats = shared.getString("lat", "").toString()
+        val apiKey = shared.getString("apiKey", "").toString()
+        val units = if (!shared.getBoolean("use_fahrenheit", false)) "metric" else "imperial"
+        getWeather(lons, lats, apiKey, units)
+        binding.tvUpdateStatus.text = getString(R.string.tv_update_status_updated_for_saved_location_status)
+    }
+
 }
 
