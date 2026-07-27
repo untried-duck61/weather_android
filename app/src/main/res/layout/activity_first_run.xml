@@ -46,9 +46,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="24dp"> <!-- Стандартный отступ для контента в Material 3 -->
+            android:padding="24dp">
 
-            <!-- Шаг 1: Описание для API ключа -->
             <TextView
                 android:id="@+id/welcome_text_step_one"
                 android:layout_width="0dp"
@@ -80,7 +79,6 @@
                     android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Шаг 2: Описание для Выбора (бывший welcomeTextStepTwo) -->
             <TextView
                 android:id="@+id/welcomeTextStepTwo"
                 android:layout_width="0dp"
@@ -93,7 +91,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tiLayout" />
 
-            <!-- Замена старого Spinner на современный Material 3 Dropdown Menu -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/spinnerLayout"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -105,26 +102,58 @@
                 app:layout_constraintTop_toBottomOf="@id/welcomeTextStepTwo">
 
                 <AutoCompleteTextView
-                    android:id="@+id/planets_spinner"
+                    android:id="@+id/upd_mode_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
                     android:hint="@string/weather_upd_mode_chooser_hint"
+                    android:inputType="none"
                     tools:ignore="LabelFor" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Главная кнопка действия (Стиль Material3) -->
+            <TextView
+                android:id="@+id/welcomeTextStepThree"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="@string/weather_city_name_textfield_label"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                app:layout_constraintBottom_toTopOf="@+id/citySearchInputLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerLayout" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/citySearchInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Введите название города"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/welcomeTextStepThree"
+                tools:visibility="visible">
+
+                <AutoCompleteTextView
+                    android:id="@+id/citySearchAutoComplete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textAutoComplete"
+                    android:padding="16dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnFinish"
                 style="@style/Widget.Material3.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="28dp"
                 android:text="@string/btn_finish_text"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/spinnerLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/citySearchInputLayout" />
 
-            <!-- Подпись копирайта снизу -->
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="0dp"
