@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.Html
-import android.text.method.LinkMovementMethod
+import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +13,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import ru.untriedduck.weatherforecast.databinding.ActivityFirstRunBinding
 import androidx.core.content.edit
-
-//import ru.untriedduck.weatherforecast.databinding.ActivityMainBinding
 
 @Suppress("DEPRECATION")
 public class FirstRunActivity : AppCompatActivity() {
@@ -54,9 +52,26 @@ public class FirstRunActivity : AppCompatActivity() {
                 finish()
             }
         }
-        /*binding.welcomeTextStepOne.append(Html.fromHtml(R.string.welcome_text_step_one.toString(),Html.FROM_HTML_MODE_COMPACT))
-        binding.welcomeTextStepOne.movementMethod = LinkMovementMethod.getInstance();*/
-        //binding.welcomeTextStepOne.text=Html.fromHtml(R.string.welcome_text_step_one.toString(),Html.FROM_HTML_MODE_COMPACT)
+
+        val weatherUpdateModes = arrayOf(
+            getString(R.string.upd_mode_only_gps),
+            getString(R.string.upd_mode_only_city)
+        )
+
+        binding.updModeSpinner.setAdapter(ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, weatherUpdateModes))
+
+        binding.updModeSpinner.setOnItemClickListener { _, _, position, _ ->
+            when (position) {
+                0 -> {
+                    binding.citySearchInputLayout.visibility = View.GONE
+                    shared.edit().putBoolean("USE_GPS", true).apply()
+                }
+                1 -> {
+                    binding.citySearchInputLayout.visibility = View.VISIBLE
+                    shared.edit().putBoolean("USE_GPS", false).apply()
+                }
+            }
+        }
 
     }
 }
