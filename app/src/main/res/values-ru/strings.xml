@@ -73,4 +73,7 @@
     <string name="wind_name_sw">Юго-западный</string>
     <string name="wind_name_w">Западный</string>
     <string name="wind_name_nw">Северо-западный</string>
+    <string name="upd_mode_only_gps">Только по GPS</string>
+    <string name="upd_mode_only_city">Только по указанному городу</string>
+    <string name="weather_city_name_textfield_label">Выберите свой город:</string>
 </resources>

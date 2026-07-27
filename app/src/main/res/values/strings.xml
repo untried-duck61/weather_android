@@ -87,4 +87,7 @@
     <string name="wind_name_sw">Southwest</string>
     <string name="wind_name_w">West</string>
     <string name="wind_name_nw">Northwest</string>
+    <string name="upd_mode_only_gps">GPS only</string>
+    <string name="upd_mode_only_city">Defined city only</string>
+    <string name="weather_city_name_textfield_label">Choose your city:</string>
 </resources>
