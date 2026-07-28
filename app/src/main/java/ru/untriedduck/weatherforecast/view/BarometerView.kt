@@ -55,8 +55,8 @@ class BarometerView @JvmOverloads constructor(
 
     init {
         val colorPrimary = MaterialColors.getColor(context, android.R.attr.colorPrimary, Color.BLUE)
-        val colorSurfaceVariant = MaterialColors.getColor(context, android.R.attr.colorSurfaceVariant, Color.GRAY)
-        val colorOnSurface = MaterialColors.getColor(context, android.R.attr.colorOnSurface, Color.BLACK)
+        val colorSurfaceVariant = MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurfaceVariant, Color.GRAY)
+        val colorOnSurface = MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurface, Color.BLACK)
 
         trackPaint.color = colorSurfaceVariant
         progressPaint.color = colorPrimary
