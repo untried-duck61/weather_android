@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val location = locationClient.lastLocation.await()
-            if (location != null) {
+        if (location != null) {
                 val lat = location.latitude
                 val lon = location.longitude
 
