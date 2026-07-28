@@ -54,9 +54,9 @@ class BarometerView @JvmOverloads constructor(
     private val oval = RectF()
 
     init {
-        val colorPrimary = MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimary, Color.BLUE)
-        val colorSurfaceVariant = MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurfaceVariant, Color.GRAY)
-        val colorOnSurface = MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurface, Color.BLACK)
+        val colorPrimary = MaterialColors.getColor(context, android.R.attr.colorPrimary, Color.BLUE)
+        val colorSurfaceVariant = MaterialColors.getColor(context, android.R.attr.colorSurfaceVariant, Color.GRAY)
+        val colorOnSurface = MaterialColors.getColor(context, android.R.attr.colorOnSurface, Color.BLACK)
 
         trackPaint.color = colorSurfaceVariant
         progressPaint.color = colorPrimary
