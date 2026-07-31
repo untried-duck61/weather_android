@@ -39,7 +39,6 @@ def buildDate = getBuildDate()
 
 android {
     namespace 'ru.untriedduck.weatherforecast'
-    compileSdk 36
 
     defaultConfig {
         applicationId "ru.untriedduck.weatherforecast"
@@ -62,7 +61,7 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '11'
+
     }
 
     buildFeatures{
