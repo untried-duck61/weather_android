@@ -47,9 +47,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var requestQueue: RequestQueue
 
     // 1. Регистрируем лаунчер в начале класса Activity
-    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-        permissionContinuation?.resume(it)
-    }
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            permissionContinuation?.resume(it)
+        }
     private var permissionContinuation: CancellableContinuation<Boolean>? = null
 
     // 2. Превращаем асинхронный запрос в "ожидаемый"
@@ -90,29 +91,40 @@ class MainActivity : AppCompatActivity() {
                     lifecycleScope.launch { checkLocationAndLoadWeather(shared, editor) }
                     true // Возвращаем true, чтобы подтвердить обработку клика
                 }
+
                 R.id.settings_btn -> {
                     val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
                     true
                 }
+
                 else -> false
             }
         }
     }
 
-    private suspend fun checkLocationAndLoadWeather(shared: SharedPreferences, editor: SharedPreferences.Editor) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // Программа сама приостановит выполнение на этой строчке, пока юзер не нажмет кнопку
-            val isGranted = requestPermissionLauncher.launchSuspend(Manifest.permission.ACCESS_FINE_LOCATION)
-            if (!isGranted) {
-                // Если отказал, загружаем старое и выходим
-                loadSavedWeather(shared)
-                return
+    private suspend fun checkLocationAndLoadWeather(
+        shared: SharedPreferences,
+        editor: SharedPreferences.Editor
+    ) {
+        if (shared.getBoolean("USE_GPS", false)) {
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                // Программа сама приостановит выполнение на этой строчке, пока юзер не нажмет кнопку
+                val isGranted =
+                    requestPermissionLauncher.launchSuspend(Manifest.permission.ACCESS_FINE_LOCATION)
+                if (!isGranted) {
+                    // Если отказал, загружаем старое и выходим
+                    loadSavedWeather(shared)
+                    return
+                }
             }
-        }
 
-        val location = locationClient.lastLocation.await()
-        if (location != null) {
+            val location = locationClient.lastLocation.await()
+            if (location != null) {
                 val lat = location.latitude
                 val lon = location.longitude
 
@@ -121,19 +133,18 @@ class MainActivity : AppCompatActivity() {
                 editor.apply()
 
                 val apiKey = shared.getString("apiKey", "").toString()
-                val units = if (!shared.getBoolean("use_fahrenheit", false)) "metric" else "imperial"
+                val units =
+                    if (!shared.getBoolean("use_fahrenheit", false)) "metric" else "imperial"
 
                 getWeather(lon.toString(), lat.toString(), apiKey, units)
-                binding.tvUpdateStatus.text = getString(R.string.tv_update_status_updated_for_current_location_status)
+                binding.tvUpdateStatus.text =
+                    getString(R.string.tv_update_status_updated_for_current_location_status)
             } else {
-                val lons = shared.getString("lon", "").toString()
-                val lats = shared.getString("lat", "").toString()
-                val apiKey = shared.getString("apiKey", "").toString()
-                val units = if (!shared.getBoolean("use_fahrenheit", false)) "metric" else "imperial"
-
-                getWeather(lons, lats, apiKey, units)
-                binding.tvUpdateStatus.text = getString(R.string.tv_update_status_updated_for_saved_location_status)
+                loadSavedWeather(shared)
             }
+        } else {
+            loadWeatherBySavedCity(shared)
+        }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables", "DiscouragedApi")
@@ -169,16 +180,24 @@ class MainActivity : AppCompatActivity() {
             val name = root.getString("name")
 
             // Изменение текстов
-            binding.tvTemp.text = getString(R.string.temp, temp, if (units == "imperial") "F" else "C")
+            binding.tvTemp.text =
+                getString(R.string.temp, temp, if (units == "imperial") "F" else "C")
 
             // СТРОКА ИСПРАВЛЕНА: Теперь город отправляется в CollapsingToolbarLayout
-            binding.collapsingToolbarLayout.title = getString(R.string.tv_country_text, name, country)
+            binding.collapsingToolbarLayout.title =
+                getString(R.string.tv_country_text, name, country)
 
             binding.tvDesc.text = getString(R.string.tv_desc_text, desc)
 
-            binding.tvFeelsLike.text = getString(R.string.feels_like_text, feelsLike, if (units == "imperial") "F" else "C")
-            binding.tvTempMin.text = getString(R.string.temp, tempMin, if (units == "imperial") "F" else "C")
-            binding.tvTempMax.text = getString(R.string.temp, tempMax, if (units == "imperial") "F" else "C")
+            binding.tvFeelsLike.text = getString(
+                R.string.feels_like_text,
+                feelsLike,
+                if (units == "imperial") "F" else "C"
+            )
+            binding.tvTempMin.text =
+                getString(R.string.temp, tempMin, if (units == "imperial") "F" else "C")
+            binding.tvTempMax.text =
+                getString(R.string.temp, tempMax, if (units == "imperial") "F" else "C")
 
             binding.tvHumid.text = getString(R.string.humidity_text, humidity)
 
@@ -186,8 +205,9 @@ class MainActivity : AppCompatActivity() {
             binding.barometerSea.currentPressure = seaPressure
             binding.barometerGround.currentPressure = grndPressure
 
-            binding.ivWindDirectionArrow.rotation = windDegree
-            binding.tvWindDirectionName.text = getString(WindDirection.fromDegrees(windDegree).resId)
+            binding.ivWindDirectionArrow.rotation = 360 - windDegree
+            binding.tvWindDirectionName.text =
+                getString(WindDirection.fromDegrees(windDegree).resId)
             binding.tvWindSpeed.text = getString(R.string.wind_card_wind_speed_format, windSpeed)
             binding.tvWindGust.text = getString(R.string.wind_card_wind_gust_format, windGust)
 
@@ -198,7 +218,13 @@ class MainActivity : AppCompatActivity() {
                 packageName
             )
             if (iconResId != 0) {
-                binding.imgCondition.setImageDrawable(ResourcesCompat.getDrawable(resources, iconResId, null))
+                binding.imgCondition.setImageDrawable(
+                    ResourcesCompat.getDrawable(
+                        resources,
+                        iconResId,
+                        null
+                    )
+                )
             }
 
         }, { error ->
@@ -218,7 +244,11 @@ class MainActivity : AppCompatActivity() {
                     getWeather(lon, lat, apiKey, units)
                 }
                 // Задаем цвет кнопке действия из палитры темы приложения
-                setActionTextColor(if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES) this@MainActivity.getColorFromAttr(com.google.android.material.R.attr.colorOnTertiary) else this@MainActivity.getColorFromAttr(com.google.android.material.R.attr.colorTertiary))
+                setActionTextColor(
+                    if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES) this@MainActivity.getColorFromAttr(
+                        com.google.android.material.R.attr.colorOnTertiary
+                    ) else this@MainActivity.getColorFromAttr(com.google.android.material.R.attr.colorTertiary)
+                )
 
                 show() // Показываем Snackbar
             }
@@ -241,7 +271,18 @@ class MainActivity : AppCompatActivity() {
         val apiKey = shared.getString("apiKey", "").toString()
         val units = if (!shared.getBoolean("use_fahrenheit", false)) "metric" else "imperial"
         getWeather(lons, lats, apiKey, units)
-        binding.tvUpdateStatus.text = getString(R.string.tv_update_status_updated_for_saved_location_status)
+        binding.tvUpdateStatus.text =
+            getString(R.string.tv_update_status_updated_for_saved_location_status)
+    }
+
+    private fun loadWeatherBySavedCity(shared: SharedPreferences) {
+        val lons = shared.getString("SELECTED_CITY_LON", "").toString()
+        val lats = shared.getString("SELECTED_CITY_LAT", "").toString()
+        val apiKey = shared.getString("apiKey", "").toString()
+        val units = if (!shared.getBoolean("use_fahrenheit", false)) "metric" else "imperial"
+        getWeather(lons, lats, apiKey, units)
+        binding.tvUpdateStatus.text =
+            getString(R.string.tv_update_status_updated_for_selected_city_status)
     }
 
 }
