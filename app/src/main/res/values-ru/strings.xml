@@ -76,4 +76,8 @@
     <string name="upd_mode_only_gps">Только по GPS</string>
     <string name="upd_mode_only_city">Только по указанному городу</string>
     <string name="weather_city_name_textfield_label">Выберите свой город:</string>
+    <string name="tv_update_status_updated_for_selected_city_status">Updated weather for selected city</string>
+    <string name="settings_upd_mode_desc">Use GPS or not setting</string>
+    <string name="settings_upd_mode_title">Use GPS for weather</string>
+    <string name="settings_upd_mode_sub">Use GPS data or selected city</string>
 </resources>
