@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="?attr/colorSurface"
+    android:fitsSystemWindows="true"
     tools:context=".FirstRunActivity">
 
     <!-- Material You Large Top App Bar Container -->
@@ -19,19 +18,19 @@
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout"
+            style="@style/Widget.Material3.CollapsingToolbar.Large"
             android:layout_width="match_parent"
             android:layout_height="152dp"
-            app:title="@string/welcome_text"
-            style="@style/Widget.Material3.CollapsingToolbar.Large"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:title="@string/welcome_text">
 
             <!-- Кнопку назад убрали, оставили только чистый Toolbar для экшенов (если понадобятся) -->
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topAppBar"
+                style="@style/Widget.Material3.Toolbar.Surface"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/transparent"
-                style="@style/Widget.Material3.Toolbar.Surface"
                 app:layout_collapseMode="pin" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -57,7 +56,8 @@
                 android:textColor="?android:attr/textColorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="VisualLintLocaleText" />
 
             <!-- Поле ввода API ключа -->
             <com.google.android.material.textfield.TextInputLayout
@@ -76,7 +76,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/api_key_textfield_hint"
                     android:inputType="text"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    tools:ignore="VisualLintTextFieldSize,TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -89,7 +90,8 @@
                 android:textColor="?android:attr/textColorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tiLayout" />
+                app:layout_constraintTop_toBottomOf="@id/tiLayout"
+                tools:ignore="VisualLintLocaleText" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/spinnerLayout"
@@ -107,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/weather_upd_mode_chooser_hint"
                     android:inputType="none"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -121,7 +123,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/citySearchInputLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerLayout"
+                tools:ignore="VisualLintLocaleText" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/citySearchInputLayout"
@@ -141,7 +144,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textAutoComplete"
-                    android:padding="16dp"/>
+                    android:padding="16dp"
+                    tools:ignore="VisualLintTextFieldSize,TextContrastCheck,TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -167,7 +171,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnFinish" />
+                app:layout_constraintTop_toBottomOf="@id/btnFinish"
+                tools:ignore="VisualLintLocaleText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
