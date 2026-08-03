@@ -18,12 +18,12 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
+            style="@style/Widget.Material3.Toolbar.Surface"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/settings_activity_title"
-            app:navigationIcon="@drawable/ic_arrow_back"
             app:navigationContentDescription="@string/back_btn_nav_content_desc"
-            style="@style/Widget.Material3.Toolbar.Surface" />
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="@string/settings_activity_title" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -43,36 +43,36 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/settings_section_updates"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:text="@string/settings_section_updates"
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                android:textColor="?attr/colorAccent"/>
+                android:textColor="?attr/colorAccent" />
 
             <LinearLayout
                 android:id="@+id/btnCheckUpdates"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:gravity="center_vertical">
+                android:paddingBottom="16dp">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_sync"
                     android:contentDescription="@string/ic_check_updates_content_desc"
-                    app:tint="?attr/colorOnSurfaceVariant"/>
+                    android:src="@drawable/ic_sync"
+                    app:tint="?attr/colorOnSurfaceVariant" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="16dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
@@ -80,24 +80,24 @@
                         android:layout_height="wrap_content"
                         android:text="@string/tv_check_for_updates_label"
                         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                        android:textColor="?attr/colorOnSurface"/>
+                        android:textColor="?attr/colorOnSurface" />
 
                     <TextView
+                        android:id="@+id/tvCurrentVersion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tvCurrentVersion"
                         android:text="@string/tv_current_version_placeholder"
                         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                        android:textColor="?attr/colorOnSurfaceVariant"/>
+                        android:textColor="?attr/colorOnSurfaceVariant" />
                 </LinearLayout>
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:importantForAccessibility="no"
-                    android:src="@drawable/ic_arrow_down"
                     android:rotation="270"
-                    app:tint="?attr/colorOnSurfaceVariant"/>
+                    android:src="@drawable/ic_arrow_down"
+                    app:tint="?attr/colorOnSurfaceVariant" />
 
             </LinearLayout>
 
@@ -105,38 +105,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="16dp" />
 
             <!-- Секция: Основные настройки -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/settings_section_general"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:text="@string/settings_section_general"
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                android:textColor="?attr/colorAccent"/>
+                android:textColor="?attr/colorAccent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:gravity="center_vertical">
+                android:paddingBottom="16dp">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_temp_settings"
                     android:contentDescription="@string/settings_temp_unit_desc"
-                    app:tint="?attr/colorOnSurfaceVariant"/>
+                    android:src="@drawable/ic_temp_settings"
+                    app:tint="?attr/colorOnSurfaceVariant" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="16dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                 <TextView
@@ -166,32 +166,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="16dp" />
 
             <LinearLayout
                 android:id="@+id/btnChangeApiKey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:gravity="center_vertical">
+                android:paddingBottom="16dp">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_key"
                     android:contentDescription="@string/settings_api_key_desc"
-                    app:tint="?attr/colorOnSurfaceVariant"/>
+                    android:src="@drawable/ic_key"
+                    app:tint="?attr/colorOnSurfaceVariant" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="16dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
@@ -199,7 +199,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/settings_api_key_title"
                         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                        android:textColor="?attr/colorOnSurface"/>
+                        android:textColor="?attr/colorOnSurface" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -207,15 +207,15 @@
                         android:importantForAccessibility="no"
                         android:text="@string/settings_api_key_sub"
                         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                        android:textColor="?attr/colorOnSurfaceVariant"/>
+                        android:textColor="?attr/colorOnSurfaceVariant" />
                 </LinearLayout>
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_arrow_down"
                     android:rotation="270"
-                    app:tint="?attr/colorOnSurfaceVariant"/>
+                    android:src="@drawable/ic_arrow_down"
+                    app:tint="?attr/colorOnSurfaceVariant" />
 
             </LinearLayout>
 
@@ -223,29 +223,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="16dp" />
 
             <LinearLayout
+                android:id="@+id/btnChangeUpdateMode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:clickable="true"
                 android:focusable="true"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
                 android:gravity="center_vertical"
-                android:id="@+id/btnChangeUpdateMode">
+                android:orientation="horizontal"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp">
+
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_location_on"
                     android:contentDescription="@string/settings_upd_mode_desc"
-                    app:tint="?attr/colorOnSurfaceVariant"/>
+                    android:src="@drawable/ic_location_on"
+                    app:tint="?attr/colorOnSurfaceVariant" />
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="16dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
@@ -253,21 +255,21 @@
                         android:layout_height="wrap_content"
                         android:text="@string/settings_upd_mode_title"
                         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                        android:textColor="?attr/colorOnSurface"/>
+                        android:textColor="?attr/colorOnSurface" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/settings_upd_mode_sub"
                         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                        android:textColor="?attr/colorOnSurfaceVariant"/>
+                        android:textColor="?attr/colorOnSurfaceVariant" />
                 </LinearLayout>
 
                 <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switchWeatherUpdMode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/switchWeatherUpdMode"
-                    android:layout_marginStart="16dp"/>
+                    android:layout_marginStart="16dp" />
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
