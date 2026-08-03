@@ -92,6 +92,8 @@
     <string name="weather_city_name_textfield_label">Choose your city:</string>
     <string name="tv_update_status_updated_for_selected_city_status">Updated weather for selected city</string>
     <string name="settings_upd_mode_desc">Use GPS or not setting</string>
-    <string name="settings_upd_mode_title">Use GPS for weather</string>
+    <string name="settings_upd_mode_title">Use GPS</string>
     <string name="settings_upd_mode_sub">Use GPS data or selected city</string>
+    <string name="city_name_textfield_hint">Название города</string>
+    <string name="city_search_autocomplete_tv_hint">Введите название города</string>
 </resources>
