@@ -107,6 +107,13 @@ class MainActivity : AppCompatActivity() {
         shared: SharedPreferences,
         editor: SharedPreferences.Editor
     ) {
+        // МИГРАЦИЯ ДАННЫХ: Проверяем, заходил ли пользователь на этой версии ранее
+        if (!shared.contains("USE_GPS")) {
+            // Если ключа "USE_GPS" нет, значит это апдейт со старой версии.
+            // Старая версия всегда работала только по GPS, поэтому принудительно пишем true.
+            editor.putBoolean("USE_GPS", true).apply()
+        }
+
         if (shared.getBoolean("USE_GPS", false)) {
             if (ActivityCompat.checkSelfPermission(
                     this,
