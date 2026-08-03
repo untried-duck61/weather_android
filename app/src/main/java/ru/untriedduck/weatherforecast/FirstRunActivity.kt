@@ -109,7 +109,6 @@ class FirstRunActivity : AppCompatActivity() {
             }
         })
 
-        // 3. Сохраняем координаты при клике на город из списка
         binding.citySearchAutoComplete.setOnItemClickListener { _, _, position, _ ->
             shared.edit().apply {
                 putString("SELECTED_CITY_NAME", citiesNames[position])
@@ -128,15 +127,12 @@ class FirstRunActivity : AppCompatActivity() {
         val apiService = retrofit.create(HelperApiMethods::class.java)
         lifecycleScope.launch {
             try {
-                // Вызываем твой Retrofit (замени на свой вызов сервиса)
                 val responseBody =
                     apiService.getCitiesByQuery(query, 5, binding.tfApiKey.text.toString())
                 val jsonString = responseBody.string()
-                //val jsonString = "[]" // Временная заглушка
 
                 val jsonArray = JSONArray(jsonString)
 
-                // Очищаем старые данные перед новым поиском
                 citiesNames.clear()
                 citiesLat.clear()
                 citiesLon.clear()
@@ -145,19 +141,20 @@ class FirstRunActivity : AppCompatActivity() {
                     val obj = jsonArray.getJSONObject(i)
 
                     // Собираем красивую строку: "Имя, Страна (Область)"
-                    val name = if(obj.getJSONObject("local_names").getString(getString(R.string.lang)) == null) obj.getString("name") else obj.getJSONObject("local_names").getString(getString(R.string.lang))
+                    val name = if (obj.getJSONObject("local_names")
+                            .getString(getString(R.string.lang)) == null
+                    ) obj.getString("name") else obj.getJSONObject("local_names")
+                        .getString(getString(R.string.lang))
                     val country = obj.getString("country")
                     val state = obj.optString("state", "")
                     val fullName =
                         if (state.isNotEmpty()) "$name, $country ($state)" else "$name, $country"
 
-                    // Раскладываем всё по простым спискам (индексы будут совпадать)
                     citiesNames.add(fullName)
                     citiesLat.add(obj.getDouble("lat"))
                     citiesLon.add(obj.getDouble("lon"))
                 }
 
-                // Говорим адаптеру обновить экран
                 searchAdapter.notifyDataSetChanged()
 
             } catch (e: Exception) {

@@ -20,7 +20,7 @@ import ru.untriedduck.weatherforecast.updates.ApkDownloader
 import ru.untriedduck.weatherforecast.updates.ApkInstaller
 
 class SettingsActivity : AppCompatActivity() {
-    private lateinit var binding : ActivitySettingsBinding
+    private lateinit var binding: ActivitySettingsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
@@ -44,8 +44,9 @@ class SettingsActivity : AppCompatActivity() {
             val packageInfo = packageManager.getPackageInfo(packageName, 0)
             val versionName = packageInfo.versionName ?: "unknown"
 
-            binding.tvCurrentVersion.text = getString(R.string.tv_current_version_format,versionName)
-        } catch (e: Exception){
+            binding.tvCurrentVersion.text =
+                getString(R.string.tv_current_version_format, versionName)
+        } catch (e: Exception) {
             e.printStackTrace()
 
             binding.tvCurrentVersion.text = getString(R.string.tv_current_version_format, "unknown")
@@ -64,8 +65,10 @@ class SettingsActivity : AppCompatActivity() {
         // 4. Пишем слушатель переключения тумблера
         binding.switchTempUnit.setOnCheckedChangeListener { _, isChecked ->
             // Сохраняем выбор пользователя (true, если включен Фаренгейт)
-            editor.putBoolean("use_fahrenheit", isChecked)
-            editor.apply()
+            with(editor) {
+                putBoolean("use_fahrenheit", isChecked)
+                apply()
+            }
         }
 
         binding.btnChangeApiKey.setOnClickListener {
@@ -75,7 +78,8 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     fun checkUpdatesFromGitHub() {
-        val latestUrl = "https://api.github.com/repos/untried-duck61/weather_android/releases/latest"
+        val latestUrl =
+            "https://api.github.com/repos/untried-duck61/weather_android/releases/latest"
         val queue = Volley.newRequestQueue(this)
 
         val stringRequest = StringRequest(
@@ -104,7 +108,11 @@ class SettingsActivity : AppCompatActivity() {
                 }
 
                 if (!isNewerAvailable) {
-                    Toast.makeText(this@SettingsActivity, R.string.update_latest, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@SettingsActivity,
+                        R.string.update_latest,
+                        Toast.LENGTH_SHORT
+                    ).show()
                     return@StringRequest
                 }
 
@@ -115,17 +123,22 @@ class SettingsActivity : AppCompatActivity() {
 
                 // 2. Проверяем разрешение на установку из неизвестных источников
                 if (!installer.checkInstallPermission()) {
-                    Toast.makeText(this@SettingsActivity,
-                        getString(R.string.update_install_request_permission), Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@SettingsActivity,
+                        getString(R.string.update_install_request_permission), Toast.LENGTH_LONG
+                    ).show()
                     installer.openInstallSettings()
                     return@StringRequest // Останавливаемся, пока пользователь не включит тумблер
                 }
 
                 // Достаем прямую ссылку на APK из JSON ответа GitHub
-                val latestApkUrl = root.getJSONArray("assets").getJSONObject(0).getString("browser_download_url")
+                val latestApkUrl =
+                    root.getJSONArray("assets").getJSONObject(0).getString("browser_download_url")
 
-                Toast.makeText(this@SettingsActivity,
-                    getString(R.string.update_indicator_downloading), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@SettingsActivity,
+                    getString(R.string.update_indicator_downloading), Toast.LENGTH_SHORT
+                ).show()
 
                 // 3. Запускаем корутину прямо внутри ответа Volley для фонового скачивания
                 lifecycleScope.launch {
@@ -135,27 +148,31 @@ class SettingsActivity : AppCompatActivity() {
                         // Файл в кэше, разрешение есть — запускаем чистую установку!
                         installer.installApk(downloadedFile)
                     } else {
-                        Toast.makeText(this@SettingsActivity,
-                            getString(R.string.update_download_failed), Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this@SettingsActivity,
+                            getString(R.string.update_download_failed), Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
             },
             { _ ->
-                Toast.makeText(this@SettingsActivity, R.string.update_error, Toast.LENGTH_LONG).show()
+                Toast.makeText(this@SettingsActivity, R.string.update_error, Toast.LENGTH_LONG)
+                    .show()
             }
         )
         queue.add(stringRequest)
     }
 
-    fun showChangeApiKeyDialog(shared: SharedPreferences, editor: SharedPreferences.Editor){
+    fun showChangeApiKeyDialog(shared: SharedPreferences, editor: SharedPreferences.Editor) {
         val view = LayoutInflater.from(this).inflate(R.layout.dialog_api_key, null)
-        val tfApiKeyEdit = view.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.tf_edit_api_key)
+        val tfApiKeyEdit =
+            view.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.tf_edit_api_key)
         tfApiKeyEdit.setText(shared.getString("apiKey", "").toString())
         MaterialAlertDialogBuilder(this)
             .setTitle(getString(R.string.dialog_edit_api_key_title))
             .setView(view)
             .setNegativeButton(getString(R.string.dialog_api_key_cancel_btn), null)
-            .setPositiveButton(getString(R.string.dialog_api_key_save_btn)){ dialog, _ ->
+            .setPositiveButton(getString(R.string.dialog_api_key_save_btn)) { dialog, _ ->
                 with(editor) {
                     putString("apiKey", tfApiKeyEdit.text.toString().trim())
                     apply()
