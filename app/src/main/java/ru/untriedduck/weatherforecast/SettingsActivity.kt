@@ -75,6 +75,15 @@ class SettingsActivity : AppCompatActivity() {
             showChangeApiKeyDialog(shared, editor)
         }
 
+        binding.switchWeatherUpdMode.isChecked = shared.getBoolean("USE_GPS", false)
+
+        binding.switchWeatherUpdMode.setOnCheckedChangeListener { _, isChecked ->
+            with(editor) {
+                putBoolean("USE_GPS", isChecked)
+                apply()
+            }
+        }
+
     }
 
     fun checkUpdatesFromGitHub() {
