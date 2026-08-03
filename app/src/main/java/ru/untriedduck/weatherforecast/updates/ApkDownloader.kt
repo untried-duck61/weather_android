@@ -20,7 +20,7 @@ class ApkDownloader(private val context: Context) {
             val response = apiService.downloadUpdateApk(url)
             val body = response.body()
 
-            if (response.isSuccessful && body != null){
+            if (response.isSuccessful && body != null) {
                 val apkFile = File(context.cacheDir, "update.apk")
                 body.byteStream().use { inputStream ->
                     FileOutputStream(apkFile).use { outputStream ->
@@ -35,7 +35,7 @@ class ApkDownloader(private val context: Context) {
                 }
                 return@withContext apkFile
             }
-        } catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
         return@withContext null
