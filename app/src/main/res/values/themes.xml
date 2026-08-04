@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.WeatherForecast" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.WeatherForecast" parent="Theme.Material3Expressive.DayNight.NoActionBar">
         <!-- Original AppCompat attributes. -->
         <!-- Primary colors -->
         <item name="colorPrimary">@android:color/system_primary_light</item>
