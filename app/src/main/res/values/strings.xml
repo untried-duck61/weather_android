@@ -94,6 +94,12 @@
     <string name="settings_upd_mode_desc">Use GPS or not setting</string>
     <string name="settings_upd_mode_title">Use GPS</string>
     <string name="settings_upd_mode_sub">Use GPS data or selected city</string>
-    <string name="city_name_textfield_hint">Название города</string>
-    <string name="city_search_autocomplete_tv_hint">Введите название города</string>
+    <string name="city_name_textfield_hint">City name</string>
+    <string name="city_search_autocomplete_tv_hint">City name</string>
+    <string name="sun_info_card_title">Sun day</string>
+    <string name="aqi_card_title">Air quality index</string>
+    <string name="uvi_card_title">UV index</string>
+    <string name="sun_chart_sunrise">Sunrise: %1$s</string>
+    <string name="sun_chart_sunset">Sunset: %1$s</string>
+
 </resources>
