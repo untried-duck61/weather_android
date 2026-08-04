@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="?attr/colorSurface"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
     <!-- Material 3 Top App Bar: Город и Кнопки действий -->
@@ -20,18 +19,18 @@
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout"
+            style="@style/Widget.Material3Expressive.CollapsingToolbar.Medium"
             android:layout_width="match_parent"
             android:layout_height="112dp"
-            app:title="@string/unknown"
-            style="@style/Widget.Material3.CollapsingToolbar.Medium"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:title="@string/unknown">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topAppBar"
+                style="@style/Widget.Material3Expressive.Toolbar.Surface"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/transparent"
-                style="@style/Widget.Material3.Toolbar.Surface"
                 app:layout_collapseMode="pin"
                 app:menu="@menu/main_menu" />
 
@@ -58,10 +57,10 @@
                 android:layout_height="wrap_content"
                 android:indeterminate="true"
                 android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
 
             <!-- Вашему TextView tvUpdateStatus теперь нужно изменить привязку top_toTopOf на top_toBottomOf -->
             <TextView
@@ -69,12 +68,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-            android:text="@string/tv_update_status_loading_status"
-            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/progressBar" /> <!-- Привязали под прогресс-бар -->
+                android:text="@string/tv_update_status_loading_status"
+                android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/progressBar" /> <!-- Привязали под прогресс-бар -->
 
             <!-- БЛОК ГЛАВНОЙ ПОГОДЫ (Температура и Иконка) -->
             <LinearLayout
@@ -91,10 +90,10 @@
                     android:id="@+id/tvTemp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/temp_placeholder"
                     android:fontFamily="sans-serif-light"
-                    android:textSize="72sp"
-                    android:textColor="?attr/colorOnSurface" />
+                    android:text="@string/temp_placeholder"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="72sp" />
 
                 <ImageView
                     android:id="@+id/imgCondition"
@@ -140,11 +139,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="32dp"
-                android:orientation="horizontal"
                 android:baselineAligned="false"
-                app:layout_constraintTop_toBottomOf="@id/tvFeelsLike"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/tvFeelsLike">
 
                 <!-- Левая карточка (Температурный диапазон) -->
                 <com.google.android.material.card.MaterialCardView
@@ -152,14 +151,14 @@
                     style="@style/Widget.Material3.CardView.Filled"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="8dp">
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="16dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
                         <!-- Заголовок карточки -->
                         <TextView
@@ -167,7 +166,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/temp_card_title"
                             android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
-                            android:textColor="?android:attr/textColorSecondary"/>
+                            android:textColor="?android:attr/textColorSecondary" />
 
                         <!-- Контейнер для иконок и значений -->
                         <LinearLayout
@@ -181,8 +180,8 @@
                                 android:id="@+id/img_temp_min"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/ic_temp_min"
-                                android:contentDescription="@string/img_temp_min_desc" />
+                                android:contentDescription="@string/img_temp_min_desc"
+                                android:src="@drawable/ic_temp_min" />
 
                             <TextView
                                 android:id="@+id/tvTempMin"
@@ -190,15 +189,15 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="4dp"
                                 android:text="@string/temp_placeholder"
-                                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+                                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
                             <ImageView
                                 android:id="@+id/img_temp_max"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_marginStart="16dp"
-                                android:src="@drawable/ic_temp_max"
-                                android:contentDescription="@string/img_temp_max_desc" />
+                                android:contentDescription="@string/img_temp_max_desc"
+                                android:src="@drawable/ic_temp_max" />
 
                             <TextView
                                 android:id="@+id/tvTempMax"
@@ -206,7 +205,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="4dp"
                                 android:text="@string/temp_placeholder"
-                                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+                                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
                         </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -217,8 +216,8 @@
                     style="@style/Widget.Material3.CardView.Filled"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_marginStart="8dp">
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -298,13 +297,13 @@
                             android:id="@+id/barometer_left"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
                             android:gravity="center_horizontal"
-                            app:layout_constraintHorizontal_weight="1"
+                            android:orientation="vertical"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintHorizontal_chainStyle="spread"
-                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/barometer_center"
+                            app:layout_constraintHorizontal_chainStyle="spread"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
                             <!-- Центрируем барометр через гравити, убираем жесткие боковые маргины -->
@@ -329,12 +328,12 @@
                             android:id="@+id/barometer_center"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
                             android:gravity="center_horizontal"
-                            app:layout_constraintHorizontal_weight="1"
+                            android:orientation="vertical"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/barometer_left"
                             app:layout_constraintEnd_toStartOf="@+id/barometer_right"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintStart_toEndOf="@+id/barometer_left"
                             app:layout_constraintTop_toTopOf="parent">
 
                             <ru.untriedduck.weatherforecast.view.BarometerView
@@ -359,12 +358,12 @@
                             android:id="@+id/barometer_right"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
                             android:gravity="center_horizontal"
-                            app:layout_constraintHorizontal_weight="1"
+                            android:orientation="vertical"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/barometer_center"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintStart_toEndOf="@+id/barometer_center"
                             app:layout_constraintTop_toTopOf="parent">
 
                             <ru.untriedduck.weatherforecast.view.BarometerView
@@ -466,6 +465,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardWind">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -475,7 +475,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="sun_info_card_title"
+                        android:text="@string/sun_info_card_title"
                         android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                         android:textColor="?android:attr/textColorSecondary" />
                     <!-- sunrise and sunset chart -->
