@@ -184,6 +184,8 @@ class MainActivity : AppCompatActivity() {
 
             val sys = root.getJSONObject("sys")
             val country = sys.getString("country")
+            val sunrise = sys.getLong("sunrise")
+            val sunset = sys.getLong("sunset")
             val name = root.getString("name")
 
             // Изменение текстов
@@ -212,11 +214,13 @@ class MainActivity : AppCompatActivity() {
             binding.barometerSea.currentPressure = seaPressure
             binding.barometerGround.currentPressure = grndPressure
 
-            binding.ivWindDirectionArrow.rotation = 360 - windDegree
+            binding.ivWindDirectionArrow.rotation = (windDegree + 180) % 360
             binding.tvWindDirectionName.text =
                 getString(WindDirection.fromDegrees(windDegree).resId)
             binding.tvWindSpeed.text = getString(R.string.wind_card_wind_speed_format, windSpeed)
             binding.tvWindGust.text = getString(R.string.wind_card_wind_gust_format, windGust)
+
+            binding.sunDayChart.setData(sunrise, sunset, System.currentTimeMillis() / 1000)
 
             // Установка иконки погоды (рекомендуется использовать .setImageDrawable вместо .background)
             val iconResId = resources.getIdentifier(
