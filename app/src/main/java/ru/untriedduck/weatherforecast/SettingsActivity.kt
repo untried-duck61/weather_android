@@ -3,6 +3,7 @@ package ru.untriedduck.weatherforecast
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -82,6 +83,7 @@ class SettingsActivity : AppCompatActivity() {
                 putBoolean("USE_GPS", isChecked)
                 apply()
             }
+            binding.cityNameTextfieldLayout.visibility = if (!isChecked) View.VISIBLE else View.GONE
         }
 
     }
