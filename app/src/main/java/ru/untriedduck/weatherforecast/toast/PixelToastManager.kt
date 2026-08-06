@@ -50,7 +50,7 @@ object PixelToastManager {
         val snackbarView = snackbar.view
 
         // 2. Отключаем стандартную анимацию появления Snackbar (выезд снизу)
-        snackbar.animationMode = com.google.android.material.snackbar.BaseTransientBottomBar.ANIMATION_MODE_NONE
+        // run clearAnimation() before show()
 
         // 3. Автоматически определяем тему устройства (Светлая / Темная)
         val isDarkMode = (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
@@ -122,6 +122,8 @@ object PixelToastManager {
                 snackbarView.postDelayed({ showNext() }, 100)
             }
         })
+
+        snackbarView.clearAnimation()
 
         snackbar.show()
 
