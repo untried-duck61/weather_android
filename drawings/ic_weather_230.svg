@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="72"
+   height="72"
+   viewBox="0 0 19.05 19.05"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   sodipodi:docname="ic_weather_230.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title4">Thunderstorm with light drizzle</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showborder="true"
+     showgrid="true"
+     inkscape:zoom="11.313709"
+     inkscape:cx="31.554639"
+     inkscape:cy="33.720153"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="0.26458333"
+       spacingy="0.26458333"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       enabled="true"
+       visible="true"
+       dotted="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#ffd42a;fill-opacity:1;stroke-width:0.264583"
+       d="m 10.178868,10.553083 -1.0523735,0.280634 0.7717409,2.081361 -0.4443357,0.09355 1.0523733,2.432152 -0.304019,-2.057975 0.42095,-0.140317 z"
+       id="path2" />
+    <path
+       id="path1"
+       style="fill:#535353;fill-opacity:1"
+       d="M 8.5674357,2.2153687 A 3.6118572,3.6118572 0 0 0 4.9635213,5.5908733 2.6455503,2.6455503 0 0 0 2.6489339,8.2155193 2.6455503,2.6455503 0 0 0 5.2503255,10.860836 v 0.0031 h 9.0960855 a 2.660476,2.660476 0 0 0 0.09353,0.0015 2.660476,2.660476 0 0 0 0.02377,-0.0015 h 0.06304 v -0.0041 A 2.660476,2.660476 0 0 0 17.100765,8.205184 2.660476,2.660476 0 0 0 14.935522,5.5913901 2.6455503,2.6455503 0 0 0 12.368237,3.5842774 2.6455503,2.6455503 0 0 0 11.507308,3.7284547 3.6118572,3.6118572 0 0 0 8.5674357,2.2153687 Z" />
+    <circle
+       style="fill:#0066ff;stroke-width:0.264125"
+       id="path3"
+       cx="6.1030788"
+       cy="12.321022"
+       r="0.39687499" />
+    <circle
+       style="fill:#0066ff;stroke-width:0.264125"
+       id="circle3"
+       cx="8.0908957"
+       cy="13.022604"
+       r="0.39687499" />
+    <circle
+       style="fill:#0066ff;stroke-width:0.264125"
+       id="circle4"
+       cx="12.393935"
+       cy="12.040389"
+       r="0.39687499" />
+  </g>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Thunderstorm with light drizzle</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
