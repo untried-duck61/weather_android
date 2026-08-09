@@ -20,7 +20,7 @@
             android:id="@+id/collapsingToolbarLayout"
             style="@style/Widget.Material3.CollapsingToolbar.Large"
             android:layout_width="match_parent"
-            android:layout_height="152dp"
+            android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title="@string/welcome_text">
 
