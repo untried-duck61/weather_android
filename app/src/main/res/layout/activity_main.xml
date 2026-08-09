@@ -21,7 +21,7 @@
             android:id="@+id/collapsingToolbarLayout"
             style="@style/Widget.Material3Expressive.CollapsingToolbar.Medium"
             android:layout_width="match_parent"
-            android:layout_height="112dp"
+            android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title="@string/unknown">
 
