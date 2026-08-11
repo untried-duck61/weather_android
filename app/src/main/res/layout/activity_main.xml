@@ -15,14 +15,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorSurface"
+        android:fitsSystemWindows="true"
         app:liftOnScroll="true">
 
+        <!-- ИСПРАВЛЕНО: layout_height изменен на специальный атрибут для Medium-стиля -->
+        <!-- ИСПРАВЛЕНО: в layout_scrollFlags добавлен флаг snap -->
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout"
             style="@style/Widget.Material3Expressive.CollapsingToolbar.Medium"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:layout_height="?attr/collapsingToolbarLayoutMediumSize"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:title="@string/unknown">
 
             <com.google.android.material.appbar.MaterialToolbar
@@ -41,9 +44,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-android:fillViewport="true"
->
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -135,91 +137,28 @@ android:fillViewport="true"
             <!-- СЕТКА КАРТОЧЕК С ДЕТАЛЯМИ (В стиле виджетов Google) -->
 
             <!-- Единый горизонтальный контейнер для карточек, который решает проблему высоты -->
-            <LinearLayout
-                android:id="@+id/layoutCardsContainer"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutExpressiveGrid"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="180dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="32dp"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvFeelsLike">
 
-                <!-- Левая карточка (Температурный диапазон) -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardTempRange"
-                    style="@style/Widget.Material3.CardView.Filled"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <!-- Заголовок карточки -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/temp_card_title"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
-                            android:textColor="?android:attr/textColorSecondary" />
-
-                        <!-- Контейнер для иконок и значений -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:id="@+id/img_temp_min"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:contentDescription="@string/img_temp_min_desc"
-                                android:src="@drawable/ic_temp_min" />
-
-                            <TextView
-                                android:id="@+id/tvTempMin"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:text="@string/temp_placeholder"
-                                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
-
-                            <ImageView
-                                android:id="@+id/img_temp_max"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_marginStart="16dp"
-                                android:contentDescription="@string/img_temp_max_desc"
-                                android:src="@drawable/ic_temp_max" />
-
-                            <TextView
-                                android:id="@+id/tvTempMax"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:text="@string/temp_placeholder"
-                                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Правая карточка (Влажность) -->
+                <!-- Левая карточка: Влажность (Стала выше и выглядит ещё более Expressive) -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardHumidity"
                     style="@style/Widget.Material3.CardView.Filled"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1">
+                    android:layout_marginEnd="6dp"
+                    app:cardCornerRadius="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cardTempRange"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -232,48 +171,275 @@ android:fillViewport="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/humidity_card_title"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                             android:textColor="?android:attr/textColorSecondary" />
 
-                        <!-- Контейнер для иконки и числового значения -->
+                        <!-- Капля и Проценты влажности -->
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <ImageView
                                 android:id="@+id/img_humid"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
                                 android:contentDescription="@string/img_humid_desc"
-                                android:src="@drawable/ic_humid" />
+                                android:src="@drawable/ic_humid"
+                                app:tint="?attr/colorPrimary" />
 
                             <TextView
                                 android:id="@+id/tvHumid"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="6dp"
+                                android:layout_marginStart="12dp"
                                 android:text="@string/humidity_placeholder"
+                                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- ИСПРАВЛЕНО: Тонкий разделитель перед точкой росы -->
+                        <com.google.android.material.divider.MaterialDivider
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="8dp"
+                            app:dividerColor="?attr/colorSurfaceVariant" />
+
+                        <!-- ИСПРАВЛЕНО: Новый блок точки росы в самом низу карточки -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/ic_temp_min"
+                                app:tint="?android:attr/textColorSecondary" />
+
+                            <TextView
+                                android:id="@+id/tvDewPoint"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="6dp"
+                                android:text="@string/dew_point_placeholder"
+                                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                                android:textColor="?android:attr/textColorSecondary" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Правая верхняя карточка: Диапазон Температур -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardTempRange"
+                    style="@style/Widget.Material3.CardView.Outlined"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    app:cardCornerRadius="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/cardHumidity"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/temp_card_title"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                            android:textColor="?android:attr/textColorSecondary" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/img_temp_min"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:src="@drawable/ic_temp_min" />
+
+                            <TextView
+                                android:id="@+id/tvTempMin"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="2dp"
+                                android:text="@string/temp_placeholder"
+                                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+                            <ImageView
+                                android:id="@+id/img_temp_max"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_marginStart="8dp"
+                                android:src="@drawable/ic_temp_max" />
+
+                            <TextView
+                                android:id="@+id/tvTempMax"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="2dp"
+                                android:text="@string/temp_placeholder"
                                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
                         </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-            </LinearLayout>
+                <!-- Правая нижняя карточка: Ветер (Теперь дышит полной грудью!) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardWind"
+                    style="@style/Widget.Material3.CardView.Filled"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="6dp"
+                    app:cardCornerRadius="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cardHumidity"
+                    app:layout_constraintTop_toBottomOf="@id/cardTempRange">
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingStart="12dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="10dp">
 
-            <!-- Карточка Барометра -->
+                        <!-- 1. Заголовок "Ветер" (Прибит к самому верху) -->
+                        <TextView
+                            android:id="@+id/tvWindTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/wind_card_title"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                            android:textColor="?android:attr/textColorSecondary"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <!-- 2. Стрелка + Направление (Идут строго ПОД заголовком) -->
+                        <LinearLayout
+                            android:id="@+id/layoutWindDirGroup"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvWindTitle">
+
+                            <ImageView
+                                android:id="@+id/iv_wind_direction_arrow"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@drawable/ic_wind_arrow"
+                                app:tint="?attr/colorTertiary" />
+
+                            <TextView
+                                android:id="@+id/tv_wind_direction_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/unknown"
+                                android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- 3. Скорость ветра (Идет строго ПОД направлением) -->
+                        <LinearLayout
+                            android:id="@+id/layoutWindSpeedRow"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/layoutWindDirGroup">
+
+                            <ImageView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/ic_sync"
+                                app:tint="?attr/colorOnSurfaceVariant" />
+
+                            <TextView
+                                android:id="@+id/tv_wind_speed"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/wind_card_wind_speed_placeholder"
+                                android:textAppearance="@style/TextAppearance.Material3.LabelSmall" />
+                        </LinearLayout>
+
+                        <!-- 4. Порывы ветра (Идут строго ПОД скоростью) -->
+                        <LinearLayout
+                            android:id="@+id/layoutWindGustRow"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/layoutWindSpeedRow">
+
+                            <ImageView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:importantForAccessibility="no"
+                                android:src="@drawable/ic_arrow_down"
+                                app:tint="?android:attr/textColorSecondary" />
+
+                            <TextView
+                                android:id="@+id/tv_wind_gust"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/wind_card_wind_gust_placeholder"
+                                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                                android:textColor="?android:attr/textColorSecondary" />
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Карточка Барометра (Широкая, идет следом под журнальной сеткой) -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardBarometer"
-                style="@style/Widget.Material3.CardView.Filled"
+                style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                app:cardCornerRadius="28dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layoutCardsContainer">
+                app:layout_constraintTop_toBottomOf="@id/layoutExpressiveGrid">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -321,7 +487,7 @@ android:fillViewport="true"
                                 android:layout_height="wrap_content"
                                 android:text="@string/tv_total_pressure_label"
                                 android:textAlignment="center"
-                                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                                 android:textColor="?android:attr/textColorSecondary" />
                         </LinearLayout>
 
@@ -351,7 +517,7 @@ android:fillViewport="true"
                                 android:layout_height="wrap_content"
                                 android:text="@string/tv_on_the_sea_level_label"
                                 android:textAlignment="center"
-                                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                                 android:textColor="?android:attr/textColorSecondary" />
                         </LinearLayout>
 
@@ -381,7 +547,7 @@ android:fillViewport="true"
                                 android:layout_height="wrap_content"
                                 android:text="@string/tv_on_the_ground_level_label"
                                 android:textAlignment="center"
-                                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                                 android:textColor="?android:attr/textColorSecondary" />
                         </LinearLayout>
 
@@ -389,9 +555,9 @@ android:fillViewport="true"
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
+            <!--com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardWind"
-                style="@style/Widget.Material3.CardView.Filled"
+                style="@style/Widget.Material3.CardView.Outlined"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -456,7 +622,7 @@ android:fillViewport="true"
 
                     </LinearLayout>
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </com.google.android.material.card.MaterialCardView-->
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardSunInfo"
@@ -464,9 +630,10 @@ android:fillViewport="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                app:cardCornerRadius="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardWind">
+                app:layout_constraintTop_toBottomOf="@+id/cardBarometer"> <!-- ИСПРАВЛЕНО: привязали к барометру -->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -480,21 +647,23 @@ android:fillViewport="true"
                         android:text="@string/sun_info_card_title"
                         android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                         android:textColor="?android:attr/textColorSecondary" />
-                    <!-- sunrise and sunset chart -->
+
                     <ru.untriedduck.weatherforecast.view.SunDayView
                         android:id="@+id/sunDayChart"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:layout_marginBottom="2dp"/>
+                        android:layout_marginBottom="2dp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Нижний контейнер (AQI и UVI) — тоже успешно починен -->
             <LinearLayout
                 android:id="@+id/layoutCardsContainerSec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
                 android:visibility="gone"
@@ -508,11 +677,9 @@ android:fillViewport="true"
                     style="@style/Widget.Material3.CardView.Filled"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardSunInfo">
+                    android:layout_weight="1"
+                    app:cardCornerRadius="20dp"> <!-- Добавили скругление Expressive -->
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -526,19 +693,17 @@ android:fillViewport="true"
                             android:text="@string/aqi_card_title"
                             android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                             android:textColor="?android:attr/textColorSecondary" />
-                        <!-- aqi, uv-index, visibility, dew-point and useful warnings-->
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardUvi"
                     style="@style/Widget.Material3.CardView.Filled"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginStart="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardSunInfo">
+                    android:layout_weight="1"
+                    app:cardCornerRadius="20dp"> <!-- Добавили скругление Expressive -->
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -552,7 +717,6 @@ android:fillViewport="true"
                             android:text="@string/uvi_card_title"
                             android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                             android:textColor="?android:attr/textColorSecondary" />
-                        <!-- aqi, uv-index, visibility, dew-point and useful warnings-->
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
