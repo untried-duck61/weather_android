@@ -29,6 +29,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.launch
@@ -36,6 +39,8 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
 import ru.untriedduck.weatherforecast.weather.WindDirection
 import kotlin.coroutines.resume
+import kotlin.math.ln
+import kotlin.math.log
 
 
 class MainActivity : AppCompatActivity() {
@@ -67,6 +72,24 @@ class MainActivity : AppCompatActivity() {
         // Включаем отображение "от края до края" под статус-баром
         enableEdgeToEdge()
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.appBarLayout) { view, windowInsets ->
+            val statusBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.statusBars())
+
+            // Задаем верхний отступ для AppBarLayout
+            view.updatePadding(top = statusBarInsets.top)
+
+            windowInsets
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { _, windowInsets ->
+            val navigationBarsInsets = windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars())
+
+            // Добавляем нижний отступ вашему контенту, чтобы его не перекрывала полоса жестов
+            binding.main.updatePadding(bottom = navigationBarsInsets.bottom)
+
+            windowInsets
+        }
 
         // Инициализируем Volley один раз
         requestQueue = Volley.newRequestQueue(this)
@@ -173,6 +196,7 @@ class MainActivity : AppCompatActivity() {
             val tempMin = main.getString("temp_min").toFloat().roundToInt().toString()
             val tempMax = main.getString("temp_max").toFloat().roundToInt().toString()
             val humidity = main.getString("humidity").toInt().toString()
+            val dewPoint = getDewPoint(temp.toDouble(), humidity.toDouble(), units)
             val totalPressure = main.getString("pressure").toFloat()
             val seaPressure = main.getString("sea_level").toFloat()
             val grndPressure = main.getString("grnd_level").toFloat()
@@ -209,6 +233,7 @@ class MainActivity : AppCompatActivity() {
                 getString(R.string.temp, tempMax, if (units == "imperial") "F" else "C")
 
             binding.tvHumid.text = getString(R.string.humidity_text, humidity)
+            binding.tvDewPoint.text = getString(R.string.dew_point_format, dewPoint.toString(), if (units == "imperial") "F" else "C")
 
             binding.barometerTotal.currentPressure = totalPressure
             binding.barometerSea.currentPressure = seaPressure
@@ -217,8 +242,8 @@ class MainActivity : AppCompatActivity() {
             binding.ivWindDirectionArrow.rotation = (windDegree + 180) % 360
             binding.tvWindDirectionName.text =
                 getString(WindDirection.fromDegrees(windDegree).resId)
-            binding.tvWindSpeed.text = getString(R.string.wind_card_wind_speed_format, windSpeed)
-            binding.tvWindGust.text = getString(R.string.wind_card_wind_gust_format, windGust)
+            binding.tvWindSpeed.text = getString(R.string.wind_card_wind_speed_format, windSpeed, if (units == "imperial") getString(R.string.wind_speed_units_miles_h) else getString(R.string.wind_speed_units_meters_sec))
+            binding.tvWindGust.text = getString(R.string.wind_card_wind_gust_format, windGust, if (units == "imperial") getString(R.string.wind_speed_units_miles_h) else getString(R.string.wind_speed_units_meters_sec))
 
             binding.sunDayChart.setData(sunrise, sunset, System.currentTimeMillis() / 1000)
 
@@ -267,6 +292,40 @@ class MainActivity : AppCompatActivity() {
 
         // Добавляем запрос в общую единую очередь класса
         requestQueue.add(stringRequest)
+    }
+
+    /**
+     * Вычисляет округленную точку росы до целого числа на основе температуры и влажности.
+     * Automatically converts Fahrenheit to Celsius for calculation and formats the result back.
+     *
+     * @param temp Текущая температура воздуха (может быть в Цельсиях или Фаренгейтах).
+     * @param humidity Текущая относительная влажность воздуха в процентах (в диапазоне от 0.0 до 100.0).
+     * @param units Строка системы измерения из OpenWeatherMap ("metric" — Цельсий, "imperial" — Фаренгейт).
+     * @return Округленное значение точки росы (Int) в соответствующей системе измерения.
+     */
+    fun getDewPoint(temp: Double, humidity: Double, units: String): Int {
+        // 1. Определяем, используется ли американская система (Фаренгейты)
+        val isImperial = units.equals("imperial", ignoreCase = true)
+
+        // 2. Формула Магнуса-Тетенса работает строго с градусами Цельсия.
+        // Если на входе Фаренгейты, временно переводим их в Цельсии:
+        val tempInCelsius = if (isImperial) (temp - 32.0) * 5.0 / 9.0 else temp
+
+        // 3. Задаем постоянные коэффициенты для формулы Магнуса-Тетенса
+        val a = 17.27
+        val b = 237.7
+
+        // 4. Вычисляем промежуточное значение alpha
+        val alpha = ((a * tempInCelsius) / (b + tempInCelsius)) + log(humidity / 100.0, Math.E)
+
+        // 5. Находим точку росы в градусах Цельсия
+        val dewPointInCelsius = (b * alpha) / (a - alpha)
+
+        // 6. Переводим результат обратно в Фаренгейты, если на входе была система imperial
+        val finalDewPoint = if (isImperial) (dewPointInCelsius * 9.0 / 5.0) + 32.0 else dewPointInCelsius
+
+        // 7. Округляем до ближайшего целого числа и возвращаем тип Int
+        return finalDewPoint.roundToInt()
     }
 
     @ColorInt
