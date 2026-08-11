@@ -75,10 +75,10 @@
     <string name="dialog_api_key_cancel_btn">Cancel</string>
     <string name="dialog_api_key_save_btn">Save</string>
     <string name="wind_card_title">Wind</string>
-    <string name="wind_card_wind_speed_placeholder">Wind speed: 0 m/s</string>
-    <string name="wind_card_wind_gust_placeholder">Wind gust: 0 m/s</string>
-    <string name="wind_card_wind_speed_format">Wind speed: %1$s m/s</string>
-    <string name="wind_card_wind_gust_format">Wind gust: %1$s m/s</string>
+    <string name="wind_card_wind_speed_placeholder">0 m/s</string>
+    <string name="wind_card_wind_gust_placeholder">0 m/s</string>
+    <string name="wind_card_wind_speed_format">%1$s %2$s</string>
+    <string name="wind_card_wind_gust_format">%1$s %2$s</string>
     <string name="wind_name_n">North</string>
     <string name="wind_name_ne">Northeast</string>
     <string name="wind_name_e">East</string>
@@ -101,5 +101,9 @@
     <string name="uvi_card_title">UV index</string>
     <string name="sun_chart_sunrise">Sunrise: %1$s</string>
     <string name="sun_chart_sunset">Sunset: %1$s</string>
+    <string name="wind_speed_units_meters_sec">m/s</string>
+    <string name="wind_speed_units_miles_h">mph</string>
+    <string name="dew_point_placeholder">Dew point: --°C</string>
+    <string name="dew_point_format">Dew point: %1$s°%2$s</string>
 
 </resources>

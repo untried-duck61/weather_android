@@ -61,10 +61,10 @@
     <string name="dialog_api_key_cancel_btn">Отмена</string>
     <string name="dialog_api_key_save_btn">Сохранить</string>
     <string name="wind_card_title">Ветер</string>
-    <string name="wind_card_wind_speed_placeholder">Скорость ветра: 0 м/с</string>
-    <string name="wind_card_wind_gust_placeholder">Порывы ветра: 0 m/s</string>
-    <string name="wind_card_wind_speed_format">Скорость ветра: %1$s м/с</string>
-    <string name="wind_card_wind_gust_format">Порывы ветра: %1$s м/с</string>
+    <string name="wind_card_wind_speed_placeholder">0 м/с</string>
+    <string name="wind_card_wind_gust_placeholder">0 м/с</string>
+    <string name="wind_card_wind_speed_format">%1$s %2$s</string>
+    <string name="wind_card_wind_gust_format">%1$s %2$s</string>
     <string name="wind_name_n">Северный</string>
     <string name="wind_name_ne">Северо-восточный</string>
     <string name="wind_name_e">Восточный</string>
@@ -87,5 +87,9 @@
     <string name="uvi_card_title">Ультрафиолетовый индекс</string>
     <string name="sun_chart_sunrise">Восход: %1$s</string>
     <string name="sun_chart_sunset">Закат: %1$s</string>
+    <string name="wind_speed_units_meters_sec">м/с</string>
+    <string name="wind_speed_units_miles_h">миль/час</string>
+    <string name="dew_point_placeholder">Точка росы: --°C</string>
+    <string name="dew_point_format">Точка росы: %1$s°%2$s</string>
 
 </resources>
