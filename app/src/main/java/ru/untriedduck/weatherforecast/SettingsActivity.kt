@@ -1,11 +1,18 @@
 package ru.untriedduck.weatherforecast
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -15,12 +22,23 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import ru.untriedduck.weatherforecast.databinding.ActivitySettingsBinding
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
+import org.json.JSONArray
+import ru.untriedduck.weatherforecast.services.UpdateCheckService
 import ru.untriedduck.weatherforecast.updates.ApkDownloader
 import ru.untriedduck.weatherforecast.updates.ApkInstaller
+import ru.untriedduck.weatherforecast.weather.HelperApiMethods
+import kotlin.jvm.java
 
 class SettingsActivity : AppCompatActivity() {
+    private val citiesNames = ArrayList<String>()
+    private val citiesLat = ArrayList<Double>()
+    private val citiesLon = ArrayList<Double>()
+
+    private lateinit var searchAdapter: ArrayAdapter<String>
     private lateinit var binding: ActivitySettingsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,95 +104,31 @@ class SettingsActivity : AppCompatActivity() {
                 putBoolean("USE_GPS", isChecked)
                 apply()
             }
-            binding.cityNameTextfieldLayout.visibility = if (!isChecked) View.VISIBLE else View.GONE
+            binding.cityNameTextfieldContainer.post {
+                binding.cityNameTextfieldContainer.visibility = if (!isChecked) View.VISIBLE else View.GONE
+                binding.cityNameTextfieldContainer.requestLayout()
+            }
         }
 
-    }
+        binding.cityNameTextfieldContainer.post {
+            binding.cityNameTextfieldContainer.visibility = if (!shared.getBoolean("USE_GPS", false)) View.VISIBLE else View.GONE
+        }
 
-    fun checkUpdatesFromGitHub() {
-        val latestUrl =
-            "https://api.github.com/repos/untried-duck61/weather_android/releases/latest"
-        val queue = Volley.newRequestQueue(this)
+        searchAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, citiesNames)
+        binding.cityNameTextfield.setAdapter(searchAdapter)
 
-        val stringRequest = StringRequest(
-            Request.Method.GET,
-            latestUrl,
-            { response ->
-                val root = JSONObject(response)
-                val latestVersion = root.getString("tag_name")
-                val currentVersion = packageManager.getPackageInfo(packageName, 0).versionName!!
+        binding.cityNameTextfield.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
-                // Твоя отличная логика покомпонентного сравнения версий
-                val currentParts = currentVersion.split(".").map { it.toIntOrNull() ?: 0 }
-                val latestParts = latestVersion.split(".").map { it.toIntOrNull() ?: 0 }
-
-                var isNewerAvailable = false
-                val maxParts = maxOf(currentParts.size, latestParts.size)
-                for (i in 0 until maxParts) {
-                    val currentPart = currentParts.getOrElse(i) { 0 }
-                    val latestPart = latestParts.getOrElse(i) { 0 }
-                    if (latestPart > currentPart) {
-                        isNewerAvailable = true
-                        break
-                    } else if (currentPart > latestPart) {
-                        break
-                    }
+            override fun afterTextChanged(s: Editable?) {
+                val query = s.toString().trim()
+                if (query.length >= 3) { // Запрос от 3 букв
+                    fetchCities(query, shared)
                 }
-
-                if (!isNewerAvailable) {
-                    Toast.makeText(
-                        this@SettingsActivity,
-                        R.string.update_latest,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return@StringRequest
-                }
-
-                // Сюда мы доходим, только если обновление РЕАЛЬНО есть
-                // 1. Инициализируем наши новые безопасные инструменты
-                val installer = ApkInstaller(this@SettingsActivity)
-                val downloader = ApkDownloader(this@SettingsActivity)
-
-                // 2. Проверяем разрешение на установку из неизвестных источников
-                if (!installer.checkInstallPermission()) {
-                    Toast.makeText(
-                        this@SettingsActivity,
-                        getString(R.string.update_install_request_permission), Toast.LENGTH_LONG
-                    ).show()
-                    installer.openInstallSettings()
-                    return@StringRequest // Останавливаемся, пока пользователь не включит тумблер
-                }
-
-                // Достаем прямую ссылку на APK из JSON ответа GitHub
-                val latestApkUrl =
-                    root.getJSONArray("assets").getJSONObject(0).getString("browser_download_url")
-
-                Toast.makeText(
-                    this@SettingsActivity,
-                    getString(R.string.update_indicator_downloading), Toast.LENGTH_SHORT
-                ).show()
-
-                // 3. Запускаем корутину прямо внутри ответа Volley для фонового скачивания
-                lifecycleScope.launch {
-                    val downloadedFile = downloader.downloadApk(latestApkUrl)
-
-                    if (downloadedFile != null && downloadedFile.exists()) {
-                        // Файл в кэше, разрешение есть — запускаем чистую установку!
-                        installer.installApk(downloadedFile)
-                    } else {
-                        Toast.makeText(
-                            this@SettingsActivity,
-                            getString(R.string.update_download_failed), Toast.LENGTH_LONG
-                        ).show()
-                    }
-                }
-            },
-            { _ ->
-                Toast.makeText(this@SettingsActivity, R.string.update_error, Toast.LENGTH_LONG)
-                    .show()
             }
-        )
-        queue.add(stringRequest)
+        })
+
     }
 
     fun showChangeApiKeyDialog(shared: SharedPreferences, editor: SharedPreferences.Editor) {
@@ -194,6 +148,50 @@ class SettingsActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
             .show()
+    }
+
+    private fun fetchCities(query: String, shared: SharedPreferences) {
+        val retrofit = retrofit2.Retrofit.Builder()
+            .baseUrl("https://api.openweathermap.org")
+            .build()
+
+        val apiService = retrofit.create(HelperApiMethods::class.java)
+        lifecycleScope.launch {
+            try {
+                val responseBody =
+                    apiService.getCitiesByQuery(query, 5, shared.getString("apiKey", "")!!)
+                val jsonString = responseBody.string()
+
+                val jsonArray = JSONArray(jsonString)
+
+                citiesNames.clear()
+                citiesLat.clear()
+                citiesLon.clear()
+
+                for (i in 0 until jsonArray.length()) {
+                    val obj = jsonArray.getJSONObject(i)
+
+                    // Собираем красивую строку: "Имя, Страна (Область)"
+                    val name = if (obj.getJSONObject("local_names")
+                            .getString(getString(R.string.lang)) == null
+                    ) obj.getString("name") else obj.getJSONObject("local_names")
+                        .getString(getString(R.string.lang))
+                    val country = obj.getString("country")
+                    val state = obj.optString("state", "")
+                    val fullName =
+                        if (state.isNotEmpty()) "$name, $country ($state)" else "$name, $country"
+
+                    citiesNames.add(fullName)
+                    citiesLat.add(obj.getDouble("lat"))
+                    citiesLon.add(obj.getDouble("lon"))
+                }
+
+                searchAdapter.notifyDataSetChanged()
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
 }
