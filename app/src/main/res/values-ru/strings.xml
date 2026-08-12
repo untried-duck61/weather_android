@@ -91,5 +91,16 @@
     <string name="wind_speed_units_miles_h">миль/час</string>
     <string name="dew_point_placeholder">Точка росы: --°C</string>
     <string name="dew_point_format">Точка росы: %1$s°%2$s</string>
+    <string name="file_size_format">%.2f МБ</string>
+    <string name="update_available_notify_title">Доступно обновление: %1$s</string>
+    <string name="update_available_notify_text">Размер: %1$s. Обновить?</string>
+    <string name="update_available_notify_action_update">Обновить</string>
+    <string name="update_downloading_notify_title">Скачивание обновления...</string>
+    <string name="update_downloading_notify_text">Загружено %1$d%%</string>
+    <string name="update_ready_notify_title">Обновление готово к установке</string>
+    <string name="update_ready_notify_text">Нажмите, чтобы установить</string>
+    <string name="update_indicator_checking">Проверка обновлений...</string>
+    <string name="updates_notify_channel_title">Обновления</string>
+    <string name="updates_notify_channel_desc">Уведомления о новых версиях и загрузке обновлений приложения</string>
 
 </resources>

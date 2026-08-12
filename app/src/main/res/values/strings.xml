@@ -105,5 +105,16 @@
     <string name="wind_speed_units_miles_h">mph</string>
     <string name="dew_point_placeholder">Dew point: --°C</string>
     <string name="dew_point_format">Dew point: %1$s°%2$s</string>
+    <string name="file_size_format">%.2f MB</string>
+    <string name="update_available_notify_title">Update available: %1$s</string>
+    <string name="update_available_notify_text">Size: %1$s. Update?</string>
+    <string name="update_available_notify_action_update">Update</string>
+    <string name="update_downloading_notify_title">Downloading update...</string>
+    <string name="update_downloading_notify_text">Downloaded %1$d%%</string>
+    <string name="update_ready_notify_title">Update is ready to install</string>
+    <string name="update_ready_notify_text">Click to install</string>
+    <string name="update_indicator_checking">Checking for updates...</string>
+    <string name="updates_notify_channel_title">Updates</string>
+    <string name="updates_notify_channel_desc">Notifications about new versions and downloads of app updates</string>
 
 </resources>
