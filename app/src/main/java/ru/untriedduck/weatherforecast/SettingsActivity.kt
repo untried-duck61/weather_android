@@ -136,8 +136,12 @@ class SettingsActivity : AppCompatActivity() {
         val tfApiKeyEdit =
             view.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.tf_edit_api_key)
         tfApiKeyEdit.setText(shared.getString("apiKey", "").toString())
-        MaterialAlertDialogBuilder(this)
+        val dialog = MaterialAlertDialogBuilder(
+            this,
+            R.style.CustomExpressiveCenteredDialog
+        )
             .setTitle(getString(R.string.dialog_edit_api_key_title))
+            .setIcon(R.drawable.ic_key)
             .setView(view)
             .setNegativeButton(getString(R.string.dialog_api_key_cancel_btn), null)
             .setPositiveButton(getString(R.string.dialog_api_key_save_btn)) { dialog, _ ->
@@ -148,6 +152,9 @@ class SettingsActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
             .show()
+
+        // 1. Центрируем текст сообщения
+        dialog.findViewById<TextView>(android.R.id.message)?.gravity = Gravity.CENTER
     }
 
     private fun fetchCities(query: String, shared: SharedPreferences) {
