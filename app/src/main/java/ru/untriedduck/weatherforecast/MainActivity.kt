@@ -9,10 +9,13 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.os.Build
 import android.util.Log
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
@@ -29,23 +32,29 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
+import androidx.work.Constraints
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
+import ru.untriedduck.weatherforecast.services.UpdateWorker
 import ru.untriedduck.weatherforecast.weather.WindDirection
+import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
-import kotlin.math.ln
 import kotlin.math.log
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var locationClient: FusedLocationProviderClient
-    private val locationPermissionRequest = 1001
     private lateinit var binding: ActivityMainBinding
 
     // Выносим очередь Volley на уровень класса, чтобы не создавать её при каждом запросе
@@ -101,9 +110,57 @@ class MainActivity : AppCompatActivity() {
 
         // Инициализация кнопок верхнего меню App Bar (Material You)
         setupAppBarMenu(shared, editor)
+        createNotificationChannel()
+        setupAutomaticUpdateChecks()
 
         // Проверка локации и первичный запрос
         lifecycleScope.launch { checkLocationAndLoadWeather(shared, editor) }
+    }
+
+    private fun createNotificationChannel() {
+        // Проверка версии Android (Каналы появились начиная с Android 8.0 / API 26)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            // 1. Указываем точный ID канала (должен совпадать с UpdateCheckService.CHANNEL_ID)
+            val channelId = "updates_channel"
+
+            // 2. Имя канала, которое пользователь увидит в настройках телефона
+            val name = getString(R.string.updates_notify_channel_title)
+
+            // 3. Описание канала, объясняющее пользователю, зачем он нужен
+            val descriptionText = getString(R.string.updates_notify_channel_desc)
+
+            // 4. Уровень важности (DEFAULT или HIGH, чтобы уведомление всплывало баннером сверху)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+
+            // Создаем сам объект канала
+            val channel = NotificationChannel(channelId, name, importance).apply {
+                description = descriptionText
+                // Можно добавить дополнительные системные фишки по желанию:
+                enableLights(true) // Включать светодиод при уведомлении
+                lightColor = android.graphics.Color.BLUE
+            }
+
+            // Регистрируем созданный канал в системе через NotificationManager
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun setupAutomaticUpdateChecks() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED) // Нужен интернет
+            .build()
+
+        val updateRequest = PeriodicWorkRequestBuilder<UpdateWorker>(24, TimeUnit.HOURS)
+            .setConstraints(constraints)
+            .build()
+
+        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
+            "daily_weather_update_check",
+            ExistingPeriodicWorkPolicy.KEEP, // Если задача уже есть — не пересоздавать
+            updateRequest
+        )
     }
 
     private fun setupAppBarMenu(shared: SharedPreferences, editor: SharedPreferences.Editor) {
@@ -130,6 +187,8 @@ class MainActivity : AppCompatActivity() {
         shared: SharedPreferences,
         editor: SharedPreferences.Editor
     ) {
+        requestNotificationPermission()
+
         // МИГРАЦИЯ ДАННЫХ: Проверяем, заходил ли пользователь на этой версии ранее
         if (!shared.contains("USE_GPS")) {
             // Если ключа "USE_GPS" нет, значит это апдейт со старой версии.
@@ -353,6 +412,15 @@ class MainActivity : AppCompatActivity() {
         getWeather(lons, lats, apiKey, units)
         binding.tvUpdateStatus.text =
             getString(R.string.tv_update_status_updated_for_selected_city_status)
+    }
+
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) !=
+                PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 102)
+            }
+        }
     }
 
 }
