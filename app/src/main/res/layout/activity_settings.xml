@@ -302,7 +302,8 @@
                     </LinearLayout>
 
                     <!-- Скрытое поле ввода города (теперь тоже логично открывается внутри карточки) -->
-                    <LinearLayout
+                    <FrameLayout
+                        android:id="@+id/city_name_textfield_container"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -318,15 +319,20 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="40dp"
-                            android:hint="@string/city_name_textfield_hint">
+                            android:hint="@string/city_name_textfield_hint"
+                            app:boxCornerRadiusTopStart="16dp"
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusBottomStart="16dp"
+                            app:boxCornerRadiusBottomEnd="16dp">
 
-                            <AutoCompleteTextView
+                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                                 android:id="@+id/city_name_textfield"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:inputType="textAutoComplete" />
+                                android:inputType="textAutoComplete"
+                                android:padding="16dp"/>
                         </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
+                    </FrameLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
