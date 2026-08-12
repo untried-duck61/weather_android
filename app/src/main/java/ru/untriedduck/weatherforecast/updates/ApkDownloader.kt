@@ -15,20 +15,26 @@ class ApkDownloader(private val context: Context) {
             .create(UpdateApiService::class.java)
     }
 
-    suspend fun downloadApk(url: String): File? = withContext(Dispatchers.IO) {
+    suspend fun downloadApk(url: String, onProgress: (Long, Long) -> Unit): File? = withContext(Dispatchers.IO) {
         try {
             val response = apiService.downloadUpdateApk(url)
             val body = response.body()
 
             if (response.isSuccessful && body != null) {
+                val totalBytes = body.contentLength()
                 val apkFile = File(context.cacheDir, "update.apk")
+
                 body.byteStream().use { inputStream ->
                     FileOutputStream(apkFile).use { outputStream ->
-                        val buffer = ByteArray(4096)
+                        val buffer = ByteArray(8192) // Чуть увеличили буфер для скорости
                         var bytesRead: Int
+                        var bytesWritten = 0L
 
                         while (inputStream.read(buffer).also { bytesRead = it } != -1) {
                             outputStream.write(buffer, 0, bytesRead)
+                            bytesWritten += bytesRead
+                            // Передаем текущий прогресс вверх
+                            onProgress(bytesWritten, totalBytes)
                         }
                         outputStream.flush()
                     }

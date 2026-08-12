@@ -38,7 +38,10 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         binding.btnCheckUpdates.setOnClickListener {
-            checkUpdatesFromGitHub()
+            val intent = Intent(this, UpdateCheckService::class.java).apply {
+                putExtra("IS_MANUAL_CHECK", true)
+            }
+            startService(intent)
         }
 
         try {
