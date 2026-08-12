@@ -117,7 +117,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/weather_upd_mode_chooser_hint"
-                    android:inputType="none" />
+                    android:inputType="none"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- ШАГ 3: Поле ввода города -->
@@ -153,12 +154,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/welcomeTextStepThree"
                 tools:visibility="visible">
 
-                <AutoCompleteTextView
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/citySearchAutoComplete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/city_search_autocomplete_tv_hint"
-                    android:inputType="textAutoComplete" />
+                    android:inputType="textAutoComplete"
+                    android:padding="16dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- ИСПРАВЛЕНО: Крупная, центрированная тональная кнопка финиша -->
