@@ -12,14 +12,13 @@
 </div>
 
 <p align="center">
-  <b>A modern, lightweight Android application to check weather forecasts, fully tailored with dynamic Material You styling.</b>
+  <b>A modern, lightweight Android application to check weather forecasts, fully tailored with dynamic Material You Expressive styling.</b>
 </p>
 
 ---
 
 ## Screenshots
 <p align="center">
-  <!-- Замените ссылки ниже на реальные скриншоты, когда загрузите их в свой репозиторий -->
   <img src="screenshots/first_setup.jpg" width="240" alt="First Setup Screen">  <img src="screenshots/main_screen.jpg" width="240" alt="Main Screen">
 </p>
 
@@ -53,7 +52,7 @@
 
 * [x] **Crash-free:** Fixed critical app crash after opening the application several times.
 
-* [x] **Dynamic Themes:** Full support for Material You palette based on user's wallpaper.
+* [x] **Dynamic Themes:** Full support for Material You palette based on system settings (user's wallpaper or user-defined colors).
 
 ## Supported languages
 
