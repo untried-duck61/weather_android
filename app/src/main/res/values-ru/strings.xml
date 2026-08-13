@@ -102,5 +102,10 @@
     <string name="update_indicator_checking">Проверка обновлений...</string>
     <string name="updates_notify_channel_title">Обновления</string>
     <string name="updates_notify_channel_desc">Уведомления о новых версиях и загрузке обновлений приложения</string>
+    <string name="update_activity_toolbar_title">Обновление приложения</string>
+    <string name="card_versions_compare_installed_label">Установлена</string>
+    <string name="card_versions_compare_available_label">Доступна</string>
+    <string name="whats_new_block_title">Что нового</string>
+    <string name="download_progress_placeholder">%1$d%% • %2$.1f МБ / %3$.1f МБ</string>
 
 </resources>
