@@ -35,6 +35,10 @@
             android:name=".MainActivity"
             android:exported="true" />
 
+        <activity
+            android:name=".UpdateActivity"
+            android:exported="false" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
@@ -51,9 +55,9 @@
 
         <service
             android:name=".services.UpdateCheckService"
-            android:foregroundServiceType="dataSync"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
 
         <service
             android:name=".services.DownloadService"
