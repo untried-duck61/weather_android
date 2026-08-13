@@ -94,7 +94,12 @@ class DownloadService : Service() {
         NotificationCompat.Builder(this, UpdateCheckService.CHANNEL_ID)
             .setSmallIcon(android.R.drawable.stat_sys_download)
             .setContentTitle(getString(R.string.update_downloading_notify_title))
-            .setContentText("$readMb МБ из $totalMb МБ")
+            .setContentText(
+                getString(
+                    R.string.update_downloading_progress_notify_text,
+                    readMb,
+                    totalMb
+                ))
             .setProgress(100, progress, false)
             .setOngoing(true)
             .setSilent(true)
