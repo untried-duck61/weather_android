@@ -22,7 +22,7 @@ class ApkDownloader(private val context: Context) {
 
             if (response.isSuccessful && body != null) {
                 val totalBytes = body.contentLength()
-                val apkFile = File(context.cacheDir, "update.apk")
+                val apkFile = File(context.filesDir, "update.apk")
 
                 body.byteStream().use { inputStream ->
                     FileOutputStream(apkFile).use { outputStream ->
