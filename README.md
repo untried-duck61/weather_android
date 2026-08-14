@@ -19,7 +19,7 @@
 
 ## Screenshots
 <p align="center">
-  <img src="screenshots/first_setup.jpg" width="240" alt="First Setup Screen">  <img src="screenshots/main_screen.jpg" width="240" alt="Main Screen">
+  <img src="screenshots/first_setup.jpg" width="240" alt="First Setup Screen">  <img src="screenshots/main_screen.jpg" width="240" alt="Main Screen"> <img src="screenshots/settings_screen.jpg" width="240" alt="Settings Screen">
 </p>
 
 ## Tech Stack & Specifications
