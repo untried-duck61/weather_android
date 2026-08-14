@@ -121,6 +121,6 @@
     <string name="card_versions_compare_available_label">Available</string>
     <string name="whats_new_block_title">What\'s new</string>
     <string name="download_progress_placeholder">%1$d%% • %2$.1f MB / %3$.1f MB</string>
-    <string name="update_downloading_progress_notify_text">%1$s МБ из %2$s МБ</string>
+    <string name="update_downloading_progress_notify_text">%1$s MB / %2$s MB</string>
 
 </resources>

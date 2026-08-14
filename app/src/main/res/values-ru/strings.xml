@@ -107,5 +107,6 @@
     <string name="card_versions_compare_available_label">Доступна</string>
     <string name="whats_new_block_title">Что нового</string>
     <string name="download_progress_placeholder">%1$d%% • %2$.1f МБ / %3$.1f МБ</string>
+    <string name="update_downloading_progress_notify_text">%1$s МБ из %2$s МБ</string>
 
 </resources>
