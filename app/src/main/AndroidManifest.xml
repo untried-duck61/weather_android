@@ -53,18 +53,6 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <service
-            android:name=".services.UpdateCheckService"
-            android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="dataSync" />
-
-        <service
-            android:name=".services.DownloadService"
-            android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="dataSync" />
-
     </application>
 
 </manifest>
