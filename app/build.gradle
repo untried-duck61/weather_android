@@ -80,6 +80,7 @@ dependencies {
     implementation libs.androidx.coordinatorlayout
     implementation libs.volley
     implementation libs.play.services.location
+    implementation libs.markwon.core
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
