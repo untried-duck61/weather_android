@@ -66,7 +66,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/appShapedIcon" />
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardVersionsCompare"
+                android:id="@+id/cardVersions"
                 style="@style/Widget.Material3.CardView.Filled"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -145,7 +145,7 @@
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardVersionsCompare" />
+                app:layout_constraintTop_toBottomOf="@+id/cardVersions" />
 
             <com.google.android.material.loadingindicator.LoadingIndicator
                 android:id="@+id/changelogProgress"
@@ -191,6 +191,7 @@
         <!-- Тонкая полоса прогресса скачивания самого файла APK -->
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/downloadProgressBar"
+            style="@style/Widget.Material3Expressive.LinearProgressIndicator.Wavy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -206,7 +207,7 @@
             style="@style/Widget.Material3.Button"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Загрузить обновление"
+            android:text="@string/update_activity_btn_action_download_an_update"
             app:cornerRadius="16dp"
             app:icon="@drawable/ic_sync" />
         <!-- Заметь: в коде Kotlin при старте скачивания ты сможешь легко поменять
