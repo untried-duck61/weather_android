@@ -15,7 +15,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.os.Build
 import android.util.Log
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
@@ -119,32 +118,30 @@ class MainActivity : AppCompatActivity() {
 
     private fun createNotificationChannel() {
         // Проверка версии Android (Каналы появились начиная с Android 8.0 / API 26)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            // 1. Указываем точный ID канала (должен совпадать с UpdateCheckService.CHANNEL_ID)
-            val channelId = "updates_channel"
+        // 1. Указываем точный ID канала (должен совпадать с UpdateCheckService.CHANNEL_ID)
+        val channelId = "updates_channel"
 
-            // 2. Имя канала, которое пользователь увидит в настройках телефона
-            val name = getString(R.string.updates_notify_channel_title)
+        // 2. Имя канала, которое пользователь увидит в настройках телефона
+        val name = getString(R.string.updates_notify_channel_title)
 
-            // 3. Описание канала, объясняющее пользователю, зачем он нужен
-            val descriptionText = getString(R.string.updates_notify_channel_desc)
+        // 3. Описание канала, объясняющее пользователю, зачем он нужен
+        val descriptionText = getString(R.string.updates_notify_channel_desc)
 
-            // 4. Уровень важности (DEFAULT или HIGH, чтобы уведомление всплывало баннером сверху)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
+        // 4. Уровень важности (DEFAULT или HIGH, чтобы уведомление всплывало баннером сверху)
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
 
-            // Создаем сам объект канала
-            val channel = NotificationChannel(channelId, name, importance).apply {
-                description = descriptionText
-                // Можно добавить дополнительные системные фишки по желанию:
-                enableLights(true) // Включать светодиод при уведомлении
-                lightColor = android.graphics.Color.BLUE
-            }
-
-            // Регистрируем созданный канал в системе через NotificationManager
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
+        // Создаем сам объект канала
+        val channel = NotificationChannel(channelId, name, importance).apply {
+            description = descriptionText
+            // Можно добавить дополнительные системные фишки по желанию:
+            enableLights(true) // Включать светодиод при уведомлении
+            lightColor = android.graphics.Color.BLUE
         }
+
+        // Регистрируем созданный канал в системе через NotificationManager
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 
     private fun setupAutomaticUpdateChecks() {
@@ -415,11 +412,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun requestNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) !=
-                PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 102)
-            }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) !=
+            PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 102)
         }
     }
 

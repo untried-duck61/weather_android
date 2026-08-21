@@ -10,26 +10,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.android.volley.Request
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
-import org.json.JSONObject
 import ru.untriedduck.weatherforecast.databinding.ActivitySettingsBinding
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 import org.json.JSONArray
-import ru.untriedduck.weatherforecast.services.UpdateCheckService
-import ru.untriedduck.weatherforecast.updates.ApkDownloader
-import ru.untriedduck.weatherforecast.updates.ApkInstaller
 import ru.untriedduck.weatherforecast.weather.HelperApiMethods
 import kotlin.jvm.java
 
