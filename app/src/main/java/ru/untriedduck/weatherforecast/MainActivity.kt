@@ -110,7 +110,7 @@ class MainActivity : AppCompatActivity() {
         // Инициализация кнопок верхнего меню App Bar (Material You)
         setupAppBarMenu(shared, editor)
         createNotificationChannel()
-        setupAutomaticUpdateChecks()
+        //setupAutomaticUpdateChecks()
 
         // Проверка локации и первичный запрос
         lifecycleScope.launch { checkLocationAndLoadWeather(shared, editor) }
@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
         notificationManager.createNotificationChannel(channel)
     }
 
-    private fun setupAutomaticUpdateChecks() {
+    /*private fun setupAutomaticUpdateChecks() {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED) // Нужен интернет
             .build()
@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity() {
             ExistingPeriodicWorkPolicy.KEEP, // Если задача уже есть — не пересоздавать
             updateRequest
         )
-    }
+    }*/
 
     private fun setupAppBarMenu(shared: SharedPreferences, editor: SharedPreferences.Editor) {
         // Навешиваем слушатель кликов на меню нашего нового MaterialToolbar
