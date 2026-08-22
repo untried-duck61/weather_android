@@ -64,6 +64,8 @@
 
 * [ ] Add more detailed weather information on the main page (wind (done), humidity (done), pressure (done), sunrise and sunset (WIP), last updated (WIP), visibility (WIP)).
 
+* [ ] Add BottomNavigation for switching between current weather forecast and daily forecast for 5 days with 3-hour intervals
+
 * [ ] Add daily forecast
 
 * [ ] Add useful notifications (app updates, forecast for tomorrow)
