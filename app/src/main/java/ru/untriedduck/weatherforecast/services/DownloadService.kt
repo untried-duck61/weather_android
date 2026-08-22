@@ -16,9 +16,9 @@ import ru.untriedduck.weatherforecast.R
 import ru.untriedduck.weatherforecast.updates.ApkDownloader
 import ru.untriedduck.weatherforecast.updates.ApkInstaller
 
-class DownloadService : Service() {
+class DownloadService {
 
-    private val job = SupervisorJob()
+    /* private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.Main + job)
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -110,5 +110,5 @@ class DownloadService : Service() {
         job.cancel()
     }
 
-    override fun onBind(intent: Intent?): IBinder? = null
+    override fun onBind(intent: Intent?): IBinder? = null */
 }
