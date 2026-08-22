@@ -16,8 +16,8 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import ru.untriedduck.weatherforecast.R
 
-class UpdateCheckService : Service() {
-    companion object {
+class UpdateCheckService {
+    /* companion object {
         const val CHANNEL_ID = "updates_channel"
         const val NOTIFICATION_ID = 1001
     }
@@ -123,5 +123,5 @@ class UpdateCheckService : Service() {
         nm.notify(NOTIFICATION_ID, notification)
     }
 
-    override fun onBind(intent: Intent?): IBinder? = null
+    override fun onBind(intent: Intent?): IBinder? = null */
 }
