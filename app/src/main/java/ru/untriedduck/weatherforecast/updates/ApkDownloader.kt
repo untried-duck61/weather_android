@@ -1,7 +1,9 @@
 package ru.untriedduck.weatherforecast.updates
 
 import android.content.Context
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import java.io.File
@@ -31,6 +33,8 @@ class ApkDownloader(private val context: Context) {
                         var bytesWritten = 0L
 
                         while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+                            ensureActive()
+
                             outputStream.write(buffer, 0, bytesRead)
                             bytesWritten += bytesRead
                             // Передаем текущий прогресс вверх
@@ -42,6 +46,7 @@ class ApkDownloader(private val context: Context) {
                 return@withContext apkFile
             }
         } catch (e: Exception) {
+            if (e is CancellationException) throw e
             e.printStackTrace()
         }
         return@withContext null
