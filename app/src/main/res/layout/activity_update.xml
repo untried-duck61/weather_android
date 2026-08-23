@@ -23,6 +23,7 @@
             app:title="@string/update_activity_toolbar_title">
 
             <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
                 style="@style/Widget.Material3.Toolbar.Surface"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -71,7 +72,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                app:cardCornerRadius="24dp"
+                app:shapeAppearance="?attr/shapeAppearanceCornerMedium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvAppName">
@@ -101,16 +102,18 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/unknown"
-                            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                             android:textStyle="bold" />
                     </LinearLayout>
 
                     <com.google.android.material.divider.MaterialDivider
+                        android:id="@+id/cardVersionsDivider"
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         app:dividerColor="?attr/colorSurfaceVariant" />
 
                     <LinearLayout
+                        android:id="@+id/cardVersionsRightColumn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -129,7 +132,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/unknown"
-                            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                             android:textColor="?attr/colorPrimary"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -163,6 +166,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:textIsSelectable="true"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -186,7 +190,7 @@
             android:layout_marginBottom="6dp"
             android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
             android:textColor="?android:attr/textColorSecondary"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <!-- Тонкая полоса прогресса скачивания самого файла APK -->
         <com.google.android.material.progressindicator.LinearProgressIndicator
