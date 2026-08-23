@@ -109,5 +109,11 @@
     <string name="download_progress_placeholder">%1$d%% • %2$.1f МБ / %3$.1f МБ</string>
     <string name="update_downloading_progress_notify_text">%1$s МБ из %2$s МБ</string>
     <string name="update_activity_btn_action_download_an_update">Загрузить обновление</string>
+    <string name="update_activity_btn_action_up_to_date">Установлена свежая версия</string>
+    <string name="update_activity_btn_action_cancel_download">Отмена</string>
+    <string name="update_activity_btn_action_install_an_update">Установить обновление</string>
+    <string name="update_file_not_found_error">Файл обновления не найден, скачайте заново</string>
+    <string name="update_cancelled_info">Загрузка отменена</string>
+
 
 </resources>
