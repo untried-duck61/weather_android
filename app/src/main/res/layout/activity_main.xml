@@ -9,7 +9,6 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-    <!-- Material 3 Top App Bar: Город и Кнопки действий -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -18,8 +17,6 @@
         android:fitsSystemWindows="true"
         app:liftOnScroll="true">
 
-        <!-- ИСПРАВЛЕНО: layout_height изменен на специальный атрибут для Medium-стиля -->
-        <!-- ИСПРАВЛЕНО: в layout_scrollFlags добавлен флаг snap -->
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarLayout"
             style="@style/Widget.Material3Expressive.CollapsingToolbar.Medium"
@@ -40,20 +37,18 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Основной контент экрана -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
         android:fillViewport="true"
+        android:paddingBottom="64dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp">
-
-            <!-- Статус обновления (загрузка/время) -->
-            <!-- Поместите этот код внутрь ConstraintLayout, который лежит в NestedScrollView -->
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/progressBar"
@@ -66,7 +61,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible" />
 
-            <!-- Вашему TextView tvUpdateStatus теперь нужно изменить привязку top_toTopOf на top_toBottomOf -->
             <TextView
                 android:id="@+id/tvUpdateStatus"
                 android:layout_width="0dp"
@@ -77,9 +71,8 @@
                 android:textColor="?android:attr/textColorSecondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/progressBar" /> <!-- Привязали под прогресс-бар -->
+                app:layout_constraintTop_toBottomOf="@id/progressBar" />
 
-            <!-- БЛОК ГЛАВНОЙ ПОГОДЫ (Температура и Иконка) -->
             <LinearLayout
                 android:id="@+id/mainWeatherGroup"
                 android:layout_width="wrap_content"
@@ -108,7 +101,6 @@
                     tools:src="@mipmap/ic_launcher_foreground" />
             </LinearLayout>
 
-            <!-- Описание погоды (например, "Облачно с прояснениями") -->
             <TextView
                 android:id="@+id/tvDesc"
                 android:layout_width="0dp"
@@ -121,7 +113,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mainWeatherGroup" />
 
-            <!-- Ощущается как... -->
             <TextView
                 android:id="@+id/tvFeelsLike"
                 android:layout_width="0dp"
@@ -134,9 +125,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvDesc" />
 
-            <!-- СЕТКА КАРТОЧЕК С ДЕТАЛЯМИ (В стиле виджетов Google) -->
-
-            <!-- Единый горизонтальный контейнер для карточек, который решает проблему высоты -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layoutExpressiveGrid"
                 android:layout_width="match_parent"
@@ -146,14 +134,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvFeelsLike">
 
-                <!-- Левая карточка: Влажность (Стала выше и выглядит ещё более Expressive) -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardHumidity"
                     style="@style/Widget.Material3.CardView.Filled"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="6dp"
-                    app:cardCornerRadius="24dp"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerLarge"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/cardTempRange"
                     app:layout_constraintHorizontal_weight="1"
@@ -166,7 +153,6 @@
                         android:orientation="vertical"
                         android:padding="16dp">
 
-                        <!-- Заголовок карточки -->
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -174,7 +160,6 @@
                             android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                             android:textColor="?android:attr/textColorSecondary" />
 
-                        <!-- Капля и Проценты влажности -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
@@ -200,7 +185,6 @@
                                 android:textStyle="bold" />
                         </LinearLayout>
 
-                        <!-- ИСПРАВЛЕНО: Тонкий разделитель перед точкой росы -->
                         <com.google.android.material.divider.MaterialDivider
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -208,7 +192,6 @@
                             android:layout_marginBottom="8dp"
                             app:dividerColor="?attr/colorSurfaceVariant" />
 
-                        <!-- ИСПРАВЛЕНО: Новый блок точки росы в самом низу карточки -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -234,14 +217,13 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Правая верхняя карточка: Диапазон Температур -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardTempRange"
                     style="@style/Widget.Material3.CardView.Outlined"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
-                    app:cardCornerRadius="16dp"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerLarge"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="1"
                     app:layout_constraintStart_toEndOf="@+id/cardHumidity"
@@ -299,7 +281,6 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Правая нижняя карточка: Ветер (Теперь дышит полной грудью!) -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardWind"
                     style="@style/Widget.Material3.CardView.Filled"
@@ -307,7 +288,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="6dp"
-                    app:cardCornerRadius="20dp"
+                    app:shapeAppearance="?attr/shapeAppearanceCornerLarge"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/cardHumidity"
@@ -321,7 +302,6 @@
                         android:paddingEnd="12dp"
                         android:paddingBottom="10dp">
 
-                        <!-- 1. Заголовок "Ветер" (Прибит к самому верху) -->
                         <TextView
                             android:id="@+id/tvWindTitle"
                             android:layout_width="wrap_content"
@@ -332,7 +312,6 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <!-- 2. Стрелка + Направление (Идут строго ПОД заголовком) -->
                         <LinearLayout
                             android:id="@+id/layoutWindDirGroup"
                             android:layout_width="0dp"
@@ -363,7 +342,6 @@
                                 android:textStyle="bold" />
                         </LinearLayout>
 
-                        <!-- 3. Скорость ветра (Идет строго ПОД направлением) -->
                         <LinearLayout
                             android:id="@+id/layoutWindSpeedRow"
                             android:layout_width="0dp"
@@ -393,7 +371,6 @@
                                 android:textAppearance="@style/TextAppearance.Material3.LabelSmall" />
                         </LinearLayout>
 
-                        <!-- 4. Порывы ветра (Идут строго ПОД скоростью) -->
                         <LinearLayout
                             android:id="@+id/layoutWindGustRow"
                             android:layout_width="0dp"
@@ -429,14 +406,13 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Карточка Барометра (Широкая, идет следом под журнальной сеткой) -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardBarometer"
                 style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardCornerRadius="28dp"
+                app:shapeAppearance="?attr/shapeAppearanceCornerLarge"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layoutExpressiveGrid">
@@ -454,13 +430,11 @@
                         android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                         android:textColor="?android:attr/textColorSecondary" />
 
-                    <!-- Убран лишний внутренний padding, мешавший тексту -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp">
 
-                        <!-- ЛЕВАЯ КОЛОНКА (Изменено на 0dp и исправлены маргины) -->
                         <LinearLayout
                             android:id="@+id/barometer_left"
                             android:layout_width="0dp"
@@ -474,7 +448,6 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
-                            <!-- Центрируем барометр через гравити, убираем жесткие боковые маргины -->
                             <ru.untriedduck.weatherforecast.view.BarometerView
                                 android:id="@+id/barometer_total"
                                 android:layout_width="60dp"
@@ -491,7 +464,6 @@
                                 android:textColor="?android:attr/textColorSecondary" />
                         </LinearLayout>
 
-                        <!-- СРЕДНЯЯ КОЛОНКА (Изменено на 0dp) -->
                         <LinearLayout
                             android:id="@+id/barometer_center"
                             android:layout_width="0dp"
@@ -521,7 +493,6 @@
                                 android:textColor="?android:attr/textColorSecondary" />
                         </LinearLayout>
 
-                        <!-- ПРАВАЯ КОЛОНКА (Изменено на 0dp) -->
                         <LinearLayout
                             android:id="@+id/barometer_right"
                             android:layout_width="0dp"
@@ -555,85 +526,16 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!--com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardWind"
-                style="@style/Widget.Material3.CardView.Outlined"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardBarometer">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/wind_card_title"
-                        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
-                        android:textColor="?android:attr/textColorSecondary" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="2dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:id="@+id/iv_wind_direction_arrow"
-                            android:layout_width="72dp"
-                            android:layout_height="72dp"
-                            android:src="@drawable/ic_wind_arrow" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/tv_wind_direction_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/unknown"
-                                android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
-
-                            <TextView
-                                android:id="@+id/tv_wind_speed"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/wind_card_wind_speed_placeholder"
-                                android:textAppearance="@style/TextAppearance.Material3.BodySmall" />
-
-                            <TextView
-                                android:id="@+id/tv_wind_gust"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/wind_card_wind_gust_placeholder"
-                                android:textAppearance="@style/TextAppearance.Material3.BodySmall" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView-->
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardSunInfo"
                 style="@style/Widget.Material3.CardView.Filled"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardCornerRadius="24dp"
+                app:shapeAppearance="?attr/shapeAppearanceCornerLarge"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardBarometer"> <!-- ИСПРАВЛЕНО: привязали к барометру -->
+                app:layout_constraintTop_toBottomOf="@+id/cardBarometer">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -657,7 +559,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Нижний контейнер (AQI и UVI) — тоже успешно починен -->
             <LinearLayout
                 android:id="@+id/layoutCardsContainerSec"
                 android:layout_width="match_parent"
@@ -666,11 +567,9 @@
                 android:layout_marginBottom="16dp"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardSunInfo"
-                tools:visibility="visible">
+                app:layout_constraintTop_toBottomOf="@id/cardSunInfo">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardAqi"
@@ -679,7 +578,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    app:cardCornerRadius="20dp"> <!-- Добавили скругление Expressive -->
+                    app:shapeAppearance="?attr/shapeAppearanceCornerLarge">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -693,6 +592,15 @@
                             android:text="@string/aqi_card_title"
                             android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                             android:textColor="?android:attr/textColorSecondary" />
+
+                        <TextView
+                            android:id="@+id/tvAqiNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="@string/outdoor_indexes_placeholder"
+                            android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                            android:textStyle="bold"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -703,7 +611,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    app:cardCornerRadius="20dp"> <!-- Добавили скругление Expressive -->
+                    app:shapeAppearance="?attr/shapeAppearanceCornerLarge">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -717,9 +625,23 @@
                             android:text="@string/uvi_card_title"
                             android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                             android:textColor="?android:attr/textColorSecondary" />
+                        <TextView
+                            android:id="@+id/tvUviNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="@string/outdoor_indexes_placeholder"
+                            android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                            android:textStyle="bold"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
