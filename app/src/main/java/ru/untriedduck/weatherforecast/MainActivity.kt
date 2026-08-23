@@ -238,6 +238,10 @@ class MainActivity : AppCompatActivity() {
         binding.progressBar.visibility = View.VISIBLE
 
         val url = getString(R.string.__api_url, lat, lon, apiKey, getString(R.string.lang), units)
+        val uviUrl =
+            getString(R.string.__uvi_api_url, lat, lon, apiKey, units, getString(R.string.lang))
+        val aqiUrl =
+            getString(R.string.__aqi_api_url, lat, lon, apiKey, units, getString(R.string.lang))
 
         val stringRequest = StringRequest(Request.Method.GET, url, { response ->
             binding.progressBar.visibility = View.GONE
@@ -346,8 +350,69 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        val uviStringRequest = StringRequest(Request.Method.GET, uviUrl, { uviResponse ->
+            val uviRoot = JSONObject(uviResponse)
+            val uviValue = uviRoot.getString("value").toFloat().roundToInt().toString()
+            binding.tvUviNumber.text = uviValue
+        }, { error ->
+            binding.progressBar.visibility = View.GONE
+            // Сюда можно добавить красивый Material Snackbar в случае ошибки сети
+            Log.e("WeatherError", "Volley error: ${error.message}")
+
+            // Создаем и показываем Material 3 Snackbar
+            Snackbar.make(
+                binding.main, // Передаем корневой CoordinatorLayout
+                getString(R.string.weather_update_failed), // Текст ошибки
+                Snackbar.LENGTH_LONG // Время отображения
+            ).apply {
+                // Добавляем кнопку "Повторить" прямо внутрь уведомления
+                setAction(getString(R.string.weather_update_retry_action)) {
+                    // При нажатии запускаем повторный запрос погоды
+                    getWeather(lon, lat, apiKey, units)
+                }
+                // Задаем цвет кнопке действия из палитры темы приложения
+                setActionTextColor(
+                    if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES) this@MainActivity.getColorFromAttr(
+                        com.google.android.material.R.attr.colorOnTertiary
+                    ) else this@MainActivity.getColorFromAttr(com.google.android.material.R.attr.colorTertiary)
+                )
+
+                show() // Показываем Snackbar
+            }
+        })
+
+        val aqiStringRequest = StringRequest(Request.Method.GET, aqiUrl, { uviResponse ->
+            val aqiRoot = JSONObject(uviResponse)
+        }, { error ->
+            binding.progressBar.visibility = View.GONE
+            // Сюда можно добавить красивый Material Snackbar в случае ошибки сети
+            Log.e("WeatherError", "Volley error: ${error.message}")
+
+            // Создаем и показываем Material 3 Snackbar
+            Snackbar.make(
+                binding.main, // Передаем корневой CoordinatorLayout
+                getString(R.string.weather_update_failed), // Текст ошибки
+                Snackbar.LENGTH_LONG // Время отображения
+            ).apply {
+                // Добавляем кнопку "Повторить" прямо внутрь уведомления
+                setAction(getString(R.string.weather_update_retry_action)) {
+                    // При нажатии запускаем повторный запрос погоды
+                    getWeather(lon, lat, apiKey, units)
+                }
+                // Задаем цвет кнопке действия из палитры темы приложения
+                setActionTextColor(
+                    if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES) this@MainActivity.getColorFromAttr(
+                        com.google.android.material.R.attr.colorOnTertiary
+                    ) else this@MainActivity.getColorFromAttr(com.google.android.material.R.attr.colorTertiary)
+                )
+
+                show() // Показываем Snackbar
+            }
+        })
+
         // Добавляем запрос в общую единую очередь класса
         requestQueue.add(stringRequest)
+        requestQueue.add(uviStringRequest)
     }
 
     /**
