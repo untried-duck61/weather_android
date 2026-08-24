@@ -593,14 +593,107 @@
                             android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
                             android:textColor="?android:attr/textColorSecondary" />
 
-                        <TextView
-                            android:id="@+id/tvAqiNumber"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:text="@string/outdoor_indexes_placeholder"
-                            android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
-                            android:textStyle="bold"/>
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tvAqiNumber"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/outdoor_indexes_placeholder"
+                                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginEnd="12dp"
+                                android:text="@string/unknown"
+                                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+                        </LinearLayout>
+
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:max="44" /> <!-- The highest UVI value on the Earth was 43.3 (measured on Dec 29, 2003)! -->
+                        <LinearLayout
+                            android:id="@+id/layoutAqiDetails"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            android:paddingBottom="8dp"
+                            android:visibility="gone"
+                            tools:visibility="visible">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvCOval"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="CO: 0 мкг/м³" />
+
+                                <TextView
+                                    android:id="@+id/tvNOval"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="NO: 0 мкг/м³" />
+
+                                <TextView
+                                    android:id="@+id/tvNO2val"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="NO₂: 0 мкг/м³" />
+
+                                <TextView
+                                    android:id="@+id/tvO3val"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="O₃: 0 мкг/м³" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvSO2val"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="SO₂: 0 мкг/м³" />
+
+                                <TextView
+                                    android:id="@+id/tvNH3val"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="NH₃: 0 мкг/м³" />
+
+                                <TextView
+                                    android:id="@+id/tvPM2_5val"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="PM₂.₅: 0 мкг/м³" />
+
+                                <TextView
+                                    android:id="@+id/tvPM10val"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="PM₁₀: 0 мкг/м³" />
+                            </LinearLayout>
+                        </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
