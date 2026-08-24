@@ -383,6 +383,9 @@ class MainActivity : AppCompatActivity() {
 
         val aqiStringRequest = StringRequest(Request.Method.GET, aqiUrl, { uviResponse ->
             val aqiRoot = JSONObject(uviResponse)
+            val aqiList = aqiRoot.getJSONArray("list")
+            val aqiMain = aqiList.getJSONObject(0).getJSONObject("main")
+            val aqiComponents = aqiList.getJSONObject(0).getJSONObject("components")
         }, { error ->
             binding.progressBar.visibility = View.GONE
             // Сюда можно добавить красивый Material Snackbar в случае ошибки сети
