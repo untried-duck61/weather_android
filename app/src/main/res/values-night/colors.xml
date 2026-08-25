@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FFFAFAFA</color>
+    <color name="white">#FF000000</color>
+
+    <color name="aqi_invalid_progress">#757575</color>
+    <color name="aqi_invalid_track">#303030</color>
+
+    <color name="aqi_good_progress">#81C784</color>
+    <color name="aqi_good_track">#701B5E20</color>
+
+    <color name="aqi_moderate_progress">#FFF176</color>
+    <color name="aqi_moderate_track">#70F57F17</color>
+
+    <color name="aqi_unhealthy_sensitive_progress">#FFB74D</color>
+    <color name="aqi_unhealthy_sensitive_track">#70E65100</color>
+
+    <color name="aqi_unhealthy_progress">#E57373</color>
+    <color name="aqi_unhealthy_track">#70B71C1C</color>
+
+    <color name="aqi_very_unhealthy_progress">#BA68C8</color>
+    <color name="aqi_very_unhealthy_track">#704A148C</color>
+
+    <color name="aqi_hazardous_progress">#C2185B</color>
+    <color name="aqi_hazardous_track">#70880E4F</color>
+</resources>

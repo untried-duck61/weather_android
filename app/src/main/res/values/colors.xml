@@ -2,4 +2,24 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="aqi_invalid_progress">#9E9E9E</color>
+    <color name="aqi_invalid_track">#70E0E0E0</color>
+
+    <color name="aqi_good_progress">#4CAF50</color>
+    <color name="aqi_good_track">#70C8E6C9</color>
+
+    <color name="aqi_moderate_progress">#FBC02D</color>
+    <color name="aqi_moderate_track">#70FFF9C4</color>
+
+    <color name="aqi_unhealthy_sensitive_progress">#FF9800</color>
+    <color name="aqi_unhealthy_sensitive_track">#70FFE0B2</color>
+
+    <color name="aqi_unhealthy_progress">#F44336</color>
+    <color name="aqi_unhealthy_track">#70FFCDD2</color>
+
+    <color name="aqi_very_unhealthy_progress">#9C27B0</color>
+    <color name="aqi_very_unhealthy_track">#70E1BEE7</color>
+
+    <color name="aqi_hazardous_progress">#880E4F</color>
+    <color name="aqi_hazardous_track">#70F8BBD0</color>
 </resources>
