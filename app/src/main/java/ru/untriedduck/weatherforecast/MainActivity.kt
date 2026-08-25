@@ -31,23 +31,17 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
-import androidx.work.Constraints
+import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
-import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.NetworkType
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
-import ru.untriedduck.weatherforecast.services.UpdateWorker
 import ru.untriedduck.weatherforecast.weather.WindDirection
-import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
 import kotlin.math.log
 
@@ -384,8 +378,36 @@ class MainActivity : AppCompatActivity() {
         val aqiStringRequest = StringRequest(Request.Method.GET, aqiUrl, { uviResponse ->
             val aqiRoot = JSONObject(uviResponse)
             val aqiList = aqiRoot.getJSONArray("list")
+
             val aqiMain = aqiList.getJSONObject(0).getJSONObject("main")
+            val aqiVal = aqiMain.getInt("aqi")
+            binding.tvAqiNumber.text = aqiVal.toString()
+            binding.tvAqiDesc.text = getAqiDesc(aqiVal)
+            binding.pbAqiVal.progress = aqiVal
+
+            val (progressRes, trackRes) = getAqiColorRes(aqiVal)
+            val progressColor = ContextCompat.getColor(this, progressRes)
+            val trackColor = ContextCompat.getColor(this, trackRes)
+            binding.pbAqiVal.setIndicatorColor(progressColor)
+            binding.pbAqiVal.trackColor = trackColor
+
             val aqiComponents = aqiList.getJSONObject(0).getJSONObject("components")
+            val aqiCO = aqiComponents.getString("co")
+            val aqiNO = aqiComponents.getString("no")
+            val aqiNO2 = aqiComponents.getString("no2")
+            val aqiO3 = aqiComponents.getString("o3")
+            val aqiSO2 = aqiComponents.getString("so2")
+            val aqiPMf2t5 = aqiComponents.getString("pm2_5")
+            val aqiPM10 = aqiComponents.getString("pm10")
+            val aqiNH3 = aqiComponents.getString("nh3")
+            binding.tvCOval.text = getString(R.string.aqi_val_format, "CO", aqiCO)
+            binding.tvNOval.text = getString(R.string.aqi_val_format, "NO", aqiNO)
+            binding.tvNO2val.text = getString(R.string.aqi_val_format, "NO2", aqiNO2)
+            binding.tvO3val.text = getString(R.string.aqi_val_format, "O3", aqiO3)
+            binding.tvSO2val.text = getString(R.string.aqi_val_format, "SO2", aqiSO2)
+            binding.tvPM25val.text = getString(R.string.aqi_val_format, "PM2.5", aqiPMf2t5)
+            binding.tvPM10val.text = aqiPM10
+            binding.tvNH3val.text = aqiNH3
         }, { error ->
             binding.progressBar.visibility = View.GONE
             // Сюда можно добавить красивый Material Snackbar в случае ошибки сети
@@ -416,6 +438,32 @@ class MainActivity : AppCompatActivity() {
         // Добавляем запрос в общую единую очередь класса
         requestQueue.add(stringRequest)
         requestQueue.add(uviStringRequest)
+        requestQueue.add(aqiStringRequest)
+    }
+
+    fun getAqiDesc(aqiVal: Int) : String {
+        return when {
+            aqiVal < 0 -> getString(R.string.unknown)
+            aqiVal in 0..50 -> getString(R.string.aqi_val_good)
+            aqiVal in 51..100 -> getString(R.string.aqi_val_moderate)
+            aqiVal in 101..150 -> getString(R.string.aqi_val_unhealthy_for_sensitive_groups)
+            aqiVal in 151..200 -> getString(R.string.aqi_val_unhealthy)
+            aqiVal in 201..300 -> getString(R.string.aqi_val_very_unhealthy)
+            else -> getString(R.string.aqi_val_hazardous)
+        }
+    }
+
+    @ColorRes
+    fun getAqiColorRes(aqi: Int): Pair<Int, Int> {
+        return when {
+            aqi < 0 -> Pair(R.color.aqi_invalid_progress, R.color.aqi_invalid_track)
+            aqi in 0..50 -> Pair(R.color.aqi_good_progress, R.color.aqi_good_track)
+            aqi in 51..100 -> Pair(R.color.aqi_moderate_progress, R.color.aqi_moderate_track)
+            aqi in 101..150 -> Pair(R.color.aqi_unhealthy_sensitive_progress, R.color.aqi_unhealthy_sensitive_track)
+            aqi in 151..200 -> Pair(R.color.aqi_unhealthy_progress, R.color.aqi_unhealthy_track)
+            aqi in 201..300 -> Pair(R.color.aqi_very_unhealthy_progress, R.color.aqi_very_unhealthy_track)
+            else -> Pair(R.color.aqi_hazardous_progress, R.color.aqi_hazardous_track)
+        }
     }
 
     /**
