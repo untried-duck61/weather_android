@@ -114,6 +114,15 @@
     <string name="update_activity_btn_action_install_an_update">Установить обновление</string>
     <string name="update_file_not_found_error">Файл обновления не найден, скачайте заново</string>
     <string name="update_cancelled_info">Загрузка отменена</string>
+    <string name="air_details_card_title">Детали качества воздуха</string>
+    <string name="air_gas_placeholder">неизвестно: 0 мкг/м³</string>
+    <string name="aqi_val_good">Хороший</string>
+    <string name="aqi_val_moderate">Средний</string>
+    <string name="aqi_val_unhealthy_for_sensitive_groups">Вредный для уязвимых</string>
+    <string name="aqi_val_unhealthy">Вредный</string>
+    <string name="aqi_val_very_unhealthy">Очень вредный</string>
+    <string name="aqi_val_hazardous">Опасный</string>
+    <string name="aqi_val_format">%1$s: %2$s мкг/м³</string>
 
 
 </resources>

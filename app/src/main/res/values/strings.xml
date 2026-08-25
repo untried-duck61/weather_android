@@ -131,5 +131,14 @@
     <string name="outdoor_indexes_placeholder" translatable="false">0</string>
     <string name="__uvi_api_url" translatable="false"><![CDATA[https://api.openweathermap.org/data/2.5/uvi?lat=%1$s&lon=%2$s&APPID=%3$s&units=%4$s&lang=%5$s]]></string>
     <string name="__aqi_api_url" translatable="false"><![CDATA[https://api.openweathermap.org/data/2.5/air_pollution?lat=%1$s&lon=%2$s&APPID=%3$s&units=%4$s&lang=%5$s]]></string>
+    <string name="air_details_card_title">Aiq quality details</string>
+    <string name="air_gas_placeholder">unknown: 0 µg/m³</string>
+    <string name="aqi_val_good">Good</string>
+    <string name="aqi_val_moderate">Moderate</string>
+    <string name="aqi_val_unhealthy_for_sensitive_groups">Unhealthy for sensitive</string>
+    <string name="aqi_val_unhealthy">Unhealthy</string>
+    <string name="aqi_val_very_unhealthy">Very Unhealthy</string>
+    <string name="aqi_val_hazardous">Hazardous</string>
+    <string name="aqi_val_format">%1$s: %2$s µg/m³</string>
 
 </resources>
