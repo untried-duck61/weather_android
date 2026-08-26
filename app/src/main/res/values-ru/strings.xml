@@ -123,6 +123,14 @@
     <string name="aqi_val_very_unhealthy">Очень вредный</string>
     <string name="aqi_val_hazardous">Опасный</string>
     <string name="aqi_val_format">%1$s: %2$s мкг/м³</string>
+    <string name="uvi_val_low">Низкий</string>
+    <string name="uvi_val_moderate">Умеренный</string>
+    <string name="uvi_val_high">Высокий</string>
+    <string name="uvi_val_dangerous">Опасный</string>
+    <string name="uvi_adv_sunglasses_n_cap">Наденьте очки и кепку</string>
+    <string name="uvi_adv_spf_cream">Используйте крем SPF</string>
+    <string name="uvi_adv_beware_of_sun">Избегайте солнца</string>
+    <string name="uvi_adv_ok">Защита не требуется</string>
 
 
 </resources>

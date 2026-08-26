@@ -140,5 +140,21 @@
     <string name="aqi_val_very_unhealthy">Very Unhealthy</string>
     <string name="aqi_val_hazardous">Hazardous</string>
     <string name="aqi_val_format">%1$s: %2$s µg/m³</string>
+    <string name="co_gas" translatable="false">CO</string>
+    <string name="no_gas" translatable="false">NO</string>
+    <string name="no2_gas" translatable="false">NO₂</string>
+    <string name="o3_gas" translatable="false">O₃</string>
+    <string name="so2_gas" translatable="false">SO₂</string>
+    <string name="pm25_gas" translatable="false">PM₂.₅</string>
+    <string name="pm10_gas" translatable="false">PM₁₀</string>
+    <string name="nh3_gas" translatable="false">NH₃</string>
+    <string name="uvi_val_low">Low</string>
+    <string name="uvi_val_moderate">Moderate</string>
+    <string name="uvi_val_high">High</string>
+    <string name="uvi_val_dangerous">Dangerous</string>
+    <string name="uvi_adv_ok">No protection needed</string>
+    <string name="uvi_adv_sunglasses_n_cap">Put on sunglasses and cap</string>
+    <string name="uvi_adv_spf_cream">Use SPF cream</string>
+    <string name="uvi_adv_beware_of_sun">Beware of sun</string>
 
 </resources>
