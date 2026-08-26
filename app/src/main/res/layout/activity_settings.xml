@@ -364,21 +364,25 @@
 
                                 <com.google.android.material.textfield.TextInputLayout
                                     android:id="@+id/city_name_textfield_layout"
-                                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                                    style="@style/Widget.Material3.TextInputLayout.FilledBox"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="40dp"
-                                    android:hint="@string/city_name_textfield_hint"
-                                    app:boxCornerRadiusBottomEnd="16dp"
-                                    app:boxCornerRadiusBottomStart="16dp"
+                                    android:layout_marginTop="8dp"
+                                    app:boxCornerRadiusTopStart="16dp"
                                     app:boxCornerRadiusTopEnd="16dp"
-                                    app:boxCornerRadiusTopStart="16dp">
+                                    app:boxCornerRadiusBottomStart="16dp"
+                                    app:boxCornerRadiusBottomEnd="16dp"
+                                    app:boxStrokeWidth="0dp"
+                                    app:boxStrokeWidthFocused="0dp"
+                                    android:layout_marginStart="40dp"
+                                    android:hint="@string/city_name_textfield_hint">
 
                                     <com.google.android.material.textfield.MaterialAutoCompleteTextView
                                         android:id="@+id/city_name_textfield"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:inputType="textAutoComplete"
+                                        android:backgroundTint="?attr/colorSurfaceContainer"
                                         android:padding="16dp" />
                                 </com.google.android.material.textfield.TextInputLayout>
                             </FrameLayout>
