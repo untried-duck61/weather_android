@@ -4,11 +4,13 @@
     <item
         android:id="@+id/refresh_btn"
         android:icon="@drawable/ic_refresh"
+        android:iconTint="?attr/colorOnSurfaceVariant"
         android:title="@string/refresh_btn_title"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/settings_btn"
         android:icon="@drawable/ic_settings"
+        android:iconTint="?attr/colorOnSurfaceVariant"
         android:title="@string/settings_btn_title"
         app:showAsAction="ifRoom" />
 </menu>
