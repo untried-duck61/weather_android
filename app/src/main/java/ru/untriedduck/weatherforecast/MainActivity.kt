@@ -346,8 +346,10 @@ class MainActivity : AppCompatActivity() {
 
         val uviStringRequest = StringRequest(Request.Method.GET, uviUrl, { uviResponse ->
             val uviRoot = JSONObject(uviResponse)
-            val uviValue = uviRoot.getString("value").toFloat().roundToInt().toString()
-            binding.tvUviNumber.text = uviValue
+            val uviValue = uviRoot.getString("value").toFloat().roundToInt()
+            binding.tvUviNumber.text = uviValue.toString()
+            binding.tvUviDesc.text = getUviDesc(uviValue)
+            binding.tvUviAdvice.text = getUviAdvice(uviValue)
         }, { error ->
             binding.progressBar.visibility = View.GONE
             // Сюда можно добавить красивый Material Snackbar в случае ошибки сети
@@ -400,14 +402,22 @@ class MainActivity : AppCompatActivity() {
             val aqiPMf2t5 = aqiComponents.getString("pm2_5")
             val aqiPM10 = aqiComponents.getString("pm10")
             val aqiNH3 = aqiComponents.getString("nh3")
-            binding.tvCOval.text = getString(R.string.aqi_val_format, "CO", aqiCO)
-            binding.tvNOval.text = getString(R.string.aqi_val_format, "NO", aqiNO)
-            binding.tvNO2val.text = getString(R.string.aqi_val_format, "NO2", aqiNO2)
-            binding.tvO3val.text = getString(R.string.aqi_val_format, "O3", aqiO3)
-            binding.tvSO2val.text = getString(R.string.aqi_val_format, "SO2", aqiSO2)
-            binding.tvPM25val.text = getString(R.string.aqi_val_format, "PM2.5", aqiPMf2t5)
-            binding.tvPM10val.text = aqiPM10
-            binding.tvNH3val.text = aqiNH3
+            binding.tvCOval.text = getString(R.string.aqi_val_format,
+                getString(R.string.co_gas), aqiCO)
+            binding.tvNOval.text = getString(R.string.aqi_val_format,
+                getString(R.string.no_gas), aqiNO)
+            binding.tvNO2val.text = getString(R.string.aqi_val_format,
+                getString(R.string.no2_gas), aqiNO2)
+            binding.tvO3val.text = getString(R.string.aqi_val_format,
+                getString(R.string.o3_gas), aqiO3)
+            binding.tvSO2val.text = getString(R.string.aqi_val_format,
+                getString(R.string.so2_gas), aqiSO2)
+            binding.tvPM25val.text = getString(R.string.aqi_val_format,
+                getString(R.string.pm25_gas), aqiPMf2t5)
+            binding.tvPM10val.text = getString(R.string.aqi_val_format,
+                getString(R.string.pm10_gas), aqiPM10)
+            binding.tvNH3val.text = getString(R.string.aqi_val_format,
+                getString(R.string.nh3_gas), aqiNH3)
         }, { error ->
             binding.progressBar.visibility = View.GONE
             // Сюда можно добавить красивый Material Snackbar в случае ошибки сети
@@ -439,6 +449,26 @@ class MainActivity : AppCompatActivity() {
         requestQueue.add(stringRequest)
         requestQueue.add(uviStringRequest)
         requestQueue.add(aqiStringRequest)
+    }
+
+    fun getUviDesc(uviVal: Int) : String {
+        return when {
+            uviVal < 0 -> getString(R.string.unknown)
+            uviVal in 0..2 -> getString(R.string.uvi_val_low)
+            uviVal in 3..5 -> getString(R.string.uvi_val_moderate)
+            uviVal in 6..7 -> getString(R.string.uvi_val_high)
+            else -> getString(R.string.uvi_val_dangerous)
+        }
+    }
+
+    fun getUviAdvice(uviVal: Int) : String {
+        return when {
+            uviVal < 0 -> getString(R.string.unknown)
+            uviVal in 0..2 -> getString(R.string.uvi_adv_ok)
+            uviVal in 3..5 -> getString(R.string.uvi_adv_sunglasses_n_cap)
+            uviVal in 6..7 -> getString(R.string.uvi_adv_spf_cream)
+            else -> getString(R.string.uvi_adv_beware_of_sun)
+        }
     }
 
     fun getAqiDesc(aqiVal: Int) : String {
