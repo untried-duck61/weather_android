@@ -117,10 +117,10 @@ class MainActivity : AppCompatActivity() {
         val channelId = "updates_channel"
 
         // 2. Имя канала, которое пользователь увидит в настройках телефона
-        val name = getString(R.string.updates_notify_channel_title)
+        val name = getString(R.string.weather_notify_channel_title)
 
         // 3. Описание канала, объясняющее пользователю, зачем он нужен
-        val descriptionText = getString(R.string.updates_notify_channel_desc)
+        val descriptionText = getString(R.string.weather_notify_channel_desc)
 
         // 4. Уровень важности (DEFAULT или HIGH, чтобы уведомление всплывало баннером сверху)
         val importance = NotificationManager.IMPORTANCE_DEFAULT
@@ -137,22 +137,6 @@ class MainActivity : AppCompatActivity() {
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
     }
-
-    /*private fun setupAutomaticUpdateChecks() {
-        val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED) // Нужен интернет
-            .build()
-
-        val updateRequest = PeriodicWorkRequestBuilder<UpdateWorker>(24, TimeUnit.HOURS)
-            .setConstraints(constraints)
-            .build()
-
-        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
-            "daily_weather_update_check",
-            ExistingPeriodicWorkPolicy.KEEP, // Если задача уже есть — не пересоздавать
-            updateRequest
-        )
-    }*/
 
     private fun setupAppBarMenu(shared: SharedPreferences, editor: SharedPreferences.Editor) {
         // Навешиваем слушатель кликов на меню нашего нового MaterialToolbar
