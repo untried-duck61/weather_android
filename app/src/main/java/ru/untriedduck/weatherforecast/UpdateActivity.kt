@@ -1,5 +1,8 @@
 package ru.untriedduck.weatherforecast
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ValueAnimator
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -7,11 +10,13 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.lifecycle.lifecycleScope
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
@@ -177,8 +182,7 @@ class UpdateActivity : AppCompatActivity() {
                         }
                     }
                 } else {
-                    binding.cardVersionsDivider.visibility = View.GONE
-                    binding.cardVersionsRightColumn.visibility = View.GONE
+                    animateViewToGone(binding.cardVersionsLeftColumn, binding.cardVersionsDivider, binding.cardVersionsRightColumn)
                     binding.btnAction.text =
                         getString(R.string.update_activity_btn_action_up_to_date)
                     binding.btnAction.isEnabled = false
@@ -263,5 +267,42 @@ class UpdateActivity : AppCompatActivity() {
         } else {
             window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
+    }
+
+    fun animateViewToGone(leftView: View, divider: View, rightView: View) {
+        val initialHeight = rightView.height
+
+        (rightView.layoutParams as LinearLayout.LayoutParams).height = initialHeight
+        (divider.layoutParams as LinearLayout.LayoutParams).height = initialHeight
+
+        val animator = ValueAnimator.ofFloat(1f, 0f).apply {
+            duration = 350
+            interpolator = FastOutSlowInInterpolator()
+
+            addUpdateListener { animation ->
+                val progress = animation.animatedValue as Float
+
+                (rightView.layoutParams as LinearLayout.LayoutParams).weight = progress
+                (divider.layoutParams as LinearLayout.LayoutParams).weight = progress
+                (leftView.layoutParams as LinearLayout.LayoutParams).weight = 1f + (1f - progress) * 2f
+
+                rightView.requestLayout()
+                divider.requestLayout()
+                leftView.requestLayout()
+            }
+
+            addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+
+                    rightView.visibility = View.GONE
+                    divider.visibility = View.GONE
+
+                    (rightView.layoutParams as LinearLayout.LayoutParams).height = LinearLayout.LayoutParams.MATCH_PARENT
+                    (divider.layoutParams as LinearLayout.LayoutParams).height = LinearLayout.LayoutParams.MATCH_PARENT
+                }
+            })
+        }
+
+        animator.start()
     }
 }
