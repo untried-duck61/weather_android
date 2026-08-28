@@ -303,25 +303,21 @@ class MainActivity : AppCompatActivity() {
             // Сюда можно добавить красивый Material Snackbar в случае ошибки сети
             Log.e("WeatherError", "Volley error: ${error.message}")
 
-            // Создаем и показываем Material 3 Snackbar
             Snackbar.make(
-                binding.main, // Передаем корневой CoordinatorLayout
-                getString(R.string.weather_update_failed), // Текст ошибки
-                Snackbar.LENGTH_LONG // Время отображения
+                binding.main,
+                getString(R.string.weather_update_failed),
+                Snackbar.LENGTH_LONG
             ).apply {
-                // Добавляем кнопку "Повторить" прямо внутрь уведомления
                 setAction(getString(R.string.weather_update_retry_action)) {
-                    // При нажатии запускаем повторный запрос погоды
                     getWeather(lon, lat, apiKey, units)
                 }
-                // Задаем цвет кнопке действия из палитры темы приложения
                 setActionTextColor(
                     if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES) this@MainActivity.getColorFromAttr(
                         com.google.android.material.R.attr.colorOnTertiary
                     ) else this@MainActivity.getColorFromAttr(com.google.android.material.R.attr.colorTertiary)
                 )
 
-                show() // Показываем Snackbar
+                show()
             }
         })
 
@@ -333,28 +329,23 @@ class MainActivity : AppCompatActivity() {
             binding.tvUviAdvice.text = getUviAdvice(uviValue)
         }, { error ->
             binding.progressBar.visibility = View.GONE
-            // Сюда можно добавить красивый Material Snackbar в случае ошибки сети
             Log.e("WeatherError", "Volley error: ${error.message}")
 
-            // Создаем и показываем Material 3 Snackbar
             Snackbar.make(
-                binding.main, // Передаем корневой CoordinatorLayout
-                getString(R.string.weather_update_failed), // Текст ошибки
-                Snackbar.LENGTH_LONG // Время отображения
+                binding.main,
+                getString(R.string.weather_update_failed),
+                Snackbar.LENGTH_LONG
             ).apply {
-                // Добавляем кнопку "Повторить" прямо внутрь уведомления
                 setAction(getString(R.string.weather_update_retry_action)) {
-                    // При нажатии запускаем повторный запрос погоды
                     getWeather(lon, lat, apiKey, units)
                 }
-                // Задаем цвет кнопке действия из палитры темы приложения
                 setActionTextColor(
                     if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES) this@MainActivity.getColorFromAttr(
                         com.google.android.material.R.attr.colorOnTertiary
                     ) else this@MainActivity.getColorFromAttr(com.google.android.material.R.attr.colorTertiary)
                 )
 
-                show() // Показываем Snackbar
+                show()
             }
         })
 
@@ -401,32 +392,26 @@ class MainActivity : AppCompatActivity() {
                 getString(R.string.nh3_gas), aqiNH3)
         }, { error ->
             binding.progressBar.visibility = View.GONE
-            // Сюда можно добавить красивый Material Snackbar в случае ошибки сети
             Log.e("WeatherError", "Volley error: ${error.message}")
 
-            // Создаем и показываем Material 3 Snackbar
             Snackbar.make(
-                binding.main, // Передаем корневой CoordinatorLayout
-                getString(R.string.weather_update_failed), // Текст ошибки
-                Snackbar.LENGTH_LONG // Время отображения
+                binding.main,
+                getString(R.string.weather_update_failed),
+                Snackbar.LENGTH_LONG
             ).apply {
-                // Добавляем кнопку "Повторить" прямо внутрь уведомления
                 setAction(getString(R.string.weather_update_retry_action)) {
-                    // При нажатии запускаем повторный запрос погоды
                     getWeather(lon, lat, apiKey, units)
                 }
-                // Задаем цвет кнопке действия из палитры темы приложения
                 setActionTextColor(
                     if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES) this@MainActivity.getColorFromAttr(
                         com.google.android.material.R.attr.colorOnTertiary
                     ) else this@MainActivity.getColorFromAttr(com.google.android.material.R.attr.colorTertiary)
                 )
 
-                show() // Показываем Snackbar
+                show()
             }
         })
 
-        // Добавляем запрос в общую единую очередь класса
         requestQueue.add(stringRequest)
         requestQueue.add(uviStringRequest)
         requestQueue.add(aqiStringRequest)
@@ -477,37 +462,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Вычисляет округленную точку росы до целого числа на основе температуры и влажности.
-     * Automatically converts Fahrenheit to Celsius for calculation and formats the result back.
-     *
-     * @param temp Текущая температура воздуха (может быть в Цельсиях или Фаренгейтах).
-     * @param humidity Текущая относительная влажность воздуха в процентах (в диапазоне от 0.0 до 100.0).
-     * @param units Строка системы измерения из OpenWeatherMap ("metric" — Цельсий, "imperial" — Фаренгейт).
-     * @return Округленное значение точки росы (Int) в соответствующей системе измерения.
-     */
     fun getDewPoint(temp: Double, humidity: Double, units: String): Int {
-        // 1. Определяем, используется ли американская система (Фаренгейты)
         val isImperial = units.equals("imperial", ignoreCase = true)
 
-        // 2. Формула Магнуса-Тетенса работает строго с градусами Цельсия.
-        // Если на входе Фаренгейты, временно переводим их в Цельсии:
         val tempInCelsius = if (isImperial) (temp - 32.0) * 5.0 / 9.0 else temp
 
-        // 3. Задаем постоянные коэффициенты для формулы Магнуса-Тетенса
         val a = 17.27
         val b = 237.7
 
-        // 4. Вычисляем промежуточное значение alpha
         val alpha = ((a * tempInCelsius) / (b + tempInCelsius)) + log(humidity / 100.0, Math.E)
 
-        // 5. Находим точку росы в градусах Цельсия
         val dewPointInCelsius = (b * alpha) / (a - alpha)
 
-        // 6. Переводим результат обратно в Фаренгейты, если на входе была система imperial
         val finalDewPoint = if (isImperial) (dewPointInCelsius * 9.0 / 5.0) + 32.0 else dewPointInCelsius
 
-        // 7. Округляем до ближайшего целого числа и возвращаем тип Int
         return finalDewPoint.roundToInt()
     }
 
