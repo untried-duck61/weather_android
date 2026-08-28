@@ -64,6 +64,8 @@ class UpdateActivity : AppCompatActivity() {
         binding.topAppBar.setNavigationOnClickListener {
             finish()
         }
+        binding.btnAction.text = getString(R.string.update_indicator_checking)
+        binding.btnAction.isEnabled = false
         fetchUpdateInfo()
     }
 
