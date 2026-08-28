@@ -68,7 +68,7 @@
 
 * [ ] Add daily forecast
 
-* [ ] Add useful notifications (app updates, forecast for tomorrow)
+* [ ] Add useful notifications (forecast for tomorrow)
 
 * [x] Add Settings page.
 
