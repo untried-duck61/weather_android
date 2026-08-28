@@ -41,6 +41,7 @@ import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
+import ru.untriedduck.weatherforecast.weather.WeatherConditionDrawable
 import ru.untriedduck.weatherforecast.weather.WindDirection
 import kotlin.coroutines.resume
 import kotlin.math.log
@@ -225,6 +226,7 @@ class MainActivity : AppCompatActivity() {
             binding.progressBar.visibility = View.GONE
             val root = JSONObject(response)
             val weather = root.getJSONArray("weather").getJSONObject(0)
+            val weatherId = weather.getInt("id")
             val desc = weather.getString("description")
             val icon = weather.getString("icon")
 
@@ -285,12 +287,7 @@ class MainActivity : AppCompatActivity() {
 
             binding.sunDayChart.setData(sunrise, sunset, System.currentTimeMillis() / 1000)
 
-            // Установка иконки погоды (рекомендуется использовать .setImageDrawable вместо .background)
-            val iconResId = resources.getIdentifier(
-                getString(R.string.__weather_icon_template, icon),
-                getString(R.string.__res_type),
-                packageName
-            )
+            val iconResId = WeatherConditionDrawable.getIconById(weatherId, icon)
             if (iconResId != 0) {
                 binding.imgCondition.setImageDrawable(
                     ResourcesCompat.getDrawable(
