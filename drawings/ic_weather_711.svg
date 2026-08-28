@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="72"
+   height="72"
+   viewBox="0 0 19.05 19.05"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   sodipodi:docname="ic_weather_711.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title4">Smoke</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showborder="true"
+     showgrid="true"
+     inkscape:zoom="11.313709"
+     inkscape:cx="31.554639"
+     inkscape:cy="33.720153"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="0.26458333"
+       spacingy="0.26458333"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       enabled="true"
+       visible="true"
+       dotted="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#708090;fill-opacity:1;stroke-width:0.0529167;stroke-dasharray:0.211667, 0.105833"
+       d="m 9.8455408,11.7632 c 0.4097082,0.05549 0.7642452,-0.487759 0.8652852,-0.888671 0.124821,-0.495273 -0.482308,-0.9662633 -0.420949,-1.4733238 0.0755,-0.6239306 0.86127,-1.0129362 0.935443,-1.637026 0.0594,-0.4997517 -0.559447,-0.9661 -0.42095,-1.449937 0.221801,-0.7748617 1.771523,-0.8081874 1.800729,-1.6136397 0.03376,-0.9310886 -1.035543,-1.7918132 -1.941045,-2.011203 -0.8002092,-0.1938789 -1.9134228,0.090045 -2.3386086,0.7951269 -0.5380542,0.8922509 0.136438,2.107257 0.4911077,3.0869628 0.1296972,0.3582631 0.5242795,0.6060119 0.5846517,0.9822153 0.05694,0.3548087 -0.2643057,0.6943175 -0.2338605,1.0523739 0.047096,0.5538822 0.5740845,0.9905657 0.6314245,1.5434816 0.04006,0.386291 -0.272577,0.762553 -0.210475,1.145918 0.02845,0.175643 0.08092,0.443843 0.257247,0.467722 z"
+       id="path5"
+       sodipodi:nodetypes="ssssssssssssss" />
+    <path
+       style="fill:#708090;fill-opacity:1;stroke-width:0.0496029;stroke-dasharray:0.198412, 0.0992053"
+       d="m 13.970652,15.049944 c 0.38405,0.05202 0.716385,-0.457214 0.811097,-0.833019 0.117004,-0.464257 -0.452104,-0.905752 -0.394587,-1.381059 0.07077,-0.584857 0.807334,-0.949502 0.876862,-1.53451 0.05568,-0.468454 -0.524413,-0.905599 -0.394589,-1.3591368 0.207911,-0.7263365 1.660584,-0.7575753 1.687961,-1.5125871 0.03165,-0.8727804 -0.970694,-1.6796033 -1.81949,-1.8852541 -0.750097,-0.1817374 -1.793597,0.084406 -2.192155,0.7453332 -0.50436,0.8363748 0.127893,1.9752927 0.460352,2.8936458 0.121575,0.335828 0.491447,0.568061 0.548039,0.920706 0.05337,0.332589 -0.247755,0.650836 -0.219215,0.98647 0.04415,0.519196 0.538132,0.928533 0.591882,1.446823 0.03755,0.3621 -0.255508,0.714799 -0.197295,1.074156 0.02667,0.164644 0.07585,0.416048 0.241138,0.438432 z"
+       id="path6"
+       sodipodi:nodetypes="ssssssssssssss" />
+    <path
+       style="fill:#708090;fill-opacity:1;stroke-width:0.0402136;stroke-dasharray:0.160855, 0.080427"
+       d="m 5.6906476,14.037427 c 0.3113545,0.04217 0.5807823,-0.370669 0.6575669,-0.675339 0.094857,-0.376379 -0.3665264,-0.734304 -0.3198971,-1.11964 0.057376,-0.474152 0.6545157,-0.769773 0.7108829,-1.244046 C 6.7843409,10.618619 6.3140528,10.264222 6.4193025,9.8965334 6.5878585,9.3076831 7.7655581,9.2823575 7.7877529,8.6702601 7.8134086,7.9626863 7.0007998,7.3085852 6.3126704,7.1418615 5.7045576,6.9945247 4.8585793,7.2102906 4.5354626,7.7461122 c -0.4088902,0.6780594 0.103685,1.6013941 0.3732136,2.3459138 0.098562,0.27226 0.3984223,0.460534 0.4443017,0.746427 0.043271,0.269635 -0.2008572,0.527642 -0.1777206,0.799744 0.03579,0.420918 0.4362712,0.752773 0.4798463,1.172957 0.030443,0.293558 -0.2071428,0.579496 -0.1599489,0.870831 0.02162,0.133479 0.061495,0.337295 0.1954929,0.355442 z"
+       id="path7"
+       sodipodi:nodetypes="ssssssssssssss" />
+  </g>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Smoke</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

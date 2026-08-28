@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="72"
+   height="72"
+   viewBox="0 0 19.05 19.05"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   sodipodi:docname="ic_weather_771.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title4">Squalls</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showborder="true"
+     showgrid="true"
+     inkscape:zoom="11.313709"
+     inkscape:cx="32.792076"
+     inkscape:cy="35.045978"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="0.26458333"
+       spacingy="0.26458333"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       enabled="true"
+       visible="true"
+       dotted="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#b0c4de;fill-opacity:1;stroke-width:0.963888;stroke-linecap:round"
+       d="M 6.055084,4.746677 C 5.8282166,4.4966381 5.2899516,4.491618 5.0514657,4.7302183 c -0.3384523,0.3386144 -0.3374303,1.1086784 0,1.4483457 C 5.4349282,6.5645687 6.2993642,6.560655 6.6702049,6.1621052 6.75187,6.074338 6.7393652,5.8840855 6.6540173,5.8000187 6.3710831,5.5213313 5.7534597,6.0641364 5.4723375,5.7835599 5.3529059,5.6643601 5.3414631,5.3972703 5.4561498,5.2733471 5.5856204,5.1334496 5.8867409,5.3902618 6.0227086,5.2568883 6.143338,5.1385606 6.1687384,4.8719398 6.055084,4.746677 Z"
+       id="path23"
+       sodipodi:nodetypes="sssssssss" />
+    <rect
+       style="fill:#b0c4de;fill-opacity:1;stroke-width:0.0462617;stroke-dasharray:0.185046, 0.0925225"
+       id="rect1"
+       width="9.6478901"
+       height="0.88729429"
+       x="5.07478"
+       y="4.5368996"
+       ry="0.44364715" />
+    <rect
+       style="fill:#b0c4de;fill-opacity:1;stroke-width:0.0524162;stroke-dasharray:0.209664, 0.104832"
+       id="rect2"
+       width="12.384062"
+       height="0.88741249"
+       x="3.7417731"
+       y="7.0304971"
+       ry="0.44370624" />
+    <rect
+       style="fill:#b0c4de;fill-opacity:1;stroke-width:0.0438465;stroke-dasharray:0.175386, 0.0876925"
+       id="rect3"
+       width="8.6656742"
+       height="0.88741249"
+       x="6.9924388"
+       y="9.2668476"
+       ry="0.44370624" />
+    <rect
+       style="fill:#b0c4de;fill-opacity:1;stroke-width:0.0423416;stroke-dasharray:0.169366, 0.0846826"
+       id="rect4"
+       width="8.0810223"
+       height="0.88741249"
+       x="4.490128"
+       y="11.479812"
+       ry="0.44370624" />
+    <rect
+       style="fill:#b0c4de;fill-opacity:1;stroke-width:0.0455299;stroke-dasharray:0.18212, 0.0910593"
+       id="rect5"
+       width="9.3438711"
+       height="0.88741249"
+       x="5.4021854"
+       y="13.622617"
+       ry="0.44370624" />
+    <path
+       style="fill:#b0c4de;fill-opacity:1;stroke-width:0.963888;stroke-linecap:round"
+       d="M 7.8744112,9.4707773 C 7.6475438,9.2207384 7.1092788,9.2157183 6.8707929,9.4543186 c -0.3384523,0.3386144 -0.3374303,1.1086784 0,1.4483454 0.3834625,0.386005 1.2478985,0.382091 1.6187392,-0.01646 0.081665,-0.08777 0.06916,-0.278019 -0.016188,-0.362086 C 8.1904103,10.245432 7.5727869,10.788237 7.2916647,10.50766 7.1722331,10.38846 7.1607903,10.121371 7.275477,9.9974474 7.4049476,9.8575499 7.7060681,10.114362 7.8420358,9.9809886 7.9626652,9.8626609 7.9880656,9.5960401 7.8744112,9.4707773 Z"
+       id="path23-8"
+       sodipodi:nodetypes="sssssssss" />
+    <path
+       style="fill:#b0c4de;fill-opacity:1;stroke-width:0.963888;stroke-linecap:round"
+       d="m 6.3992389,13.813705 c -0.226867,-0.250039 -0.765132,-0.255059 -1.003618,-0.01646 -0.338453,0.338614 -0.337431,1.108678 0,1.448346 0.383462,0.386004 1.247898,0.382091 1.618739,-0.01646 0.08167,-0.08777 0.06916,-0.27802 -0.01619,-0.362087 -0.282934,-0.278687 -0.900557,0.264118 -1.18168,-0.01646 -0.119431,-0.1192 -0.130874,-0.38629 -0.01619,-0.510213 0.12947,-0.139898 0.430591,0.116915 0.566559,-0.01646 0.120629,-0.118328 0.146029,-0.384948 0.03238,-0.510211 z"
+       id="path23-1"
+       sodipodi:nodetypes="sssssssss" />
+  </g>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Squalls</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

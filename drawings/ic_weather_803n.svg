@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="72"
+   height="72"
+   viewBox="0 0 19.05 19.05"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   sodipodi:docname="ic_weather_803n.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title4">Broken clouds</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showborder="true"
+     showgrid="true"
+     inkscape:zoom="11.313709"
+     inkscape:cx="31.554639"
+     inkscape:cy="33.720153"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="0.26458333"
+       spacingy="0.26458333"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       enabled="true"
+       visible="true"
+       dotted="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path2"
+       style="fill:#9791ab;fill-opacity:1;stroke-width:0.444378"
+       d="M 10.488406,5.0570124 A 4.4477335,4.4477335 0 0 1 11.60146,7.9998092 4.4477335,4.4477335 0 0 1 7.1540993,12.447979 4.4477335,4.4477335 0 0 1 5.375317,12.076691 4.5758583,4.5758583 0 0 0 9.098707,13.992988 4.5758583,4.5758583 0 0 0 13.674683,9.4170109 4.5758583,4.5758583 0 0 0 10.488406,5.0570124 Z" />
+    <path
+       id="path1"
+       style="fill:#e6e6e6;fill-opacity:1;stroke-width:0.86208"
+       d="M 9.7335644,6.6661651 A 3.1137055,3.1137055 0 0 0 6.6267074,9.5761156 2.2806729,2.2806729 0 0 0 4.631349,11.838767 2.2806729,2.2806729 0 0 0 6.8739534,14.119239 v 0.0026 h 7.8415426 a 2.2935399,2.2935399 0 0 0 0.08064,0.0013 2.2935399,2.2935399 0 0 0 0.02057,-0.0013 h 0.05435 v -0.0037 a 2.2935399,2.2935399 0 0 0 2.219,-2.288502 2.2935399,2.2935399 0 0 0 -1.866611,-2.2532964 2.2806729,2.2806729 0 0 0 -2.213201,-1.73029 2.2806729,2.2806729 0 0 0 -0.742189,0.1242862 3.1137055,3.1137055 0 0 0 -2.5344016,-1.3043986 z" />
+  </g>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Broken clouds</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

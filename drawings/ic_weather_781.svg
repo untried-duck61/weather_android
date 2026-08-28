@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="72"
+   height="72"
+   viewBox="0 0 19.05 19.05"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   sodipodi:docname="ic_weather_781.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showborder="true"
+     showgrid="true"
+     inkscape:zoom="11.313709"
+     inkscape:cx="42.249628"
+     inkscape:cy="37.167299"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="0.26458333"
+       spacingy="0.26458333"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       enabled="true"
+       visible="true"
+       dotted="false" />
+  </sodipodi:namedview>
+  <title
+     id="title4">Tornado</title>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path195"
+       style="fill:none;fill-rule:evenodd;stroke:#587084;stroke-width:1.23602;stroke-linecap:round;stroke-opacity:1"
+       d="m 10.014627,9.9264622 c 0.01661,-0.01746 0.04051,0.02222 0.04207,0.03113 0.01378,0.07651 -0.09859,0.1089758 -0.1645541,0.0986 -0.17922,-0.02816 -0.233308,-0.2215128 -0.181585,-0.3546488 0.101631,-0.261664 0.4688121,-0.32948 0.7304921,-0.22683 0.43604,0.171022 0.10953,1.7618568 0.0071,1.9402388 -0.154588,0.268857 -0.5510261,0.328017 -0.8337501,0.188875 -0.398381,-0.196016 -1.4358,-2.0540118 -0.99712,-2.7110298 0.588772,-0.8818143 1.9341111,-1.0584831 2.8822981,-0.5394469 1.226998,0.6716639 0.0554,3.0716347 -0.325653,3.5985327 -0.479244,0.662702 -1.5135991,0.787475 -2.2348801,0.367328 C 8.0522215,11.802676 5.7215914,9.0950612 6.8621285,7.59454 8.238302,5.7840064 11.109942,5.4579361 13.095375,6.6626396 c 2.358559,1.43111 -0.06914,5.0323894 -0.878131,6.0610714 -0.948424,1.205978 -2.8839961,1.41604 -4.2131865,0.585894 C 6.463423,12.347356 2.381463,8.4855012 4.5052812,5.8510671 6.9430315,2.8272278 11.840532,2.3140591 15.185433,4.4485523"
+       sodipodi:nodetypes="cscsssssssssssssc" />
+  </g>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Tornado</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

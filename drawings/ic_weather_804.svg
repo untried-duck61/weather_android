@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="72"
+   height="72"
+   viewBox="0 0 19.05 19.05"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   sodipodi:docname="ic_weather_804.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title4">Overcast clouds</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showborder="true"
+     showgrid="true"
+     inkscape:zoom="11.313709"
+     inkscape:cx="31.554639"
+     inkscape:cy="33.720153"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="0.26458333"
+       spacingy="0.26458333"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       enabled="true"
+       visible="true"
+       dotted="false" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path1-8"
+       style="fill:#d0d0d0;fill-opacity:1;stroke-width:0.86208"
+       d="M 10.164151,6.0154853 A 3.1137055,3.1137055 0 0 0 7.0572944,8.9254362 2.2806729,2.2806729 0 0 0 5.0619362,11.188087 2.2806729,2.2806729 0 0 0 7.3045406,13.468559 v 0.0026 h 7.8415424 a 2.2935399,2.2935399 0 0 0 0.08064,0.0013 2.2935399,2.2935399 0 0 0 0.02057,-0.0013 h 0.05435 v -0.0037 a 2.2935399,2.2935399 0 0 0 2.219,-2.288502 A 2.2935399,2.2935399 0 0 0 15.654032,8.9256608 2.2806729,2.2806729 0 0 0 13.440831,7.1953708 2.2806729,2.2806729 0 0 0 12.698642,7.319657 3.1137055,3.1137055 0 0 0 10.16424,6.0152584 Z" />
+    <path
+       id="path1"
+       style="fill:#e6e6e6;fill-opacity:1;stroke-width:0.86208"
+       d="M 8.5916188,6.9134887 A 3.1137055,3.1137055 0 0 0 5.4847617,9.8234396 2.2806729,2.2806729 0 0 0 3.4894035,12.08609 2.2806729,2.2806729 0 0 0 5.7320079,14.366562 v 0.0026 h 7.8415431 a 2.2935399,2.2935399 0 0 0 0.08064,0.0013 2.2935399,2.2935399 0 0 0 0.02057,-0.0013 h 0.05435 v -0.0037 a 2.2935399,2.2935399 0 0 0 2.219,-2.288502 A 2.2935399,2.2935399 0 0 0 14.0815,9.8236642 2.2806729,2.2806729 0 0 0 11.868299,8.0933742 2.2806729,2.2806729 0 0 0 11.12611,8.2176604 3.1137055,3.1137055 0 0 0 8.591708,6.9132618 Z" />
+  </g>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Overcast clouds</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
