@@ -192,7 +192,6 @@
             android:textColor="?android:attr/textColorSecondary"
             android:visibility="gone" />
 
-        <!-- Тонкая полоса прогресса скачивания самого файла APK -->
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/downloadProgressBar"
             style="@style/Widget.Material3Expressive.LinearProgressIndicator.Wavy"
@@ -205,7 +204,6 @@
             app:trackThickness="4dp"
             tools:visibility="visible" />
 
-        <!-- Наша трансформирующаяся большая кнопка -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAction"
             style="@style/Widget.Material3.Button"
@@ -214,8 +212,6 @@
             android:text="@string/update_activity_btn_action_download_an_update"
             app:cornerRadius="16dp"
             app:icon="@drawable/ic_sync" />
-        <!-- Заметь: в коде Kotlin при старте скачивания ты сможешь легко поменять
-             стиль кнопки на красный/предупреждающий, текст на "Отмена", а иконку на крестик -->
 
     </LinearLayout>
 
