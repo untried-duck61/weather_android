@@ -17,6 +17,16 @@
 
 ---
 
+## Important Information / Важная информация
+
+This application requires a free API key (a unique token) to fetch weather data. If you don't have one or aren't sure how to get it, please check out the step-by-step guides below before running the app:
+* **English:** Follow the instructions in the [Getting Started Guide](https://locationweather.io/docs/get-openweathermap-api-key/) (scroll down to the **"(1) Register for an OpenWeather Account"** section).
+
+---
+
+Для работы этого приложения нужен бесплатный ключ разработчика (API-ключ), чтобы программа могла запрашивать прогноз погоды. Если у вас его нет или вы не знаете, где его взять, обязательно посмотрите пошаговые инструкции перед запуском:
+* **Русский:** Подробный разбор со скриншотами читайте в [инструкции для начинающих](https://active-vision.ru/blog/api-openweathermap/) (вам нужен раздел **«Шаг 1. Получаем OpenWeatherMap API key»**).
+
 ## Screenshots
 <p align="center">
   <img src="screenshots/first_setup.jpg" width="240" alt="First Setup Screen">  <img src="screenshots/main_screen.jpg" width="240" alt="Main Screen"> <img src="screenshots/settings_screen.jpg" width="240" alt="Settings Screen">
