@@ -86,7 +86,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { _, windowInsets ->
-            val navigationBarsInsets = windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars())
+            val navigationBarsInsets =
+                windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars())
 
             // Добавляем нижний отступ вашему контенту, чтобы его не перекрывала полоса жестов
             binding.main.updatePadding(bottom = navigationBarsInsets.bottom)
@@ -163,12 +164,12 @@ class MainActivity : AppCompatActivity() {
         shared: SharedPreferences,
         editor: SharedPreferences.Editor
     ) {
+        val forecastFragment =
+            supportFragmentManager.findFragmentByTag("f0") as? CurrentForecastFragment
+
         requestNotificationPermission()
 
-        // МИГРАЦИЯ ДАННЫХ: Проверяем, заходил ли пользователь на этой версии ранее
         if (!shared.contains("USE_GPS")) {
-            // Если ключа "USE_GPS" нет, значит это апдейт со старой версии.
-            // Старая версия всегда работала только по GPS, поэтому принудительно пишем true.
             editor.putBoolean("USE_GPS", true).apply()
         }
 
@@ -178,11 +179,9 @@ class MainActivity : AppCompatActivity() {
                     Manifest.permission.ACCESS_FINE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                // Программа сама приостановит выполнение на этой строчке, пока юзер не нажмет кнопку
                 val isGranted =
                     requestPermissionLauncher.launchSuspend(Manifest.permission.ACCESS_FINE_LOCATION)
                 if (!isGranted) {
-                    // Если отказал, загружаем старое и выходим
                     loadSavedWeather(shared)
                     return
                 }
@@ -202,8 +201,7 @@ class MainActivity : AppCompatActivity() {
                     if (!shared.getBoolean("use_fahrenheit", false)) "metric" else "imperial"
 
                 getWeather(lon.toString(), lat.toString(), apiKey, units)
-                binding.tvUpdateStatus.text =
-                    getString(R.string.tv_update_status_updated_for_current_location_status)
+                forecastFragment?.changeUpdateStatus(R.string.tv_update_status_updated_for_current_location_status)
             } else {
                 loadSavedWeather(shared)
             }
@@ -214,7 +212,9 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("UseCompatLoadingForDrawables", "DiscouragedApi")
     private fun getWeather(lon: String, lat: String, apiKey: String, units: String) {
-        binding.progressBar.visibility = View.VISIBLE
+        val forecastFragment =
+            supportFragmentManager.findFragmentByTag("f0") as? CurrentForecastFragment
+        forecastFragment?.changeProgressBarVisibility(View.VISIBLE)
 
         val url = getString(R.string.__api_url, lat, lon, apiKey, getString(R.string.lang), units)
         val uviUrl =
@@ -223,7 +223,7 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.__aqi_api_url, lat, lon, apiKey, units, getString(R.string.lang))
 
         val stringRequest = StringRequest(Request.Method.GET, url, { response ->
-            binding.progressBar.visibility = View.GONE
+            forecastFragment?.changeProgressBarVisibility(View.GONE)
             val root = JSONObject(response)
             val weather = root.getJSONArray("weather").getJSONObject(0)
             val weatherId = weather.getInt("id")
@@ -252,54 +252,17 @@ class MainActivity : AppCompatActivity() {
             val sunset = sys.getLong("sunset")
             val name = root.getString("name")
 
-            // Изменение текстов
-            binding.tvTemp.text =
-                getString(R.string.temp, temp, if (units == "imperial") "F" else "C")
-
-            // СТРОКА ИСПРАВЛЕНА: Теперь город отправляется в CollapsingToolbarLayout
             binding.collapsingToolbarLayout.title =
                 getString(R.string.tv_country_text, name, country)
 
-            binding.tvDesc.text = getString(R.string.tv_desc_text, desc)
-
-            binding.tvFeelsLike.text = getString(
-                R.string.feels_like_text,
-                feelsLike,
-                if (units == "imperial") "F" else "C"
+            forecastFragment?.displayWeather(
+                temp, units, desc, feelsLike, tempMin, tempMax,
+                humidity, dewPoint, totalPressure, seaPressure, grndPressure,
+                windDegree, windSpeed, windGust, sunrise, sunset, weatherId, icon
             )
-            binding.tvTempMin.text =
-                getString(R.string.temp, tempMin, if (units == "imperial") "F" else "C")
-            binding.tvTempMax.text =
-                getString(R.string.temp, tempMax, if (units == "imperial") "F" else "C")
-
-            binding.tvHumid.text = getString(R.string.humidity_text, humidity)
-            binding.tvDewPoint.text = getString(R.string.dew_point_format, dewPoint.toString(), if (units == "imperial") "F" else "C")
-
-            binding.barometerTotal.currentPressure = totalPressure
-            binding.barometerSea.currentPressure = seaPressure
-            binding.barometerGround.currentPressure = grndPressure
-
-            binding.ivWindDirectionArrow.rotation = (windDegree + 180) % 360
-            binding.tvWindDirectionName.text =
-                getString(WindDirection.fromDegrees(windDegree).resId)
-            binding.tvWindSpeed.text = getString(R.string.wind_card_wind_speed_format, windSpeed, if (units == "imperial") getString(R.string.wind_speed_units_miles_h) else getString(R.string.wind_speed_units_meters_sec))
-            binding.tvWindGust.text = getString(R.string.wind_card_wind_gust_format, windGust, if (units == "imperial") getString(R.string.wind_speed_units_miles_h) else getString(R.string.wind_speed_units_meters_sec))
-
-            binding.sunDayChart.setData(sunrise, sunset, System.currentTimeMillis() / 1000)
-
-            val iconResId = WeatherConditionDrawable.getIconById(weatherId, icon)
-            if (iconResId != 0) {
-                binding.imgCondition.setImageDrawable(
-                    ResourcesCompat.getDrawable(
-                        resources,
-                        iconResId,
-                        null
-                    )
-                )
-            }
 
         }, { error ->
-            binding.progressBar.visibility = View.GONE
+            forecastFragment?.changeProgressBarVisibility(View.GONE)
             // Сюда можно добавить красивый Material Snackbar в случае ошибки сети
             Log.e("WeatherError", "Volley error: ${error.message}")
 
@@ -324,11 +287,9 @@ class MainActivity : AppCompatActivity() {
         val uviStringRequest = StringRequest(Request.Method.GET, uviUrl, { uviResponse ->
             val uviRoot = JSONObject(uviResponse)
             val uviValue = uviRoot.getString("value").toFloat().roundToInt()
-            binding.tvUviNumber.text = uviValue.toString()
-            binding.tvUviDesc.text = getUviDesc(uviValue)
-            binding.tvUviAdvice.text = getUviAdvice(uviValue)
+            forecastFragment?.displayUvi(uviValue)
         }, { error ->
-            binding.progressBar.visibility = View.GONE
+            forecastFragment?.changeProgressBarVisibility(View.GONE)
             Log.e("WeatherError", "Volley error: ${error.message}")
 
             Snackbar.make(
@@ -355,15 +316,6 @@ class MainActivity : AppCompatActivity() {
 
             val aqiMain = aqiList.getJSONObject(0).getJSONObject("main")
             val aqiVal = aqiMain.getInt("aqi")
-            binding.tvAqiNumber.text = aqiVal.toString()
-            binding.tvAqiDesc.text = getAqiDesc(aqiVal)
-            binding.pbAqiVal.progress = aqiVal
-
-            val (progressRes, trackRes) = getAqiColorRes(aqiVal)
-            val progressColor = ContextCompat.getColor(this, progressRes)
-            val trackColor = ContextCompat.getColor(this, trackRes)
-            binding.pbAqiVal.setIndicatorColor(progressColor)
-            binding.pbAqiVal.trackColor = trackColor
 
             val aqiComponents = aqiList.getJSONObject(0).getJSONObject("components")
             val aqiCO = aqiComponents.getString("co")
@@ -374,24 +326,13 @@ class MainActivity : AppCompatActivity() {
             val aqiPMf2t5 = aqiComponents.getString("pm2_5")
             val aqiPM10 = aqiComponents.getString("pm10")
             val aqiNH3 = aqiComponents.getString("nh3")
-            binding.tvCOval.text = getString(R.string.aqi_val_format,
-                getString(R.string.co_gas), aqiCO)
-            binding.tvNOval.text = getString(R.string.aqi_val_format,
-                getString(R.string.no_gas), aqiNO)
-            binding.tvNO2val.text = getString(R.string.aqi_val_format,
-                getString(R.string.no2_gas), aqiNO2)
-            binding.tvO3val.text = getString(R.string.aqi_val_format,
-                getString(R.string.o3_gas), aqiO3)
-            binding.tvSO2val.text = getString(R.string.aqi_val_format,
-                getString(R.string.so2_gas), aqiSO2)
-            binding.tvPM25val.text = getString(R.string.aqi_val_format,
-                getString(R.string.pm25_gas), aqiPMf2t5)
-            binding.tvPM10val.text = getString(R.string.aqi_val_format,
-                getString(R.string.pm10_gas), aqiPM10)
-            binding.tvNH3val.text = getString(R.string.aqi_val_format,
-                getString(R.string.nh3_gas), aqiNH3)
+
+            forecastFragment?.displayAqi(
+                aqiVal, aqiCO, aqiNO, aqiNO2, aqiO3, aqiSO2, aqiPMf2t5, aqiPM10, aqiNH3
+            )
+
         }, { error ->
-            binding.progressBar.visibility = View.GONE
+            forecastFragment?.changeProgressBarVisibility(View.GONE)
             Log.e("WeatherError", "Volley error: ${error.message}")
 
             Snackbar.make(
@@ -417,51 +358,6 @@ class MainActivity : AppCompatActivity() {
         requestQueue.add(aqiStringRequest)
     }
 
-    fun getUviDesc(uviVal: Int) : String {
-        return when {
-            uviVal < 0 -> getString(R.string.unknown)
-            uviVal in 0..2 -> getString(R.string.uvi_val_low)
-            uviVal in 3..5 -> getString(R.string.uvi_val_moderate)
-            uviVal in 6..7 -> getString(R.string.uvi_val_high)
-            else -> getString(R.string.uvi_val_dangerous)
-        }
-    }
-
-    fun getUviAdvice(uviVal: Int) : String {
-        return when {
-            uviVal < 0 -> getString(R.string.unknown)
-            uviVal in 0..2 -> getString(R.string.uvi_adv_ok)
-            uviVal in 3..5 -> getString(R.string.uvi_adv_sunglasses_n_cap)
-            uviVal in 6..7 -> getString(R.string.uvi_adv_spf_cream)
-            else -> getString(R.string.uvi_adv_beware_of_sun)
-        }
-    }
-
-    fun getAqiDesc(aqiVal: Int) : String {
-        return when {
-            aqiVal < 0 -> getString(R.string.unknown)
-            aqiVal in 0..50 -> getString(R.string.aqi_val_good)
-            aqiVal in 51..100 -> getString(R.string.aqi_val_moderate)
-            aqiVal in 101..150 -> getString(R.string.aqi_val_unhealthy_for_sensitive_groups)
-            aqiVal in 151..200 -> getString(R.string.aqi_val_unhealthy)
-            aqiVal in 201..300 -> getString(R.string.aqi_val_very_unhealthy)
-            else -> getString(R.string.aqi_val_hazardous)
-        }
-    }
-
-    @ColorRes
-    fun getAqiColorRes(aqi: Int): Pair<Int, Int> {
-        return when {
-            aqi < 0 -> Pair(R.color.aqi_invalid_progress, R.color.aqi_invalid_track)
-            aqi in 0..50 -> Pair(R.color.aqi_good_progress, R.color.aqi_good_track)
-            aqi in 51..100 -> Pair(R.color.aqi_moderate_progress, R.color.aqi_moderate_track)
-            aqi in 101..150 -> Pair(R.color.aqi_unhealthy_sensitive_progress, R.color.aqi_unhealthy_sensitive_track)
-            aqi in 151..200 -> Pair(R.color.aqi_unhealthy_progress, R.color.aqi_unhealthy_track)
-            aqi in 201..300 -> Pair(R.color.aqi_very_unhealthy_progress, R.color.aqi_very_unhealthy_track)
-            else -> Pair(R.color.aqi_hazardous_progress, R.color.aqi_hazardous_track)
-        }
-    }
-
     fun getDewPoint(temp: Double, humidity: Double, units: String): Int {
         val isImperial = units.equals("imperial", ignoreCase = true)
 
@@ -474,7 +370,8 @@ class MainActivity : AppCompatActivity() {
 
         val dewPointInCelsius = (b * alpha) / (a - alpha)
 
-        val finalDewPoint = if (isImperial) (dewPointInCelsius * 9.0 / 5.0) + 32.0 else dewPointInCelsius
+        val finalDewPoint =
+            if (isImperial) (dewPointInCelsius * 9.0 / 5.0) + 32.0 else dewPointInCelsius
 
         return finalDewPoint.roundToInt()
     }
@@ -487,29 +384,36 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadSavedWeather(shared: SharedPreferences) {
+        val forecastFragment =
+            supportFragmentManager.findFragmentByTag("f0") as? CurrentForecastFragment
         val lons = shared.getString("lon", "").toString()
         val lats = shared.getString("lat", "").toString()
         val apiKey = shared.getString("apiKey", "").toString()
         val units = if (!shared.getBoolean("use_fahrenheit", false)) "metric" else "imperial"
         getWeather(lons, lats, apiKey, units)
-        binding.tvUpdateStatus.text =
-            getString(R.string.tv_update_status_updated_for_saved_location_status)
+        forecastFragment?.changeUpdateStatus(R.string.tv_update_status_updated_for_saved_location_status)
     }
 
     private fun loadWeatherBySavedCity(shared: SharedPreferences) {
+        val forecastFragment =
+            supportFragmentManager.findFragmentByTag("f0") as? CurrentForecastFragment
         val lons = shared.getString("SELECTED_CITY_LON", "").toString()
         val lats = shared.getString("SELECTED_CITY_LAT", "").toString()
         val apiKey = shared.getString("apiKey", "").toString()
         val units = if (!shared.getBoolean("use_fahrenheit", false)) "metric" else "imperial"
         getWeather(lons, lats, apiKey, units)
-        binding.tvUpdateStatus.text =
-            getString(R.string.tv_update_status_updated_for_selected_city_status)
+        forecastFragment?.changeUpdateStatus(R.string.tv_update_status_updated_for_selected_city_status)
     }
 
     private fun requestNotificationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) !=
-            PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 102)
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                102
+            )
         }
     }
 
