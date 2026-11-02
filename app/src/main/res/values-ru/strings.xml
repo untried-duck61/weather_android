@@ -131,6 +131,8 @@
     <string name="uvi_adv_spf_cream">Используйте крем SPF</string>
     <string name="uvi_adv_beware_of_sun">Избегайте солнца</string>
     <string name="uvi_adv_ok">Защита не требуется</string>
+    <string name="bottom_nav_current_menuitem">Текущий</string>
+    <string name="bottom_nav_hourly_menuitem">Почасовой</string>
 
 
 </resources>

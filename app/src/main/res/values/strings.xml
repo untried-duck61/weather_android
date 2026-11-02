@@ -156,5 +156,9 @@
     <string name="uvi_adv_sunglasses_n_cap">Put on sunglasses and cap</string>
     <string name="uvi_adv_spf_cream">Use SPF cream</string>
     <string name="uvi_adv_beware_of_sun">Beware of sun</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="bottom_nav_current_menuitem">Current</string>
+    <string name="bottom_nav_hourly_menuitem">Hourly</string>
 
 </resources>
