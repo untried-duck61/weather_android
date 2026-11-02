@@ -17,7 +17,6 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.util.Log
 import android.view.View
-import androidx.core.content.res.ResourcesCompat
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
@@ -31,18 +30,16 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager2.widget.ViewPager2
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
-import ru.untriedduck.weatherforecast.weather.WeatherConditionDrawable
-import ru.untriedduck.weatherforecast.weather.WindDirection
 import kotlin.coroutines.resume
 import kotlin.math.log
 
@@ -51,17 +48,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var locationClient: FusedLocationProviderClient
     private lateinit var binding: ActivityMainBinding
 
-    // Выносим очередь Volley на уровень класса, чтобы не создавать её при каждом запросе
     private lateinit var requestQueue: RequestQueue
 
-    // 1. Регистрируем лаунчер в начале класса Activity
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) {
             permissionContinuation?.resume(it)
         }
     private var permissionContinuation: CancellableContinuation<Boolean>? = null
 
-    // 2. Превращаем асинхронный запрос в "ожидаемый"
     private suspend fun ActivityResultLauncher<String>.launchSuspend(permission: String): Boolean =
         suspendCancellableCoroutine { continuation ->
             permissionContinuation = continuation
@@ -72,30 +66,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
-        // Включаем отображение "от края до края" под статус-баром
         enableEdgeToEdge()
         setContentView(binding.root)
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.appBarLayout) { view, windowInsets ->
             val statusBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.statusBars())
 
-            // Задаем верхний отступ для AppBarLayout
             view.updatePadding(top = statusBarInsets.top)
 
             windowInsets
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { _, windowInsets ->
-            val navigationBarsInsets =
-                windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars())
-
-            // Добавляем нижний отступ вашему контенту, чтобы его не перекрывала полоса жестов
-            binding.main.updatePadding(bottom = navigationBarsInsets.bottom)
+            binding.main.updatePadding(bottom = 0)
 
             windowInsets
         }
 
-        // Инициализируем Volley один раз
         requestQueue = Volley.newRequestQueue(this)
 
         val shared: SharedPreferences = getSharedPreferences("PREFERENCES", MODE_PRIVATE)
@@ -103,50 +90,68 @@ class MainActivity : AppCompatActivity() {
 
         locationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        // Инициализация кнопок верхнего меню App Bar (Material You)
         setupAppBarMenu(shared, editor)
         createNotificationChannel()
-        //setupAutomaticUpdateChecks()
 
-        // Проверка локации и первичный запрос
+        binding.viewPager.adapter = WeatherPagerAdapter(this)
+
+        binding.bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.action_current -> {
+                    binding.viewPager.setCurrentItem(0, true)
+                    true
+                }
+
+                R.id.action_hourly -> {
+                    binding.viewPager.setCurrentItem(1, true)
+                    true
+                }
+                else -> false
+            }
+        }
+
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                when (position) {
+                    0 -> {
+                        binding.bottomNav.selectedItemId = R.id.action_current
+                    }
+                    1 -> {
+                        binding.bottomNav.selectedItemId = R.id.action_hourly
+                    }
+                }
+            }
+        })
+
         lifecycleScope.launch { checkLocationAndLoadWeather(shared, editor) }
     }
 
     private fun createNotificationChannel() {
-        // Проверка версии Android (Каналы появились начиная с Android 8.0 / API 26)
-
-        // 1. Указываем точный ID канала (должен совпадать с UpdateCheckService.CHANNEL_ID)
         val channelId = "updates_channel"
 
-        // 2. Имя канала, которое пользователь увидит в настройках телефона
         val name = getString(R.string.weather_notify_channel_title)
 
-        // 3. Описание канала, объясняющее пользователю, зачем он нужен
         val descriptionText = getString(R.string.weather_notify_channel_desc)
 
-        // 4. Уровень важности (DEFAULT или HIGH, чтобы уведомление всплывало баннером сверху)
         val importance = NotificationManager.IMPORTANCE_DEFAULT
 
-        // Создаем сам объект канала
         val channel = NotificationChannel(channelId, name, importance).apply {
             description = descriptionText
-            // Можно добавить дополнительные системные фишки по желанию:
-            enableLights(true) // Включать светодиод при уведомлении
+            enableLights(true)
             lightColor = android.graphics.Color.BLUE
         }
 
-        // Регистрируем созданный канал в системе через NotificationManager
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
     }
 
     private fun setupAppBarMenu(shared: SharedPreferences, editor: SharedPreferences.Editor) {
-        // Навешиваем слушатель кликов на меню нашего нового MaterialToolbar
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.refresh_btn -> {
                     lifecycleScope.launch { checkLocationAndLoadWeather(shared, editor) }
-                    true // Возвращаем true, чтобы подтвердить обработку клика
+                    true
                 }
 
                 R.id.settings_btn -> {
