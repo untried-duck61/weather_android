@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_current"
+        android:icon="@drawable/ic_wb_sunny"
+        android:title="@string/bottom_nav_current_menuitem" />
+    <item
+        android:id="@+id/action_hourly"
+        android:icon="@drawable/ic_schedule"
+        android:title="@string/bottom_nav_hourly_menuitem" />
+</menu>
