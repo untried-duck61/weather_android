@@ -9,8 +9,10 @@ import ru.untriedduck.weatherforecast.adapters.DayForecastAdapter
 import ru.untriedduck.weatherforecast.databinding.FragmentHourlyForecastBinding
 
 class HourlyForecastFragment : Fragment() {
-    private var _binding : FragmentHourlyForecastBinding? = null
+    private var _binding: FragmentHourlyForecastBinding? = null
     val binding get() = _binding!!
+
+    private lateinit var dayAdapter: DayForecastAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,9 +30,52 @@ class HourlyForecastFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dayAdapter = DayForecastAdapter()
+        dayAdapter = DayForecastAdapter("metric")
 
         binding.root.adapter = dayAdapter
-        dayAdapter.submitList(listOf(1, 2, 3, 4, 5))
+    }
+
+    fun updateHourlyData(
+        groupedForecast: LinkedHashMap<String, Pair<String, ArrayList<Map<String, Any>>>>,
+        units: String
+    ) {
+
+        dayAdapter = DayForecastAdapter(units)
+        binding.root.adapter = dayAdapter
+
+        val formattedDays = ArrayList<Map<String, Any>>()
+
+        for ((_, value) in groupedForecast) {
+            val dateTitle = value.first
+            val hoursList = value.second
+
+            var minTemp = Double.MAX_VALUE
+            var maxTemp = -Double.MAX_VALUE
+
+            for (hour in hoursList) {
+                val tempNum = hour["temp"] as? Number
+                val temp = tempNum?.toDouble() ?: 0.0
+
+                if (temp < minTemp) minTemp = temp
+                if (temp > maxTemp) maxTemp = temp
+            }
+
+            val rangeString = getString(
+                R.string.daily_temp_range_format,
+                minTemp.toString(),
+                if (units == "imperial") "F" else "C",
+                maxTemp.toString()
+            )
+
+            val dayMap = mapOf(
+                "title" to dateTitle,
+                "range" to rangeString,
+                "hours" to hoursList
+            )
+
+            formattedDays.add(dayMap)
+        }
+
+        dayAdapter.submitList(formattedDays)
     }
 }

@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.untriedduck.weatherforecast.databinding.ItemHourlyDayGroupBinding
 
 
-class DayForecastAdapter : RecyclerView.Adapter<DayForecastAdapter.DayViewHolder>() {
-    private var daysList: List<Any> = emptyList()
+class DayForecastAdapter(private val units: String) : RecyclerView.Adapter<DayForecastAdapter.DayViewHolder>() {
+    private var daysList: List<Map<String, Any>> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DayViewHolder {
         return DayViewHolder(ItemHourlyDayGroupBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -16,20 +16,23 @@ class DayForecastAdapter : RecyclerView.Adapter<DayForecastAdapter.DayViewHolder
 
     override fun onBindViewHolder(holder: DayViewHolder, position: Int) {
         with (holder.binding) {
-            tvCardDayTitle.text = "June, 1"
-            tvTempDay.text = "-196°C/-45°C" // It's not cold at all :)
+            val dayData = daysList[position]
 
-            val hourAdapter = HourForecastAdapter()
+            tvCardDayTitle.text = dayData["title"] as? String
+            tvTempDay.text = dayData["range"] as? String
+
+            val hourAdapter = HourForecastAdapter(units)
+            val hours = dayData["hours"] as? List<Map<String, Any>> ?: emptyList()
 
             rvHoursBubble.adapter = hourAdapter
 
-            hourAdapter.submitList(emptyList())
+            hourAdapter.submitList(hours, units)
         }
     }
 
     override fun getItemCount(): Int = daysList.size
 
-    fun submitList(newDays: List<Any>){
+    fun submitList(newDays: List<Map<String, Any>>){
         this.daysList = newDays
         notifyDataSetChanged()
     }
