@@ -221,6 +221,8 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentByTag("f0") as? CurrentForecastFragment
         forecastFragment?.changeProgressBarVisibility(View.VISIBLE)
 
+        var errorCount : Int = 0
+
         val url = getString(R.string.__api_url, lat, lon, apiKey, getString(R.string.lang), units)
         val uviUrl =
             getString(R.string.__uvi_api_url, lat, lon, apiKey, units, getString(R.string.lang))
@@ -267,26 +269,7 @@ class MainActivity : AppCompatActivity() {
             )
 
         }, { error ->
-            forecastFragment?.changeProgressBarVisibility(View.GONE)
-            // Сюда можно добавить красивый Material Snackbar в случае ошибки сети
-            Log.e("WeatherError", "Volley error: ${error.message}")
-
-            Snackbar.make(
-                binding.main,
-                getString(R.string.weather_update_failed),
-                Snackbar.LENGTH_LONG
-            ).apply {
-                setAction(getString(R.string.weather_update_retry_action)) {
-                    getWeather(lon, lat, apiKey, units)
-                }
-                setActionTextColor(
-                    if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES) this@MainActivity.getColorFromAttr(
-                        com.google.android.material.R.attr.colorOnTertiary
-                    ) else this@MainActivity.getColorFromAttr(com.google.android.material.R.attr.colorTertiary)
-                )
-
-                show()
-            }
+            errorCount++
         })
 
         val uviStringRequest = StringRequest(Request.Method.GET, uviUrl, { uviResponse ->
@@ -294,29 +277,11 @@ class MainActivity : AppCompatActivity() {
             val uviValue = uviRoot.getString("value").toFloat().roundToInt()
             forecastFragment?.displayUvi(uviValue)
         }, { error ->
-            forecastFragment?.changeProgressBarVisibility(View.GONE)
-            Log.e("WeatherError", "Volley error: ${error.message}")
-
-            Snackbar.make(
-                binding.main,
-                getString(R.string.weather_update_failed),
-                Snackbar.LENGTH_LONG
-            ).apply {
-                setAction(getString(R.string.weather_update_retry_action)) {
-                    getWeather(lon, lat, apiKey, units)
-                }
-                setActionTextColor(
-                    if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES) this@MainActivity.getColorFromAttr(
-                        com.google.android.material.R.attr.colorOnTertiary
-                    ) else this@MainActivity.getColorFromAttr(com.google.android.material.R.attr.colorTertiary)
-                )
-
-                show()
-            }
+            errorCount++
         })
 
-        val aqiStringRequest = StringRequest(Request.Method.GET, aqiUrl, { uviResponse ->
-            val aqiRoot = JSONObject(uviResponse)
+        val aqiStringRequest = StringRequest(Request.Method.GET, aqiUrl, { aqiResponse ->
+            val aqiRoot = JSONObject(aqiResponse)
             val aqiList = aqiRoot.getJSONArray("list")
 
             val aqiMain = aqiList.getJSONObject(0).getJSONObject("main")
@@ -337,8 +302,14 @@ class MainActivity : AppCompatActivity() {
             )
 
         }, { error ->
+            errorCount++
+        })
+
+        requestQueue.add(stringRequest)
+        requestQueue.add(uviStringRequest)
+        requestQueue.add(aqiStringRequest)
+        if (errorCount > 0) {
             forecastFragment?.changeProgressBarVisibility(View.GONE)
-            Log.e("WeatherError", "Volley error: ${error.message}")
 
             Snackbar.make(
                 binding.main,
@@ -356,11 +327,7 @@ class MainActivity : AppCompatActivity() {
 
                 show()
             }
-        })
-
-        requestQueue.add(stringRequest)
-        requestQueue.add(uviStringRequest)
-        requestQueue.add(aqiStringRequest)
+        }
     }
 
     fun getDewPoint(temp: Double, humidity: Double, units: String): Int {
