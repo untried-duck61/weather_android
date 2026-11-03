@@ -63,7 +63,7 @@
                 android:layout_height="96dp"
                 android:layout_marginStart="16dp"
                 android:contentDescription="@string/img_condition_desc"
-                tools:src="@mipmap/ic_launcher_foreground" />
+                android:src="@drawable/ic_weather_unknown" />
         </LinearLayout>
 
         <TextView
