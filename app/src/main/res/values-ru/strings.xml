@@ -11,7 +11,7 @@
     <string name="volley_error">Ошибка Volley: %1$s</string>
     <string name="location_null_error">Невозможно получить текущее местоположение. Включите службы местоположения и перезапустите приложение</string>
     <string name="unknown">неизвестно</string>
-    <string name="feels_like_placeholder">Ощущается как: 0℃</string>
+    <string name="feels_like_placeholder">Ощущается как: --℃</string>
     <string name="feels_like_text">Ощущается как: %1$s°%2$s</string>
     <string name="tv_update_status_loading_status">Загрузка погоды&#8230;</string>
     <string name="tv_update_status_updated_for_current_location_status">Погода обновлена по текущему местоположению</string>
@@ -61,8 +61,8 @@
     <string name="dialog_api_key_cancel_btn">Отмена</string>
     <string name="dialog_api_key_save_btn">Сохранить</string>
     <string name="wind_card_title">Ветер</string>
-    <string name="wind_card_wind_speed_placeholder">0 м/с</string>
-    <string name="wind_card_wind_gust_placeholder">0 м/с</string>
+    <string name="wind_card_wind_speed_placeholder">-- м/с</string>
+    <string name="wind_card_wind_gust_placeholder">-- м/с</string>
     <string name="wind_card_wind_speed_format">%1$s %2$s</string>
     <string name="wind_card_wind_gust_format">%1$s %2$s</string>
     <string name="wind_name_n">Северный</string>
@@ -115,7 +115,7 @@
     <string name="update_file_not_found_error">Файл обновления не найден, скачайте заново</string>
     <string name="update_cancelled_info">Загрузка отменена</string>
     <string name="air_details_card_title">Детали качества воздуха</string>
-    <string name="air_gas_placeholder">неизвестно: 0 мкг/м³</string>
+    <string name="air_gas_placeholder">неизвестно: -- мкг/м³</string>
     <string name="aqi_val_good">Хороший</string>
     <string name="aqi_val_moderate">Средний</string>
     <string name="aqi_val_unhealthy_for_sensitive_groups">Вредный для уязвимых</string>

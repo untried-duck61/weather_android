@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Weather Forecast</string>
-    <string name="temp_placeholder" translatable="false">0℃</string>
+    <string name="temp_placeholder" translatable="false">--℃</string>
     <string name="empty_string" translatable="false"> </string>
     <string name="img_condition_desc" translatable="false">img_condition</string>
     <string name="based_on_openweathermap_weather_forecast">Based on OpenWeatherMap weather forecast</string>
@@ -16,7 +16,7 @@
     <string name="unknown">unknown</string>
     <string name="tv_country_text" translatable="false">%1$s, %2$s</string>
     <string name="tv_desc_text" translatable="false">%1$s</string>
-    <string name="feels_like_placeholder">Feels like: 0℃</string>
+    <string name="feels_like_placeholder">Feels like: --℃</string>
     <string name="feels_like_text">Feels like: %1$s°%2$s</string>
     <string name="__weather_icon_template" translatable="false">_%1$s</string>
     <string name="__res_type" translatable="false">drawable</string>
@@ -28,7 +28,7 @@
     <string name="tv_update_status_updated_for_saved_location_status">Updated weather for last saved location</string>
     <string name="barometer_color_3" translatable="false">#ff88ff99</string>
     <string name="img_humid_desc" translatable="false">img_humid</string>
-    <string name="humidity_placeholder" translatable="false">0%</string>
+    <string name="humidity_placeholder" translatable="false">--%</string>
     <string name="humidity_text" translatable="false">%1$s%%</string>
     <string name="refresh_btn_title">Refresh</string>
     <string name="settings_btn_title">Settings</string>
@@ -75,8 +75,8 @@
     <string name="dialog_api_key_cancel_btn">Cancel</string>
     <string name="dialog_api_key_save_btn">Save</string>
     <string name="wind_card_title">Wind</string>
-    <string name="wind_card_wind_speed_placeholder">0 m/s</string>
-    <string name="wind_card_wind_gust_placeholder">0 m/s</string>
+    <string name="wind_card_wind_speed_placeholder">-- m/s</string>
+    <string name="wind_card_wind_gust_placeholder">-- m/s</string>
     <string name="wind_card_wind_speed_format">%1$s %2$s</string>
     <string name="wind_card_wind_gust_format">%1$s %2$s</string>
     <string name="wind_name_n">North</string>
@@ -132,7 +132,7 @@
     <string name="__uvi_api_url" translatable="false"><![CDATA[https://api.openweathermap.org/data/2.5/uvi?lat=%1$s&lon=%2$s&APPID=%3$s&units=%4$s&lang=%5$s]]></string>
     <string name="__aqi_api_url" translatable="false"><![CDATA[https://api.openweathermap.org/data/2.5/air_pollution?lat=%1$s&lon=%2$s&APPID=%3$s&units=%4$s&lang=%5$s]]></string>
     <string name="air_details_card_title">Aiq quality details</string>
-    <string name="air_gas_placeholder">unknown: 0 µg/m³</string>
+    <string name="air_gas_placeholder">unknown: -- µg/m³</string>
     <string name="aqi_val_good">Good</string>
     <string name="aqi_val_moderate">Moderate</string>
     <string name="aqi_val_unhealthy_for_sensitive_groups">Unhealthy for sensitive</string>
@@ -156,9 +156,11 @@
     <string name="uvi_adv_sunglasses_n_cap">Put on sunglasses and cap</string>
     <string name="uvi_adv_spf_cream">Use SPF cream</string>
     <string name="uvi_adv_beware_of_sun">Beware of sun</string>
-    <!-- TODO: Remove or change this placeholder text -->
-
     <string name="bottom_nav_current_menuitem">Current</string>
     <string name="bottom_nav_hourly_menuitem">Hourly</string>
+    <string name="time_format" translatable="false">%1$d:%2$d</string>
+    <string name="time_placeholder" translatable="false">00:00</string>
+    <string name="daily_temp_range_format" translatable="false">%1$s°%2$s/%3$s°%2$s</string>
+    <string name="daily_temp_range_placeholder" translatable="false">0°C/0°C</string>
 
 </resources>
