@@ -40,6 +40,8 @@ import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
+import java.util.Calendar
+import java.util.Locale
 import kotlin.coroutines.resume
 import kotlin.math.log
 
@@ -106,6 +108,7 @@ class MainActivity : AppCompatActivity() {
                     binding.viewPager.setCurrentItem(1, true)
                     true
                 }
+
                 else -> false
             }
         }
@@ -117,6 +120,7 @@ class MainActivity : AppCompatActivity() {
                     0 -> {
                         binding.bottomNav.selectedItemId = R.id.action_current
                     }
+
                     1 -> {
                         binding.bottomNav.selectedItemId = R.id.action_hourly
                     }
@@ -305,9 +309,65 @@ class MainActivity : AppCompatActivity() {
             errorCount++
         })
 
+        val dailyUrl =
+            getString(R.string.__daily_api_url, lat, lon, apiKey, units, getString(R.string.lang))
+
+        val dailyStringRequest = StringRequest(Request.Method.GET, dailyUrl, { dailyResponse ->
+            val dailyRoot = JSONObject(dailyResponse)
+            val dailyArray = dailyRoot.getJSONArray("list")
+
+            val groupedForecast = LinkedHashMap<String, Pair<String, ArrayList<Map<String, Any>>>>()
+
+            for (day in 0 until dailyArray.length()) {
+                val item = dailyArray.getJSONObject(day)
+                val dayDt = item.getLong("dt")
+
+                val dayMain = item.getJSONObject("main")
+                val dayTemp = dayMain.getDouble("temp").roundToInt().toString()
+
+                val dayWeather = item.getJSONArray("weather").getJSONObject(0)
+                val dayWeatherIcon = dayWeather.getString("icon")
+                val dayWeatherId = dayWeather.getString("id")
+
+                val calendar = Calendar.getInstance().apply {
+                    timeInMillis = dayDt * 1000L
+                }
+
+                val year = calendar.get(Calendar.YEAR)
+                val dayOfYear = calendar.get(Calendar.DAY_OF_YEAR)
+                val dayKey = "$year-$dayOfYear"
+
+                val hourString = String.format(Locale.getDefault(), "%02d:00", calendar.get(Calendar.HOUR_OF_DAY))
+
+                val sdf = java.text.SimpleDateFormat("EEEE, d MMM", Locale.getDefault())
+                val dateTitle = sdf.format(calendar.time).replaceFirstChar { it.uppercase() }
+
+                val hourMap = mapOf(
+                    "time" to hourString,
+                    "temp" to dayTemp,
+                    "icon" to dayWeatherIcon,
+                    "id" to dayWeatherId
+                )
+
+                if (!groupedForecast.containsKey(dayKey)) {
+                    groupedForecast[dayKey] = Pair(dateTitle, ArrayList())
+                }
+
+                groupedForecast[dayKey]?.second?.add(hourMap)
+
+            }
+
+            val hourlyFragment = supportFragmentManager.findFragmentByTag("f1") as? HourlyForecastFragment
+            hourlyFragment?.updateHourlyData(groupedForecast, units)
+        }, { error ->
+            errorCount++
+        })
+
         requestQueue.add(stringRequest)
         requestQueue.add(uviStringRequest)
         requestQueue.add(aqiStringRequest)
+        requestQueue.add(dailyStringRequest)
+
         if (errorCount > 0) {
             forecastFragment?.changeProgressBarVisibility(View.GONE)
 
