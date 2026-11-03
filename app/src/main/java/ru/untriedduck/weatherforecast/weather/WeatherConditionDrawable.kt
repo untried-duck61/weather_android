@@ -76,7 +76,7 @@ class WeatherConditionDrawable {
                 803 -> if (isNight) R.drawable.ic_weather_803n else R.drawable.ic_weather_803d
                 804 -> R.drawable.ic_weather_804
 
-                // Запасной вариант
+                // If nothing was assigned
                 else -> R.drawable.ic_weather_unknown
             }
         }
