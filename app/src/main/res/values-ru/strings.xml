@@ -133,6 +133,8 @@
     <string name="uvi_adv_ok">Защита не требуется</string>
     <string name="bottom_nav_current_menuitem">Текущий</string>
     <string name="bottom_nav_hourly_menuitem">Почасовой</string>
+    <string name="btn_read_article_text">Перейти</string>
+    <string name="card_warning_first_time_text">Если вы впервые сталкиваетесь с ключом API, советуем вам прочитать статью здесь:</string>
 
 
 </resources>

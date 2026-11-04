@@ -163,5 +163,7 @@
     <string name="daily_temp_range_format" translatable="false">%1$s°%2$s / %3$s°%2$s</string>
     <string name="daily_temp_range_placeholder" translatable="false">0°C/0°C</string>
     <string name="__daily_api_url" translatable="false"><![CDATA[https://api.openweathermap.org/data/2.5/forecast?lat=%1$s&lon=%2$s&APPID=%3$s&units=%4$s&lang=%5$s]]></string>
+    <string name="btn_read_article_text">Open</string>
+    <string name="card_warning_first_time_text">If you are encountering an API key for the first time, we recommend reading the article here:</string>
 
 </resources>
