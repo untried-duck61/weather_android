@@ -18,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import ru.untriedduck.weatherforecast.weather.HelperApiMethods
+import androidx.core.net.toUri
 
 @Suppress("DEPRECATION")
 class FirstRunActivity : AppCompatActivity() {
@@ -116,6 +117,12 @@ class FirstRunActivity : AppCompatActivity() {
                 putString("SELECTED_CITY_LON", citiesLon[position].toString())
                 apply()
             }
+        }
+
+        binding.btnReadArticle.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW,
+                "https://github.com/untried-duck61/weather_android/blob/master/README.md".toUri())
+            startActivity(intent)
         }
     }
 
