@@ -66,8 +66,8 @@ class FirstRunActivity : AppCompatActivity() {
         }
 
         val weatherUpdateModes = arrayOf(
-            getString(R.string.upd_mode_only_gps),
-            getString(R.string.upd_mode_only_city)
+            getString(R.string.upd_mode_only_gps) /*,
+            getString(R.string.upd_mode_only_city) */
         )
 
         binding.updModeSpinner.setAdapter(
