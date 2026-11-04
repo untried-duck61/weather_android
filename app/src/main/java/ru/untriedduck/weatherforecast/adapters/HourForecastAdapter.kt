@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import ru.untriedduck.weatherforecast.R
 import ru.untriedduck.weatherforecast.databinding.ItemHourlyForecastCardBinding
 import ru.untriedduck.weatherforecast.weather.WeatherConditionDrawable
-import java.util.Locale
+import kotlin.math.roundToInt
 
 class HourForecastAdapter(private val units: String) : RecyclerView.Adapter<HourForecastAdapter.HourViewHolder>() {
     private var hoursList: List<Map<String, Any>> = emptyList()
@@ -23,8 +24,8 @@ class HourForecastAdapter(private val units: String) : RecyclerView.Adapter<Hour
             val hourData = hoursList[position]
             tvHourTime.text = hourData["time"] as? String
 
-            val temp = (hourData["temp"] as? Number)?.toDouble() ?: 0.0
-            tvHourTemp.text = String.format(Locale.getDefault(), "%+.0f°${if (units == "imperial") "F" else "C"}", temp)
+            val temp = (hourData["temp"] as? Number)?.toDouble()?.roundToInt() ?: 0
+            tvHourTemp.text = tvHourTemp.context.getString(R.string.temp, temp.toString(), if (units == "imperial") "F" else "C")//String.format(Locale.getDefault(), "%+.0f°${if (units == "imperial") "F" else "C"}", temp)
 
             val weatherId = (hourData["id"] as? Number)?.toInt() ?: 800
             val iconName = hourData["icon"] as? String ?: "01d"
