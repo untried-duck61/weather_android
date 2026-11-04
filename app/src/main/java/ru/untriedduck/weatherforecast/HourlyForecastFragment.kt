@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import ru.untriedduck.weatherforecast.adapters.DayForecastAdapter
 import ru.untriedduck.weatherforecast.databinding.FragmentHourlyForecastBinding
+import kotlin.math.roundToInt
 
 class HourlyForecastFragment : Fragment() {
     private var _binding: FragmentHourlyForecastBinding? = null
@@ -62,9 +63,9 @@ class HourlyForecastFragment : Fragment() {
 
             val rangeString = getString(
                 R.string.daily_temp_range_format,
-                minTemp.toString(),
+                minTemp.roundToInt().toString(),
                 if (units == "imperial") "F" else "C",
-                maxTemp.toString()
+                maxTemp.roundToInt().toString()
             )
 
             val dayMap = mapOf(
