@@ -58,6 +58,11 @@ class MainActivity : AppCompatActivity() {
         }
     private var permissionContinuation: CancellableContinuation<Boolean>? = null
 
+    var savedGroupedForecast: LinkedHashMap<String, Pair<String, ArrayList<Map<String, Any>>>>? = null
+    var units : String = "metric"
+
+    var forecastFragment : CurrentForecastFragment? = null
+
     private suspend fun ActivityResultLauncher<String>.launchSuspend(permission: String): Boolean =
         suspendCancellableCoroutine { continuation ->
             permissionContinuation = continuation
@@ -173,7 +178,7 @@ class MainActivity : AppCompatActivity() {
         shared: SharedPreferences,
         editor: SharedPreferences.Editor
     ) {
-        val forecastFragment =
+        forecastFragment =
             supportFragmentManager.findFragmentByTag("f0") as? CurrentForecastFragment
 
         requestNotificationPermission()
@@ -221,7 +226,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("UseCompatLoadingForDrawables", "DiscouragedApi")
     private fun getWeather(lon: String, lat: String, apiKey: String, units: String) {
-        val forecastFragment =
+        forecastFragment =
             supportFragmentManager.findFragmentByTag("f0") as? CurrentForecastFragment
         forecastFragment?.changeProgressBarVisibility(View.VISIBLE)
 
@@ -323,7 +328,7 @@ class MainActivity : AppCompatActivity() {
                 val dayDt = item.getLong("dt")
 
                 val dayMain = item.getJSONObject("main")
-                val dayTemp = dayMain.getDouble("temp").roundToInt().toString()
+                val dayTemp = dayMain.getDouble("temp")
 
                 val dayWeather = item.getJSONArray("weather").getJSONObject(0)
                 val dayWeatherIcon = dayWeather.getString("icon")
@@ -357,6 +362,8 @@ class MainActivity : AppCompatActivity() {
 
             }
 
+            this.savedGroupedForecast = groupedForecast
+            this.units = units
             val hourlyFragment = supportFragmentManager.findFragmentByTag("f1") as? HourlyForecastFragment
             hourlyFragment?.updateHourlyData(groupedForecast, units)
         }, { error ->

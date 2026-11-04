@@ -34,6 +34,14 @@ class HourlyForecastFragment : Fragment() {
         dayAdapter = DayForecastAdapter("metric")
 
         binding.root.adapter = dayAdapter
+
+        val mainActivity = requireActivity() as? MainActivity
+        val sharedData = mainActivity?.savedGroupedForecast
+        val currentUnits = mainActivity?.units
+
+        if (sharedData != null && currentUnits != null){
+            updateHourlyData(sharedData, currentUnits)
+        }
     }
 
     fun updateHourlyData(
