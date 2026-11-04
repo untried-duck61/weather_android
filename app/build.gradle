@@ -5,35 +5,29 @@ plugins {
 
 import java.text.SimpleDateFormat
 
-// 1. Ручные настройки (меняем только их)
 def majorVersion = 0
-def minorVersion = 10
+def minorVersion = 11
 
-// 2. Авто-вычисление даты (Формат: ггММдд, например 260722)
 static def getBuildDate() {
     return new SimpleDateFormat("yyMMdd").format(new Date())
 }
 
-// 3. Авто-вычисление количества коммитов из Git
 def getCommitCount() {
     try {
-        // Запускаем команду через стандартный процесс Java/Groovy
         def process = "git rev-list --count HEAD".execute(null, project.rootDir)
         process.waitFor() // Ждем, пока Git посчитает коммиты
 
         if (process.exitValue() == 0) {
             return process.text.trim().toInteger()
         } else {
-            // Если Git вернул ошибку (например, на Windows не настроен PATH)
             return 1
         }
     } catch (Exception e) {
         println "⚠️ GIT FETCH ERROR: ${e.message}"
-        return 1 // Твой надежный фолбек
+        return 1
     }
 }
 
-// Переменные для подстановки
 def commits = getCommitCount()
 def buildDate = getBuildDate()
 
