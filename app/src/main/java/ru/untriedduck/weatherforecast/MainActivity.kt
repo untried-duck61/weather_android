@@ -332,7 +332,7 @@ class MainActivity : AppCompatActivity() {
 
                 val dayWeather = item.getJSONArray("weather").getJSONObject(0)
                 val dayWeatherIcon = dayWeather.getString("icon")
-                val dayWeatherId = dayWeather.getString("id")
+                val dayWeatherId = dayWeather.getInt("id")
 
                 val calendar = Calendar.getInstance().apply {
                     timeInMillis = dayDt * 1000L
