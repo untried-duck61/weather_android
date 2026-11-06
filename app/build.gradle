@@ -42,6 +42,8 @@ android {
         versionName "${majorVersion}.${minorVersion}.${buildDate}.${commits}"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        resConfigs "ru", "en"
     }
 
     buildTypes {
