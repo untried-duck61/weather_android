@@ -260,7 +260,7 @@ class MainActivity : AppCompatActivity() {
             val wind = root.getJSONObject("wind")
             val windSpeed = wind.getString("speed").toFloat().roundToInt().toString()
             val windDegree = wind.getString("deg").toFloat()
-            val windGust = wind.getString("gust").toFloat().rountToInt().toString()
+            val windGust = wind.getString("gust").toFloat().roundToInt().toString()
 
             val sys = root.getJSONObject("sys")
             val country = sys.getString("country")
