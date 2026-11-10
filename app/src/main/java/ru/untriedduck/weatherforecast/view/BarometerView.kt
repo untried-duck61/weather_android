@@ -13,6 +13,7 @@ import ru.untriedduck.weatherforecast.R
 import kotlin.math.cos
 import kotlin.math.min
 import kotlin.math.sin
+import kotlin.math.roundToInt
 
 class BarometerView @JvmOverloads constructor(
     context: Context,
