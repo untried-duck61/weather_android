@@ -23,7 +23,6 @@ class BarometerView @JvmOverloads constructor(
     var minPressure: Float = 950f
     var maxPressure: Float = 1050f
 
-    // 1. ИСПРАВЛЕНО: Теперь дефолтное значение (1013) используется, если в XML ничего не задано
     var currentPressure: Float = 1013f
         set(value) {
             field = value.coerceIn(minPressure, maxPressure)
@@ -67,15 +66,12 @@ class BarometerView @JvmOverloads constructor(
             attrs, R.styleable.BarometerView, 0, 0
         )
         try {
-            // 2. ИСПРАВЛЕНО: Передаем currentPressure в качестве дефолтного значения для getFloat
             currentPressure = typedArray.getFloat(R.styleable.BarometerView_currentPressure, currentPressure)
         } finally {
             typedArray.recycle()
         }
     }
 
-    // 3. ОПТИМИЗАЦИЯ: Расчет размеров перенесен из onDraw сюда.
-    // onDraw вызывается очень часто, там нельзя делать лишние вычисления и выделять память.
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
 
@@ -106,23 +102,18 @@ class BarometerView @JvmOverloads constructor(
         val radius = oval.width() / 2f
         val strokeWidth = trackPaint.strokeWidth
 
-        // 1. ФLayout-трек
         canvas.drawArc(oval, startAngle, sweepAngle, false, trackPaint)
 
-        // 2. Прогресс
         val progressRatio = (currentPressure - minPressure) / (maxPressure - minPressure)
         val currentSweepAngle = sweepAngle * progressRatio
         canvas.drawArc(oval, startAngle, currentSweepAngle, false, progressPaint)
 
-        // 3. Точка-указатель
         val targetAngleRad = Math.toRadians((startAngle + currentSweepAngle).toDouble())
         val indicatorX = centerX + radius * cos(targetAngleRad).toFloat()
         val indicatorY = centerY + radius * sin(targetAngleRad).toFloat()
         canvas.drawCircle(indicatorX, indicatorY, strokeWidth * 0.4f, indicatorPaint)
 
-        // 4. Текст
-        // ИСПРАВЛЕНО: Для точного центрирования текста по вертикали лучше использовать fontMetrics
         val textY = centerY - (textPaint.descent() + textPaint.ascent()) / 2
-        canvas.drawText(context.getString(R.string.barometer_label, currentPressure.toInt()), centerX, textY, textPaint)
+        canvas.drawText(context.getString(R.string.barometer_label, (currentPressure.toInt() * 0,75006).rountToInt()), centerX, textY, textPaint)
     }
 }
