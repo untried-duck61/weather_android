@@ -66,17 +66,17 @@ This application requires a free API key (a unique token) to fetch weather data.
 
 ## Supported languages
 
- * English (default)
+* English (default)
 
- * Russian (ru)
+* Russian (ru)
 
 ## Roadmap & Tasks
 
-* [ ] Add more detailed weather information on the main page (wind (done), humidity (done), pressure (done), sunrise and sunset (WIP), last updated (WIP), visibility (WIP)).
+* [ ] Add more detailed weather information on the main page (wind (done), humidity (done), pressure (done), sunrise and sunset (done), last updated (WIP), visibility (WIP)).
 
-* [ ] Add BottomNavigation for switching between current weather forecast and daily forecast for 5 days with 3-hour intervals
+* [x] Add BottomNavigation for switching between current weather forecast and daily forecast for 5 days with 3-hour intervals
 
-* [ ] Add daily forecast
+* [ ] Add daily forecast (almost done)
 
 * [ ] Add useful notifications (forecast for tomorrow)
 
