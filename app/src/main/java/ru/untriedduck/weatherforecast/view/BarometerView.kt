@@ -114,6 +114,6 @@ class BarometerView @JvmOverloads constructor(
         canvas.drawCircle(indicatorX, indicatorY, strokeWidth * 0.4f, indicatorPaint)
 
         val textY = centerY - (textPaint.descent() + textPaint.ascent()) / 2
-        canvas.drawText(context.getString(R.string.barometer_label, (currentPressure.toInt() * 0.75006).rountToInt()), centerX, textY, textPaint)
+        canvas.drawText(context.getString(R.string.barometer_label, (currentPressure.toInt() * 0.75006).roundToInt()), centerX, textY, textPaint)
     }
 }
