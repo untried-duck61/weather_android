@@ -258,9 +258,9 @@ class MainActivity : AppCompatActivity() {
             val grndPressure = main.getString("grnd_level").toFloat()
 
             val wind = root.getJSONObject("wind")
-            val windSpeed = wind.getString("speed")
+            val windSpeed = wind.getString("speed").toFloat().roundToInt().toString()
             val windDegree = wind.getString("deg").toFloat()
-            val windGust = wind.getString("gust")
+            val windGust = wind.getString("gust").toFloat().rountToInt().toString()
 
             val sys = root.getJSONObject("sys")
             val country = sys.getString("country")
