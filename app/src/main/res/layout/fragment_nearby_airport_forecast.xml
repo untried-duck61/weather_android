@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    android:paddingBottom="64dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".NearbyAirportForecastFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/ivAirplane"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:rotation="90"
+            android:src="@drawable/ic_local_airport"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?attr/colorOnSurfaceVariant" />
+
+        <TextView
+            android:id="@+id/tvAirportName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/airport_name_placeholder"
+            android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+            android:textColor="?attr/colorOnSurface"
+            app:layout_constraintStart_toEndOf="@+id/ivAirplane"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvAirportTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/temp_placeholder"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:textColor="?android:attr/textColorSecondary"
+            app:layout_constraintStart_toEndOf="@+id/ivAirplane"
+            app:layout_constraintTop_toBottomOf="@+id/tvAirportName" />
+
+        <TextView
+            android:id="@+id/tvAirportLastUpdated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/airport_last_updated_placeholder"
+            android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivAirplane" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>
