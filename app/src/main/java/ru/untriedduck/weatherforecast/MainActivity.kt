@@ -15,7 +15,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.util.Log
 import android.view.View
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -40,6 +39,7 @@ import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
+import java.io.File
 import java.util.Calendar
 import java.util.Locale
 import kotlin.coroutines.resume
@@ -58,10 +58,11 @@ class MainActivity : AppCompatActivity() {
         }
     private var permissionContinuation: CancellableContinuation<Boolean>? = null
 
-    var savedGroupedForecast: LinkedHashMap<String, Pair<String, ArrayList<Map<String, Any>>>>? = null
-    var units : String = "metric"
+    var savedGroupedForecast: LinkedHashMap<String, Pair<String, ArrayList<Map<String, Any>>>>? =
+        null
+    var units: String = "metric"
 
-    var forecastFragment : CurrentForecastFragment? = null
+    var forecastFragment: CurrentForecastFragment? = null
 
     private suspend fun ActivityResultLauncher<String>.launchSuspend(permission: String): Boolean =
         suspendCancellableCoroutine { continuation ->
@@ -230,7 +231,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentByTag("f0") as? CurrentForecastFragment
         forecastFragment?.changeProgressBarVisibility(View.VISIBLE)
 
-        var errorCount : Int = 0
+        var errorCount: Int = 0
 
         val url = getString(R.string.__api_url, lat, lon, apiKey, getString(R.string.lang), units)
         val uviUrl =
@@ -238,6 +239,9 @@ class MainActivity : AppCompatActivity() {
         val aqiUrl =
             getString(R.string.__aqi_api_url, lat, lon, apiKey, units, getString(R.string.lang))
 
+        /**
+         * Current weather
+         */
         val stringRequest = StringRequest(Request.Method.GET, url, { response ->
             forecastFragment?.changeProgressBarVisibility(View.GONE)
             val root = JSONObject(response)
@@ -277,17 +281,25 @@ class MainActivity : AppCompatActivity() {
                 windDegree, windSpeed, windGust, sunrise, sunset, weatherId, icon
             )
 
-        }, { error ->
+        }, { _ ->
             errorCount++
         })
+
+        /**
+         * Ultraviolet Index
+         */
 
         val uviStringRequest = StringRequest(Request.Method.GET, uviUrl, { uviResponse ->
             val uviRoot = JSONObject(uviResponse)
             val uviValue = uviRoot.getString("value").toFloat().roundToInt()
             forecastFragment?.displayUvi(uviValue)
-        }, { error ->
+        }, { _ ->
             errorCount++
         })
+
+        /**
+         * Air Quality Index
+         */
 
         val aqiStringRequest = StringRequest(Request.Method.GET, aqiUrl, { aqiResponse ->
             val aqiRoot = JSONObject(aqiResponse)
@@ -310,9 +322,13 @@ class MainActivity : AppCompatActivity() {
                 aqiVal, aqiCO, aqiNO, aqiNO2, aqiO3, aqiSO2, aqiPMf2t5, aqiPM10, aqiNH3
             )
 
-        }, { error ->
+        }, { _ ->
             errorCount++
         })
+
+        /**
+         * Hourly/Daily forecast
+         */
 
         val dailyUrl =
             getString(R.string.__daily_api_url, lat, lon, apiKey, units, getString(R.string.lang))
@@ -342,7 +358,11 @@ class MainActivity : AppCompatActivity() {
                 val dayOfYear = calendar.get(Calendar.DAY_OF_YEAR)
                 val dayKey = "$year-$dayOfYear"
 
-                val hourString = String.format(Locale.getDefault(), "%02d:00", calendar.get(Calendar.HOUR_OF_DAY))
+                val hourString = String.format(
+                    Locale.getDefault(),
+                    "%02d:00",
+                    calendar.get(Calendar.HOUR_OF_DAY)
+                )
 
                 val sdf = java.text.SimpleDateFormat("EEEE, d MMM", Locale.getDefault())
                 val dateTitle = sdf.format(calendar.time).replaceFirstChar { it.uppercase() }
@@ -364,9 +384,10 @@ class MainActivity : AppCompatActivity() {
 
             this.savedGroupedForecast = groupedForecast
             this.units = units
-            val hourlyFragment = supportFragmentManager.findFragmentByTag("f1") as? HourlyForecastFragment
+            val hourlyFragment =
+                supportFragmentManager.findFragmentByTag("f1") as? HourlyForecastFragment
             hourlyFragment?.updateHourlyData(groupedForecast, units)
-        }, { error ->
+        }, { _ ->
             errorCount++
         })
 
@@ -387,6 +408,9 @@ class MainActivity : AppCompatActivity() {
             })
         // val airportWeatherUrl = "https://metartaf.ru/api/v1/stations/UWWW/latest?format=json"
 
+        /**
+         * Finalize
+         */
         requestQueue.add(stringRequest)
         requestQueue.add(uviStringRequest)
         requestQueue.add(aqiStringRequest)
