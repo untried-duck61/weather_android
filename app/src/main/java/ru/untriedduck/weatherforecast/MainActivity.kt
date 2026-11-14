@@ -499,3 +499,9 @@ class MainActivity : AppCompatActivity() {
 
 }
 
+data class Airport(
+    val icao: String,
+    val englishName: String,
+    val distanceKm: Float
+)
+
