@@ -370,6 +370,23 @@ class MainActivity : AppCompatActivity() {
             errorCount++
         })
 
+        /**
+         * Nearby Airport weather forecast
+         */
+
+        val ourAirportsListAirportsUrl =
+            "https://davidmegginson.github.io/ourairports-data/airports.csv"
+        val oaListDlStringRequest =
+            StringRequest(Request.Method.GET, ourAirportsListAirportsUrl, { oaDlResponse ->
+                val csvFile = File(this.filesDir, "airports_min.csv")
+                if (csvFile.exists() && csvFile.length() > 0) {
+                    TODO("Function to find nearest airport is not ready")
+                }
+            }, { _ ->
+                errorCount++
+            })
+        // val airportWeatherUrl = "https://metartaf.ru/api/v1/stations/UWWW/latest?format=json"
+
         requestQueue.add(stringRequest)
         requestQueue.add(uviStringRequest)
         requestQueue.add(aqiStringRequest)
