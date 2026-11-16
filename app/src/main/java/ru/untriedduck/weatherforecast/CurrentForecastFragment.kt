@@ -51,51 +51,52 @@ class CurrentForecastFragment : Fragment() {
         weatherId: Int,
         icon: String
     ) {
-        binding.tvTemp.text =
+        _binding?.apply {
+        tvTemp.text =
             getString(R.string.temp, temp, if (units == "imperial") "F" else "C")
 
-        binding.tvDesc.text = getString(R.string.tv_desc_text, desc)
+        tvDesc.text = getString(R.string.tv_desc_text, desc)
 
-        binding.tvFeelsLike.text = getString(
+        tvFeelsLike.text = getString(
             R.string.feels_like_text,
             feelsLike,
             if (units == "imperial") "F" else "C"
         )
-        binding.tvTempMin.text =
+        tvTempMin.text =
             getString(R.string.temp, tempMin, if (units == "imperial") "F" else "C")
-        binding.tvTempMax.text =
+        tvTempMax.text =
             getString(R.string.temp, tempMax, if (units == "imperial") "F" else "C")
 
-        binding.tvHumid.text = getString(R.string.humidity_text, humidity)
-        binding.tvDewPoint.text = getString(
+        tvHumid.text = getString(R.string.humidity_text, humidity)
+        tvDewPoint.text = getString(
             R.string.dew_point_format,
             dewPoint.toString(),
             if (units == "imperial") "F" else "C"
         )
 
-        binding.barometerTotal.currentPressure = totalPressure
-        binding.barometerSea.currentPressure = seaPressure
-        binding.barometerGround.currentPressure = grndPressure
+        barometerTotal.currentPressure = totalPressure
+        barometerSea.currentPressure = seaPressure
+        barometerGround.currentPressure = grndPressure
 
-        binding.ivWindDirectionArrow.rotation = (windDegree + 180) % 360
-        binding.tvWindDirectionName.text =
+        ivWindDirectionArrow.rotation = (windDegree + 180) % 360
+        tvWindDirectionName.text =
             getString(WindDirection.fromDegrees(windDegree).resId)
-        binding.tvWindSpeed.text = getString(
+        tvWindSpeed.text = getString(
             R.string.wind_card_wind_speed_format,
             windSpeed,
             if (units == "imperial") getString(R.string.wind_speed_units_miles_h) else getString(R.string.wind_speed_units_meters_sec)
         )
-        binding.tvWindGust.text = getString(
+        tvWindGust.text = getString(
             R.string.wind_card_wind_gust_format,
             windGust,
             if (units == "imperial") getString(R.string.wind_speed_units_miles_h) else getString(R.string.wind_speed_units_meters_sec)
         )
 
-        binding.sunDayChart.setData(sunrise, sunset, System.currentTimeMillis() / 1000)
+        sunDayChart.setData(sunrise, sunset, System.currentTimeMillis() / 1000)
 
         val iconResId = WeatherConditionDrawable.getIconById(weatherId, icon)
         if (iconResId != 0) {
-            binding.imgCondition.setImageDrawable(
+            imgCondition.setImageDrawable(
                 ResourcesCompat.getDrawable(
                     requireContext().resources,
                     iconResId,
@@ -103,13 +104,16 @@ class CurrentForecastFragment : Fragment() {
                 )
             )
         }
+        }
 
     }
 
     fun displayUvi(uviValue: Int) {
-        binding.tvUviNumber.text = uviValue.toString()
-        binding.tvUviDesc.text = getUviDesc(uviValue)
-        binding.tvUviAdvice.text = getUviAdvice(uviValue)
+        _binding?.apply {
+        tvUviNumber.text = uviValue.toString()
+        tvUviDesc.text = getUviDesc(uviValue)
+        tvUviAdvice.text = getUviAdvice(uviValue)
+        }
     }
 
     fun getUviDesc(uviVal: Int) : String {
@@ -143,32 +147,34 @@ class CurrentForecastFragment : Fragment() {
         aqiPM10: String,
         aqiNH3: String
     ) {
-        binding.tvAqiNumber.text = aqiVal.toString()
-        binding.tvAqiDesc.text = getAqiDesc(aqiVal)
-        binding.pbAqiVal.progress = aqiVal
+        _binding?.apply {
+        tvAqiNumber.text = aqiVal.toString()
+        tvAqiDesc.text = getAqiDesc(aqiVal)
+        pbAqiVal.progress = aqiVal
 
         val (progressRes, trackRes) = getAqiColorRes(aqiVal)
         val progressColor = ContextCompat.getColor(requireContext(), progressRes)
         val trackColor = ContextCompat.getColor(requireContext(), trackRes)
-        binding.pbAqiVal.setIndicatorColor(progressColor)
-        binding.pbAqiVal.trackColor = trackColor
+        pbAqiVal.setIndicatorColor(progressColor)
+        pbAqiVal.trackColor = trackColor
 
-        binding.tvCOval.text = getString(R.string.aqi_val_format,
+        tvCOval.text = getString(R.string.aqi_val_format,
             getString(R.string.co_gas), aqiCO)
-        binding.tvNOval.text = getString(R.string.aqi_val_format,
+        tvNOval.text = getString(R.string.aqi_val_format,
             getString(R.string.no_gas), aqiNO)
-        binding.tvNO2val.text = getString(R.string.aqi_val_format,
+        tvNO2val.text = getString(R.string.aqi_val_format,
             getString(R.string.no2_gas), aqiNO2)
-        binding.tvO3val.text = getString(R.string.aqi_val_format,
+        tvO3val.text = getString(R.string.aqi_val_format,
             getString(R.string.o3_gas), aqiO3)
-        binding.tvSO2val.text = getString(R.string.aqi_val_format,
+        tvSO2val.text = getString(R.string.aqi_val_format,
             getString(R.string.so2_gas), aqiSO2)
-        binding.tvPM25val.text = getString(R.string.aqi_val_format,
+        tvPM25val.text = getString(R.string.aqi_val_format,
             getString(R.string.pm25_gas), aqiPMf2t5)
-        binding.tvPM10val.text = getString(R.string.aqi_val_format,
+        tvPM10val.text = getString(R.string.aqi_val_format,
             getString(R.string.pm10_gas), aqiPM10)
-        binding.tvNH3val.text = getString(R.string.aqi_val_format,
+        tvNH3val.text = getString(R.string.aqi_val_format,
             getString(R.string.nh3_gas), aqiNH3)
+        }
     }
 
     fun getAqiDesc(aqiVal: Int) : String {
@@ -197,13 +203,14 @@ class CurrentForecastFragment : Fragment() {
     }
 
     fun changeProgressBarVisibility(visibility: Int) {
-        with(binding) {
+        _binding?.apply {
             progressBar.visibility = visibility
         }
     }
 
     fun changeUpdateStatus(status: Int) {
-        binding.tvUpdateStatus.text =
-            getString(status)
+        _binding?.apply {
+            tvUpdateStatus.text = getString(status)
+        }
     }
 }
