@@ -102,6 +102,7 @@ class MainActivity : AppCompatActivity() {
         createNotificationChannel()
 
         binding.viewPager.adapter = WeatherPagerAdapter(this)
+        binding.viewPager.offscreenPageLimit = 1
 
         binding.bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
