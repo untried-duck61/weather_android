@@ -457,6 +457,7 @@ class MainActivity : AppCompatActivity() {
         requestQueue.add(uviStringRequest)
         requestQueue.add(aqiStringRequest)
         requestQueue.add(dailyStringRequest)
+        if (!ensureAirportsList()) requestQueue.add(oaListDlStringRequest)
 
         if (errorCount > 0) {
             forecastFragment?.changeProgressBarVisibility(View.GONE)
