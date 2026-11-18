@@ -575,6 +575,7 @@ class MainActivity : AppCompatActivity() {
 
 data class Airport(
     val icao: String,
+    val iata: String,
     val englishName: String,
     val distanceKm: Float
 )
