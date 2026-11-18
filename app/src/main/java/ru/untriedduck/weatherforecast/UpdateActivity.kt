@@ -16,6 +16,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.lifecycle.lifecycleScope
 import com.android.volley.Request
@@ -56,11 +57,22 @@ class UpdateActivity : AppCompatActivity() {
         binding = ActivityUpdateBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { _, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars())
+
+            binding.main.updatePadding(bottom = insets.bottom)
+
+            windowInsets
         }
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.appBarLayout) { view, windowInsets ->
+            val statusBarInsets = windowInsets.getInsets(WindowInsetsCompat.Type.statusBars())
+
+            view.updatePadding(top = statusBarInsets.top)
+
+            windowInsets
+        }
+
         binding.topAppBar.setNavigationOnClickListener {
             finish()
         }
