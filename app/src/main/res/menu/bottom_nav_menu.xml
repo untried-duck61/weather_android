@@ -8,4 +8,8 @@
         android:id="@+id/action_hourly"
         android:icon="@drawable/ic_schedule"
         android:title="@string/bottom_nav_hourly_menuitem" />
+    <item
+        android:id="@+id/action_airport"
+        android:icon="@drawable/ic_local_airport"
+        android:title="@string/bottom_nav_airport_menuitem" />
 </menu>
