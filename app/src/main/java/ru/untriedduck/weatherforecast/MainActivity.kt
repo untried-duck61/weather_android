@@ -15,6 +15,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.location.Location
 import android.view.View
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -35,7 +36,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
+import com.android.volley.DefaultRetryPolicy
 import kotlinx.coroutines.CancellableContinuation
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
@@ -408,14 +411,44 @@ class MainActivity : AppCompatActivity() {
             "https://davidmegginson.github.io/ourairports-data/airports.csv"
         val oaListDlStringRequest =
             StringRequest(Request.Method.GET, ourAirportsListAirportsUrl, { oaDlResponse ->
-                val csvFile = File(this.filesDir, "airports_min.csv")
-                if (csvFile.exists() && csvFile.length() > 0) {
-                    TODO("Function to find nearest airport is not ready")
+                if (!oaDlResponse.startsWith("\"id\",\"ident\"")) return@StringRequest
+                lifecycleScope.launch(Dispatchers.IO)
+                {
+                    val csvFile = File(this@MainActivity.filesDir, "airports_min.csv")
+                    val regex = ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)".toRegex()
+                    csvFile.bufferedWriter().use { writer ->
+                        oaDlResponse.lineSequence().drop(1).forEach { line ->
+                            val parts = line.split(regex)
+                            if (parts.size < 12) return@forEach
+                            val icao_code = parts[12].trim('"')
+                            val iata_code = parts[13].trim('"')
+                            val name = parts[3].trim('"').replace(";", ",")
+                            val lat = parts[4].trim('"')
+                            val lon = parts[5].trim('"')
+                            val scheduled = parts[11].trim('"')
+                            if (icao_code.length == 4 && scheduled == "yes" && lat.isNotEmpty() && lon.isNotEmpty()) {
+                                writer.write("$icao_code;$iata_code;$name;$lat;$lon\n")
+                            }
+                        }
+                    }
                 }
             }, { _ ->
                 errorCount++
             })
-        // val airportWeatherUrl = "https://metartaf.ru/api/v1/stations/UWWW/latest?format=json"
+        oaListDlStringRequest.retryPolicy = DefaultRetryPolicy(20000, 1, 1.0f)
+
+        val nearestAirport = findNearestAirport(File(this.filesDir, "airports_min.csv"), lat.toDouble(), lon.toDouble())
+        val airportWeatherUrl = getString(R.string.__metarf_api_url, nearestAirport?.icao)
+        val awStringRequest = StringRequest(airportWeatherUrl, {awResponse ->
+            val awJson = JSONObject(awResponse)
+            val awIata = nearestAirport?.iata
+            val airportFragment =
+                supportFragmentManager.findFragmentByTag("f2") as? NearbyAirportForecastFragment
+            TODO("Works were not completed yet")
+            //airportFragment?.updateData(awIata, units)
+        }, { _ ->
+            errorCount++
+        })
 
         /**
          * Finalize
@@ -445,6 +478,11 @@ class MainActivity : AppCompatActivity() {
                 show()
             }
         }
+    }
+
+    fun ensureAirportsList(): Boolean {
+        val csvFile = File(this.filesDir, "airports_min.csv")
+        return csvFile.exists() && csvFile.length() > 0
     }
 
     fun getDewPoint(temp: Double, humidity: Double, units: String): Int {
@@ -504,6 +542,32 @@ class MainActivity : AppCompatActivity() {
                 102
             )
         }
+    }
+
+    fun findNearestAirport(csvFile: File, userLat: Double, userLon: Double): Airport? {
+        var nearest: Airport? = null
+        var minDistance = Float.MAX_VALUE
+        val results = FloatArray(1)
+        csvFile.bufferedReader().useLines { lines ->
+            lines.forEach { line ->
+                val parts = line.split(";")
+                if (parts.size != 5) return@forEach
+
+                val icao = parts[0]
+                val iata = parts[1]
+                val name = parts[2]
+                val lat = parts[3].toDoubleOrNull() ?: return@forEach
+                val lon = parts[4].toDoubleOrNull() ?: return@forEach
+
+                Location.distanceBetween(userLat, userLon, lat, lon, results)
+                if (results[0] < minDistance) {
+                    minDistance = results[0]
+                    nearest = Airport(icao, iata, name, results[0] / 1000f)
+                }
+            }
+        }
+
+        return nearest
     }
 
 }
