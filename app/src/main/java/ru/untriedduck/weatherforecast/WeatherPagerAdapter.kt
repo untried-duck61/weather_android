@@ -6,13 +6,14 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class WeatherPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
     override fun getItemCount(): Int {
-        return 2
+        return 3
     }
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> CurrentForecastFragment()
             1 -> HourlyForecastFragment()
+            2 -> NearbyAirportForecastFragment()
             else -> Fragment()
         }
     }

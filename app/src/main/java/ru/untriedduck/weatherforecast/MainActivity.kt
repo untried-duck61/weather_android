@@ -116,6 +116,11 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
+                R.id.action_airport -> {
+                    binding.viewPager.setCurrentItem(2, true)
+                    true
+                }
+
                 else -> false
             }
         }
@@ -130,6 +135,9 @@ class MainActivity : AppCompatActivity() {
 
                     1 -> {
                         binding.bottomNav.selectedItemId = R.id.action_hourly
+                    }
+                    2 -> {
+                        binding.bottomNav.selectedItemId = R.id.action_airport
                     }
                 }
             }
