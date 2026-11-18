@@ -169,5 +169,7 @@
 
     <string name="airport_last_updated_placeholder">Last updated at: --:--</string>
     <string name="airport_name_placeholder">--- unknown</string>
+    <string name="bottom_nav_airport_menuitem">Nearby Airport</string>
+    <string name="__metarf_api_url" translatable="false">https://metartaf.ru/api/v1/stations/%1$s/latest?format=json</string>
 
 </resources>

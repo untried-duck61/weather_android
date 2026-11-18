@@ -137,6 +137,7 @@
     <string name="card_warning_first_time_text">Если вы впервые сталкиваетесь с ключом API, советуем вам прочитать статью здесь:</string>
     <string name="airport_last_updated_placeholder">Обновлено в: --:--</string>
     <string name="airport_name_placeholder">--- неизвестно</string>
+    <string name="bottom_nav_airport_menuitem">Ближайший аэропорт</string>
 
 
 </resources>
